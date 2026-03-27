@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+/* ==============================
+   TORONTO INDUSTRIAL BLUEPRINT
+   Dual Palette System
+   ============================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Standard Palette */
+  --bg: #FAF8F3;
+  --bg-secondary: #F0EDE5;
+  --primary: #0A1525;
+  --primary-muted: #2A3545;
+  --accent: #DA291C;
+  --accent-hover: #B8221A;
+  --border: rgba(10, 21, 37, 0.12);
+  --border-strong: rgba(10, 21, 37, 0.25);
+  --text-primary: #0A1525;
+  --text-secondary: #5A6575;
+  --text-tertiary: #8A9AAA;
+  --surface: #FFFFFF;
+  --surface-hover: #F5F3ED;
+  --shadow: rgba(10, 21, 37, 0.08);
+
+  /* Grid texture */
+  --grid-color: rgba(10, 21, 37, 0.04);
+  --grid-color-strong: rgba(10, 21, 37, 0.08);
+}
+
+/* Toronto Mode Override */
+[data-toronto="true"] {
+  --bg: #E8E0D2;
+  --bg-secondary: #DDD5C7;
+  --primary: #0E8A45;
+  --primary-muted: #1A6B3A;
+  --accent: #FFBD2E;
+  --accent-hover: #E6A826;
+  --border: rgba(14, 138, 69, 0.15);
+  --border-strong: rgba(14, 138, 69, 0.3);
+  --text-primary: #1A2A1F;
+  --text-secondary: #4A5A4F;
+  --text-tertiary: #7A8A7F;
+  --surface: #F0E8DA;
+  --surface-hover: #E8E0D2;
+  --shadow: rgba(14, 138, 69, 0.1);
+  --grid-color: rgba(14, 138, 69, 0.05);
+  --grid-color-strong: rgba(14, 138, 69, 0.1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-primary: var(--primary);
+  --color-primary-muted: var(--primary-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --font-display: "Bebas Neue", sans-serif;
+  --font-mono: "DM Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Blueprint grid background */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(var(--grid-color-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-strong) 1px, transparent 1px);
+  background-size:
+    20px 20px,
+    20px 20px,
+    100px 100px,
+    100px 100px;
+  color: var(--text-primary);
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* Industrial styling primitives */
+.industrial-border {
+  border: 0.5px solid var(--border-strong);
+}
+
+.industrial-border-accent {
+  border: 0.5px solid var(--accent);
+}
+
+.audit-stamp {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* Ticker animation */
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-animate {
+  animation: ticker-scroll 30s linear infinite;
+}
+
+/* Toast animation */
+@keyframes toast-in {
+  0% { transform: translateY(-100%) translateX(-50%); opacity: 0; }
+  100% { transform: translateY(0) translateX(-50%); opacity: 1; }
+}
+
+@keyframes toast-out {
+  0% { transform: translateY(0) translateX(-50%); opacity: 1; }
+  100% { transform: translateY(-100%) translateX(-50%); opacity: 0; }
+}
+
+.toast-enter {
+  animation: toast-in 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: toast-out 0.3s ease-in forwards;
+}
+
+/* Card float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.card-float {
+  animation: float 4s ease-in-out infinite;
 }
