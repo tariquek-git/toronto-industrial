@@ -21,21 +21,7 @@ export default function HeroSection() {
 
         {/* Dynamic flip hint */}
         <div className="font-mono text-[9px] text-text-tertiary/60 tracking-[0.25em] uppercase">
-          {isFlipped ? 'click to flip back' : 'click to see contact details'}
-        </div>
-
-        {/* Avatar + supporting copy */}
-        <div className="flex items-center gap-3 justify-center max-w-lg">
-          <img
-            src="/tarique.jpg"
-            alt="Tarique Khan"
-            className="w-8 h-8 rounded-full object-cover border border-border-strong flex-shrink-0"
-            style={{ objectPosition: 'center 15%' }}
-          />
-          <p className="font-mono text-[11px] sm:text-xs text-text-secondary leading-relaxed">
-            I help banks, credit unions, and fintechs launch card programs — consumer, business, and commercial.
-            From first conversation to first card in hand.
-          </p>
+          {isFlipped ? 'click to flip back' : 'tap to flip'}
         </div>
       </div>
 

@@ -32,33 +32,96 @@ function ContactlessSVG() {
   );
 }
 
-// Toronto skyline watermark
-function SkylineSVG({ className }: { className?: string }) {
+// Toronto skyline — recognizable landmarks, more detail
+function TorontoFrontSVG({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 540 340" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice">
-      <rect x="243" y="30" width="4" height="220" opacity="0.15" />
-      <rect x="237" y="22" width="16" height="12" rx="2" opacity="0.15" />
-      <ellipse cx="245" cy="100" rx="12" ry="6" opacity="0.12" />
-      <rect x="236" y="94" width="18" height="16" rx="1" opacity="0.12" />
-      <path d="M 200 270 Q 220 245 240 270 Z" opacity="0.08" />
-      <rect x="200" y="270" width="40" height="12" opacity="0.08" />
-      <rect x="140" y="180" width="22" height="110" opacity="0.1" />
-      <rect x="165" y="200" width="18" height="90" opacity="0.08" />
-      <rect x="186" y="210" width="14" height="80" opacity="0.06" />
-      <rect x="110" y="230" width="26" height="60" opacity="0.07" />
-      <rect x="260" y="170" width="24" height="120" opacity="0.1" />
-      <rect x="288" y="195" width="20" height="95" opacity="0.08" />
-      <rect x="312" y="210" width="16" height="80" opacity="0.06" />
-      <rect x="332" y="225" width="22" height="65" opacity="0.07" />
-      <rect x="215" y="150" width="20" height="140" opacity="0.1" />
-      <polygon points="215,150 225,135 235,150" opacity="0.1" />
-      <rect x="60" y="260" width="30" height="40" opacity="0.05" />
-      <rect x="95" y="250" width="20" height="50" opacity="0.06" />
-      <rect x="360" y="255" width="25" height="45" opacity="0.05" />
-      <rect x="390" y="240" width="20" height="60" opacity="0.06" />
-      <rect x="415" y="260" width="30" height="40" opacity="0.04" />
-      <rect x="450" y="270" width="22" height="30" opacity="0.03" />
-      <rect x="0" y="290" width="540" height="50" opacity="0.04" />
+      {/* CN Tower — proper proportions with observation deck + antenna */}
+      <rect x="268" y="40" width="4" height="10" opacity="0.18" />
+      <rect x="267" y="50" width="6" height="8" rx="1" opacity="0.18" />
+      <rect x="269" y="58" width="2" height="140" opacity="0.2" />
+      <ellipse cx="270" cy="120" rx="14" ry="6" opacity="0.15" />
+      <rect x="258" y="114" width="24" height="18" rx="3" opacity="0.18" />
+      <rect x="263" y="132" width="14" height="8" rx="1" opacity="0.14" />
+      <rect x="265" y="198" width="10" height="40" rx="5" opacity="0.12" />
+
+      {/* SkyDome / Rogers Centre — distinctive dome shape */}
+      <path d="M 215 280 Q 225 250 240 248 Q 255 246 270 248 Q 285 250 295 280 Z" opacity="0.12" />
+      <rect x="215" y="280" width="80" height="12" rx="2" opacity="0.1" />
+      <path d="M 235 260 Q 250 240 265 260" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.08" />
+
+      {/* First Canadian Place — tallest office tower, triangular top */}
+      <rect x="300" y="150" width="22" height="142" opacity="0.12" />
+      <polygon points="300,150 311,132 322,150" opacity="0.12" />
+      <rect x="303" y="155" width="16" height="4" opacity="0.06" />
+
+      {/* TD Centre — Mies van der Rohe black boxes */}
+      <rect x="330" y="190" width="18" height="102" opacity="0.1" />
+      <rect x="352" y="205" width="16" height="87" opacity="0.08" />
+
+      {/* Scotia Plaza */}
+      <rect x="195" y="170" width="20" height="122" opacity="0.1" />
+      <polygon points="195,170 205,158 215,170" opacity="0.08" />
+
+      {/* Brookfield Place — angular top */}
+      <rect x="375" y="210" width="18" height="82" opacity="0.08" />
+      <polygon points="375,210 384,195 393,210" opacity="0.06" />
+
+      {/* Royal Bank Plaza — gold towers */}
+      <rect x="165" y="210" width="16" height="82" opacity="0.08" />
+      <rect x="150" y="225" width="14" height="67" opacity="0.06" />
+
+      {/* Condos — east side cluster */}
+      <rect x="400" y="240" width="14" height="52" opacity="0.06" />
+      <rect x="418" y="250" width="12" height="42" opacity="0.05" />
+      <rect x="434" y="255" width="16" height="37" opacity="0.04" />
+      <rect x="455" y="265" width="12" height="27" opacity="0.03" />
+
+      {/* West side — older buildings, lower */}
+      <rect x="100" y="260" width="20" height="32" opacity="0.05" />
+      <rect x="125" y="250" width="18" height="42" opacity="0.06" />
+      <rect x="75" y="268" width="22" height="24" opacity="0.04" />
+
+      {/* Lake Ontario waterline */}
+      <rect x="0" y="292" width="540" height="48" opacity="0.03" />
+      <path d="M 0 295 Q 60 290 120 295 Q 180 300 240 295 Q 300 290 360 295 Q 420 300 480 295 Q 510 292 540 295"
+            fill="none" stroke="currentColor" strokeWidth="0.8" opacity="0.06" />
+    </svg>
+  );
+}
+
+// Back face — "the other side" — looking out FROM Toronto (lake, islands, horizon)
+function TorontoBackSVG({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 540 340" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice">
+      {/* Horizon line — the view looking south from the city */}
+      <rect x="0" y="280" width="540" height="1" opacity="0.06" />
+
+      {/* Toronto Islands — low flat silhouette */}
+      <path d="M 80 282 Q 120 276 180 278 Q 220 276 260 280 Q 280 278 300 282" opacity="0.06" />
+      <path d="M 350 282 Q 380 278 420 280 Q 450 278 470 282" opacity="0.05" />
+
+      {/* Island trees — tiny puffs */}
+      <circle cx="140" cy="275" r="3" opacity="0.04" />
+      <circle cx="155" cy="274" r="2.5" opacity="0.035" />
+      <circle cx="200" cy="276" r="3" opacity="0.04" />
+      <circle cx="390" cy="276" r="2.5" opacity="0.035" />
+
+      {/* Billy Bishop airport tower — tiny */}
+      <rect x="248" y="272" width="2" height="8" opacity="0.05" />
+      <rect x="245" y="270" width="8" height="3" rx="1" opacity="0.04" />
+
+      {/* Lake texture — subtle waves */}
+      <path d="M 0 290 Q 40 288 80 290 Q 120 292 160 290 Q 200 288 240 290 Q 280 292 320 290 Q 360 288 400 290 Q 440 292 480 290 Q 520 288 540 290"
+            fill="none" stroke="currentColor" strokeWidth="0.6" opacity="0.04" />
+      <path d="M 0 300 Q 50 298 100 300 Q 150 302 200 300 Q 250 298 300 300 Q 350 302 400 300 Q 450 298 500 300 Q 530 302 540 300"
+            fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.03" />
+      <path d="M 0 310 Q 60 308 120 310 Q 180 312 240 310 Q 300 308 360 310 Q 420 312 480 310 Q 530 308 540 310"
+            fill="none" stroke="currentColor" strokeWidth="0.4" opacity="0.025" />
+
+      {/* Distant shore — Niagara escarpment hint */}
+      <path d="M 0 278 Q 100 275 200 277 Q 300 275 400 277 Q 500 275 540 278"
+            fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.03" />
     </svg>
   );
 }
@@ -123,8 +186,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     ? 'linear-gradient(160deg, #0E8A45 0%, #065A2C 40%, #043D1E 100%)'
     : 'linear-gradient(160deg, #0F1D30 0%, #0A1525 40%, #060E1A 100%)';
   const backGrad = torontoMode
-    ? 'linear-gradient(160deg, #043D1E 0%, #065A2C 40%, #0E8A45 100%)'
-    : 'linear-gradient(160deg, #060E1A 0%, #0A1525 40%, #0F1D30 100%)';
+    ? 'linear-gradient(160deg, #043D1E 0%, #054525 60%, #076035 100%)'
+    : 'linear-gradient(160deg, #060E1A 0%, #0C1828 60%, #10202F 100%)';
 
   return (
     <div
@@ -148,9 +211,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
           style={{ backfaceVisibility: 'hidden', background: frontGrad }}
         >
-          {/* Skyline watermark */}
+          {/* Toronto skyline watermark — looking AT the city */}
           <div className="absolute inset-0 text-white pointer-events-none">
-            <SkylineSVG className="absolute bottom-0 left-0 w-full h-full" />
+            <TorontoFrontSVG className="absolute bottom-0 left-0 w-full h-full" />
           </div>
 
           {/* Holographic foil overlay */}
@@ -165,35 +228,35 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 <ContactlessSVG />
               </div>
               <div className="text-right">
-                <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-white/30 uppercase">
+                <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-white/40 uppercase">
                   Payments &middot; Fintech &middot; Toronto
                 </div>
               </div>
             </div>
 
             {/* Middle: card number */}
-            <div className="font-mono text-sm sm:text-base lg:text-lg tracking-[0.3em] text-white/35">
+            <div className="font-mono text-sm sm:text-base lg:text-lg tracking-[0.3em] text-white/40">
               4506 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 0001
             </div>
 
             {/* Bottom: name + cycling expiry date */}
             <div className="flex justify-between items-end">
               <div>
-                <div className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-wider text-white leading-none">
+                <div className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-wider text-white/95 leading-none">
                   TARIQUE KHAN
                 </div>
-                <div className="font-mono text-[8px] sm:text-[9px] text-white/30 tracking-[0.15em] mt-1">
+                <div className="font-mono text-[8px] sm:text-[10px] text-white/40 tracking-[0.15em] mt-1.5">
                   // BD &middot; CaaS &middot; BaaS &middot; Raccoon Logic
                 </div>
               </div>
-              <div className="text-right min-w-[85px] sm:min-w-[100px]">
-                <div className="font-mono text-[7px] sm:text-[8px] text-white/20 uppercase tracking-[0.2em]">
+              <div className="text-right min-w-[85px] sm:min-w-[105px]">
+                <div className="font-mono text-[7px] sm:text-[8px] text-white/30 uppercase tracking-[0.2em]">
                   VALID THRU
                 </div>
-                <div className={`font-mono text-lg sm:text-xl lg:text-2xl text-white/65 tracking-wider leading-none mt-0.5 ${dateClass}`}>
+                <div className={`font-mono text-lg sm:text-xl lg:text-2xl text-white/75 tracking-wider leading-none mt-0.5 ${dateClass}`}>
                   {expiry.date}
                 </div>
-                <div className={`font-mono text-[6px] sm:text-[7px] text-white/20 mt-1 tracking-wider leading-tight max-w-[100px] ml-auto ${dateClass}`}>
+                <div className={`font-mono text-[6px] sm:text-[7px] text-white/25 mt-1 tracking-wider leading-tight max-w-[105px] ml-auto ${dateClass}`}>
                   {expiry.note}
                 </div>
               </div>
@@ -202,24 +265,24 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
           {/* Hover overlay */}
           <div className="absolute inset-0 rounded-2xl flex items-center justify-center
-                          bg-black/0 group-hover:bg-black/20 opacity-0 group-hover:opacity-100
+                          bg-black/0 group-hover:bg-black/15 opacity-0 group-hover:opacity-100
                           transition-all duration-300 pointer-events-none z-30">
-            <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/80">
+            <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/90">
               Click to flip
             </span>
           </div>
         </div>
 
-        {/* ===== BACK FACE ===== */}
+        {/* ===== BACK FACE — the view from the other side ===== */}
         <div
           className={`absolute inset-0 rounded-2xl overflow-hidden shadow-2xl ${backHovered ? 'card-back-hovered' : ''}`}
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', background: backGrad }}
           onMouseEnter={() => setBackHovered(true)}
           onMouseLeave={() => setBackHovered(false)}
         >
-          {/* Skyline watermark */}
+          {/* Looking OUT from Toronto — lake, islands, horizon */}
           <div className="absolute inset-0 text-white pointer-events-none">
-            <SkylineSVG className="absolute bottom-0 left-0 w-full h-full" />
+            <TorontoBackSVG className="absolute bottom-0 left-0 w-full h-full" />
           </div>
 
           <div className={`relative z-10 flex flex-col h-full ${isFlipped ? 'card-flipped' : ''}`}>
@@ -250,7 +313,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
               {/* Signature strip + CVV */}
               <div className="flex items-stretch gap-2 sm:gap-3 mb-3 sm:mb-4">
                 <div className="flex-1 border border-white/10 bg-white/5 rounded px-2 sm:px-3 py-1.5">
-                  <div className="font-mono text-[6px] sm:text-[7px] text-white/25 uppercase tracking-widest mb-1">
+                  <div className="font-mono text-[6px] sm:text-[7px] text-white/30 uppercase tracking-widest mb-1">
                     Authorized Signature
                   </div>
                   <svg viewBox="0 0 160 30" className="w-full h-5 sm:h-6 overflow-visible">
@@ -260,7 +323,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                          C 58,14 64,10 70,18 C 76,26 78,18 86,16 C 94,14 100,20 106,17
                          C 112,14 115,24 121,21 C 126,18 130,12 138,20"
                       fill="none"
-                      stroke="rgba(255,255,255,0.60)"
+                      stroke="rgba(255,255,255,0.65)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -268,47 +331,45 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                   </svg>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded px-2 sm:px-3 py-1.5 text-center flex flex-col justify-center">
-                  <div className="font-mono text-[6px] sm:text-[7px] text-white/25 uppercase tracking-wider">CVV</div>
-                  <div className="font-mono text-xs sm:text-sm text-white/45">***</div>
+                  <div className="font-mono text-[6px] sm:text-[7px] text-white/30 uppercase tracking-wider">CVV</div>
+                  <div className="font-mono text-xs sm:text-sm text-white/50">***</div>
                 </div>
               </div>
 
               {/* Contact info */}
               <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
-                <div className="font-mono text-[7px] sm:text-[8px] text-white/25 uppercase tracking-widest mb-1">
+                <div className="font-mono text-[7px] sm:text-[8px] text-white/30 uppercase tracking-widest mb-1">
                   // contact
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-white/25 uppercase tracking-wider w-12 sm:w-14">Email</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/65">{contact.email}</span>
+                  <span className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-wider w-14">Email</span>
+                  <span className="font-mono text-[10px] sm:text-xs text-white/70">{contact.email}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-white/25 uppercase tracking-wider w-12 sm:w-14">LinkedIn</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/65">{contact.linkedin}</span>
+                  <span className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-wider w-14">LinkedIn</span>
+                  <span className="font-mono text-[10px] sm:text-xs text-white/70">{contact.linkedin}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-white/25 uppercase tracking-wider w-12 sm:w-14">Based</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/65">{contact.location}</span>
+                  <span className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-wider w-14">Based</span>
+                  <span className="font-mono text-[10px] sm:text-xs text-white/70">{contact.location}</span>
                 </div>
               </div>
 
-              {/* Bottom: industry badges + network circles */}
+              {/* Bottom: industry badges */}
               <div className="flex items-center justify-between mt-auto pt-2 border-t border-white/8">
                 <div className="flex gap-1 sm:gap-1.5 flex-wrap">
                   {industryLogos.map(logo => (
                     <span
                       key={logo.id}
                       className="font-mono text-[6px] sm:text-[7px] tracking-widest uppercase px-1.5 py-0.5
-                                 border border-white/12 text-white/30"
+                                 border border-white/12 text-white/35"
                     >
                       {logo.label}
                     </span>
                   ))}
                 </div>
-                {/* Mastercard-style overlapping circles */}
-                <div className="flex items-center flex-shrink-0 ml-2">
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-red-500/65" />
-                  <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-yellow-400/65 -ml-2 sm:-ml-2.5" />
+                <div className="font-mono text-[6px] sm:text-[7px] text-white/20 tracking-widest uppercase">
+                  Toronto, ON
                 </div>
               </div>
             </div>
