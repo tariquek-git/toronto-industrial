@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 import TorontoSkyline from './TorontoSkyline';
 import HeroCard from './HeroCard';
 
 export default function HeroSection() {
   const parallax = useMouseParallax(0.05);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-14 pb-8">
@@ -14,12 +16,26 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-6">
         {/* THE CARD */}
         <div className="card-float">
-          <HeroCard />
+          <HeroCard onFlipChange={setIsFlipped} />
         </div>
 
-        {/* Subtle flip hint */}
+        {/* Dynamic flip hint */}
         <div className="font-mono text-[9px] text-text-tertiary/60 tracking-[0.25em] uppercase">
-          tap to flip
+          {isFlipped ? 'click to flip back' : 'click to see contact details'}
+        </div>
+
+        {/* Avatar + supporting copy */}
+        <div className="flex items-center gap-3 justify-center max-w-lg">
+          <img
+            src="/tarique.jpg"
+            alt="Tarique Khan"
+            className="w-8 h-8 rounded-full object-cover border border-border-strong flex-shrink-0"
+            style={{ objectPosition: 'center 15%' }}
+          />
+          <p className="font-mono text-[11px] sm:text-xs text-text-secondary leading-relaxed">
+            I help banks, credit unions, and fintechs launch card programs — consumer, business, and commercial.
+            From first conversation to first card in hand.
+          </p>
         </div>
       </div>
 

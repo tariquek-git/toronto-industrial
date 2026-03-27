@@ -95,3 +95,46 @@ export const platformStats = [
   { label: 'Platform SLA', value: '99.95%' },
   { label: 'Deployment', value: '10-12 wks' },
 ];
+
+// Cycling facts shown in card-number slot on front face (rotates every 3.5s)
+export const cardFacts = [
+  { label: 'US PIPELINE',    value: '$700M+  ACTIVE DEALS' },
+  { label: 'CARD PROGRAMS',  value: 'CONSUMER · BIZ · COMMERCIAL' },
+  { label: 'TIME TO LAUNCH', value: '10–12 WEEKS TO MARKET' },
+  { label: 'NETWORK REACH',  value: 'VISA · MC · INTERAC' },
+  { label: 'PLATFORM APIS',  value: '300+  RESTful  <100ms p95' },
+  { label: 'COMPLIANCE',     value: 'RPAA · PCI-DSS v4 · ISO 27001' },
+  { label: 'OPEN BANKING',   value: '// START BUILDING. STOP TALKING.' },
+  { label: 'MARKETS',        value: 'CANADA  //  UNITED STATES' },
+];
+
+// Cycling expiry dates — famous moments in payments/fintech history
+// Displayed as MM/YY with a tiny footnote. Dry, nerdy, multi-layered.
+export const expiryDates = [
+  { date: '01/09', note: 'Bitcoin genesis block mined' },
+  { date: '02/50', note: 'Diners Club — first charge card' },
+  { date: '09/58', note: 'BankAmericard issued — became Visa' },
+  { date: '08/66', note: 'Interbank Card Assn — became Mastercard' },
+  { date: '10/14', note: 'First tap-to-pay — Apple Pay' },
+  { date: '09/08', note: 'Lehman Brothers — fintech was born' },
+  { date: '06/11', note: 'Stripe beta — 7 lines of code' },
+  { date: '11/24', note: 'RPAA — Canada regulates payments' },
+  { date: '03/17', note: 'Interac e-Transfer hits 1M txns/day' },
+  { date: '07/13', note: 'Square ships first card reader to Canada' },
+  { date: '∞/99',  note: 'This card never expires' },
+];
+
+// Contact info shown on back of card
+export const contact = {
+  email: 'tarique@brimfinancial.com',
+  linkedin: 'linkedin.com/in/tariquekhan',
+  location: 'Toronto, ON · Canada',
+};
+
+// Industry affiliation badges on back of card
+export const industryLogos = [
+  { id: 'mentrad',  label: 'MENTRAD' },
+  { id: 'holtz',   label: 'HOLTZ' },
+  { id: 'fintech',  label: 'FINTECH' },
+  { id: 'cadence',  label: 'CADENCE' },
+];

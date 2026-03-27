@@ -137,3 +137,62 @@ body {
 .card-float {
   animation: float 4s ease-in-out infinite;
 }
+
+/* Holographic foil shimmer on card front */
+@keyframes holo-sweep {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.holo-overlay {
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,100,100,0.08) 20%,
+    rgba(100,200,255,0.10) 40%,
+    rgba(200,100,255,0.08) 60%,
+    rgba(100,255,200,0.10) 80%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  animation: holo-sweep 6s ease infinite;
+}
+
+/* Mag stripe auto-scan shimmer (paused until .card-back-hovered) */
+@keyframes mag-auto-scan {
+  0%   { transform: translateX(-120%); opacity: 0; }
+  10%  { opacity: 0.7; }
+  90%  { opacity: 0.7; }
+  100% { transform: translateX(600%); opacity: 0; }
+}
+.mag-stripe-shimmer {
+  animation: mag-auto-scan 2.5s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.card-back-hovered .mag-stripe-shimmer {
+  animation-play-state: running;
+}
+
+/* Card fact cycling fade */
+@keyframes fact-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fact-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-4px); }
+}
+.fact-enter { animation: fact-in  0.35s ease forwards; }
+.fact-exit  { animation: fact-out 0.35s ease forwards; }
+
+/* SVG signature draw-on effect */
+@keyframes sig-draw {
+  to { stroke-dashoffset: 0; }
+}
+.sig-path {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+}
+.card-flipped .sig-path {
+  animation: sig-draw 1.2s ease forwards 0.3s;
+}
