@@ -10,10 +10,10 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="font-display text-2xl tracking-wider text-primary">
-            TARIQUE KHAN
+            TARIQUE
           </span>
           <span className="font-mono text-[10px] tracking-widest text-text-tertiary uppercase">
-            {torontoMode ? '// toronto.override' : '// prototype.v1'}
+            {torontoMode ? '// toronto.override' : '// payments \u2022 fintech'}
           </span>
         </div>
 

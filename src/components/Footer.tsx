@@ -13,10 +13,10 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
           <div>
             <div className="font-display text-2xl tracking-wider text-primary">
-              TARIQUE KHAN
+              TARIQUE
             </div>
             <div className="font-mono text-[10px] tracking-[0.15em] text-text-tertiary uppercase mt-1">
-              Director, Business Development // Brim Financial
+              Business Development // Brim Financial
             </div>
           </div>
 

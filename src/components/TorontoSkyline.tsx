@@ -1,14 +1,20 @@
 'use client';
 
+import { useScrollDepth } from '@/hooks/useScrollDepth';
+
 interface TorontoSkylineProps {
   offsetX: number;
   offsetY: number;
 }
 
 export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps) {
+  const scrollDepth = useScrollDepth();
+  // Opacity goes from 0.04 (barely visible) to 0.25 (filled in) as you scroll
+  const fillOpacity = 0.04 + (scrollDepth / 100) * 0.21;
+
   return (
     <div
-      className="absolute inset-0 overflow-hidden opacity-[0.07] pointer-events-none"
+      className="absolute inset-0 overflow-hidden pointer-events-none"
       style={{
         transform: `translate(${offsetX}px, ${offsetY}px)`,
         transition: 'transform 0.1s ease-out',
@@ -17,8 +23,9 @@ export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps
       <svg
         viewBox="0 0 1200 400"
         fill="currentColor"
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] text-primary"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[140%] text-primary"
         preserveAspectRatio="xMidYMax meet"
+        style={{ opacity: fillOpacity, transition: 'opacity 0.15s ease-out' }}
       >
         {/* CN Tower */}
         <rect x="540" y="20" width="6" height="300" />
@@ -51,6 +58,7 @@ export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps
         <rect x="515" y="210" width="20" height="130" />
 
         {/* Far left buildings */}
+        <rect x="150" y="290" width="35" height="50" />
         <rect x="200" y="280" width="40" height="60" />
         <rect x="245" y="260" width="30" height="80" />
         <rect x="280" y="270" width="25" height="70" />
@@ -60,9 +68,10 @@ export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps
         <rect x="770" y="250" width="28" height="90" />
         <rect x="805" y="280" width="40" height="60" />
         <rect x="850" y="290" width="30" height="50" />
+        <rect x="890" y="295" width="25" height="45" />
 
         {/* Ground line */}
-        <rect x="0" y="340" width="1200" height="60" opacity="0.3" />
+        <rect x="0" y="340" width="1200" height="60" opacity="0.5" />
       </svg>
     </div>
   );

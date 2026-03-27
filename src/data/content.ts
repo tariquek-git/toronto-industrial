@@ -1,6 +1,7 @@
 export const profile = {
-  name: 'Tarique Khan',
-  title: 'Director, Business Development',
+  name: 'Tarique',
+  fullName: 'Tarique Khan',
+  title: 'Business Development',
   company: 'Brim Financial',
   location: 'Toronto, ON',
   specialties: ['BaaS', 'CaaS', 'Payment Rails', 'RPAA Compliance'],
