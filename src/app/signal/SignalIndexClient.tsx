@@ -15,7 +15,7 @@ export default function SignalIndexClient({ signals }: Props) {
   return (
     <>
       <Header />
-      <main className="pt-20 pb-16">
+      <main id="main-content" className="pt-20 pb-16">
         <div className="max-w-4xl mx-auto px-6">
           {/* Page header */}
           <div className="mb-12">
@@ -42,7 +42,7 @@ export default function SignalIndexClient({ signals }: Props) {
           </div>
 
           {/* Signal grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {signals.map((signal, i) => (
               <SignalCard key={signal.slug} signal={signal} index={i} />
             ))}

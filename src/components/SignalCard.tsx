@@ -17,7 +17,7 @@ export default function SignalCard({ signal, index = 0 }: SignalCardProps) {
   return (
     <Link href={`/signal/${signal.slug}`} className="group block">
       <article
-        className="border border-border-strong bg-surface/30 p-6 h-full
+        className="border border-border-strong bg-surface/30 p-6 h-full flex flex-col
                    hover:bg-surface/60 hover:border-accent/40 transition-all duration-300
                    relative overflow-hidden"
       >
@@ -58,14 +58,10 @@ export default function SignalCard({ signal, index = 0 }: SignalCardProps) {
         </p>
 
         {/* Footer: engagement + read more */}
-        <div className="flex items-center justify-between pt-3 border-t border-border">
-          {signal.engagement ? (
-            <span className="font-mono text-[9px] text-text-tertiary tracking-wider">
-              {signal.engagement}
-            </span>
-          ) : (
-            <span />
-          )}
+        <div className="flex items-center justify-between pt-3 border-t border-border mt-auto">
+          <span className="font-mono text-[9px] text-text-tertiary tracking-wider">
+            {signal.engagement || '\u00A0'}
+          </span>
           <span className="font-mono text-[10px] text-accent tracking-wider uppercase group-hover:tracking-[0.2em] transition-all">
             Read &rarr;
           </span>

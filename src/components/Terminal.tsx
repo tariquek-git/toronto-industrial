@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useKeyboardShortcut } from '@/hooks/useKeyboardShortcut';
+import { getStackBySlug, getStackSorted } from '@/data/stack';
+import { getSignalsSorted } from '@/data/signals';
 
 interface TerminalLine {
   type: 'input' | 'output' | 'system' | 'error';
@@ -46,22 +48,18 @@ const COMMANDS: Record<string, string | string[]> = {
     '│  tarique@brimfinancial.com                   │',
     '└─────────────────────────────────────────────┘',
   ],
-  signal: [
-    '// dispatch.log — latest signals',
-    '',
-    '  [01] Lost in Buzzwords — Digital banking\'s identity crisis',
-    '  [02] Blockchain\'s Identity Crisis — Still solving for "why"',
-    '  [03] OSFI Fast-Track — Fintech licensing gets real',
-    '  [04] BNPL Math Doesn\'t Work — The unit economics problem',
-    '  [05] Legacy Tech Footage — Banks vs. core modernization',
-    '  [06] Fintech vs Banks Rap Battle — Culture clash, in bars',
-    '  [07] Open Banking Canada — Still waiting. Still.',
-    '  [08] Hidden FX Rates — The margin nobody sees',
-    '  [09] European Acquirer Landscape — Consolidation incoming',
-    '  [10] Pay By Bank — Evolution of account-to-account',
-    '',
-    '→ Visit /signal for full articles',
-  ],
+  signal: (() => {
+    const sigs = getSignalsSorted();
+    const lines: string[] = [
+      '// dispatch.log — latest signals',
+      '',
+    ];
+    sigs.forEach((s, i) => {
+      lines.push(`  [${String(i + 1).padStart(2, '0')}] ${s.title} — ${s.subtitle}`);
+    });
+    lines.push('', '→ Visit /signal for full articles');
+    return lines;
+  })(),
   hire: [
     '// hire.exe — let\'s talk',
     '',
@@ -98,89 +96,34 @@ const COMMANDS: Record<string, string | string[]> = {
   exit: '// terminal closed. raccoons remain.',
 };
 
-const STACK_TERMS: Record<string, string[]> = {
-  baas: [
-    '// stack.lookup("BaaS")',
+// Build stack term lookup from real data — supports slug, term (lowercase),
+// and common short aliases like "bin" for "bin-sponsorship".
+function lookupStackTerm(term: string): string[] | null {
+  const allEntries = getStackSorted();
+
+  // Try exact slug match first, then match against lowercased term field
+  const entry = getStackBySlug(term)
+    || allEntries.find((e) => e.term.toLowerCase() === term)
+    || allEntries.find((e) => e.slug.startsWith(term));
+
+  if (!entry) return null;
+
+  const lines: string[] = [
+    `// stack.lookup("${entry.term}")`,
     '',
-    '  Banking-as-a-Service',
+    `  ${entry.fullName}`,
     '',
-    '  A model where licensed banks rent their charter,',
-    '  compliance infrastructure, and deposit insurance',
-    '  to fintechs who want to offer banking products',
-    '  without becoming a bank.',
+    `  ${entry.tldr}`,
     '',
-    '  Translation: The bank does the regulated stuff.',
-    '  The fintech does the UX. Everyone pretends this',
-    '  is simple. It is not.',
-    '',
-    '  See also: BIN sponsorship, CaaS',
-  ],
-  caas: [
-    '// stack.lookup("CaaS")',
-    '',
-    '  Card-as-a-Service',
-    '',
-    '  The full stack for issuing credit, debit, or',
-    '  prepaid cards — processor, BIN sponsor, scheme',
-    '  registration, compliance, fraud, rewards — all',
-    '  bundled as one API platform.',
-    '',
-    '  What Brim does. What I sell.',
-    '',
-    '  The pitch: "Launch a card program in 10-12 weeks',
-    '  instead of 18 months."',
-  ],
-  bin: [
-    '// stack.lookup("BIN Sponsorship")',
-    '',
-    '  Bank Identification Number Sponsorship',
-    '',
-    '  A BIN is the first 6-8 digits of a card number.',
-    '  A BIN sponsor is the licensed bank that lets a',
-    '  fintech issue cards under their banking license.',
-    '',
-    '  Hot take: The BIN sponsor IS the product.',
-    '  Everything else is middleware.',
-  ],
-  interchange: [
-    '// stack.lookup("Interchange")',
-    '',
-    '  The fee paid by the merchant\'s bank (acquirer)',
-    '  to the cardholder\'s bank (issuer) on every',
-    '  card transaction.',
-    '',
-    '  Typically 1.5-3% of transaction value.',
-    '  It\'s the tax nobody reads but everybody pays.',
-    '',
-    '  Try: interchange <amount> for a breakdown',
-  ],
-  rpaa: [
-    '// stack.lookup("RPAA")',
-    '',
-    '  Retail Payment Activities Act (Canada)',
-    '',
-    '  Canada\'s framework for regulating payment service',
-    '  providers. Effective November 2024.',
-    '',
-    '  Not Y2K. It\'s the cost of doing business in',
-    '  Canadian payments. The fintechs that treat it',
-    '  as a selling point (not a blocker) win.',
-    '',
-    '  Overseen by the Bank of Canada.',
-  ],
-  'open banking': [
-    '// stack.lookup("Open Banking")',
-    '',
-    '  A framework where banks share customer financial',
-    '  data with third parties via APIs — with the',
-    '  customer\'s consent.',
-    '',
-    '  Status in Canada: Still. Waiting. Still.',
-    '  The UK did it in 2018. Australia in 2020.',
-    '  Canada announced it would happen "soon" in 2018.',
-    '  It is now 2026.',
-  ],
-};
+    `  ${entry.body[0]}`,
+  ];
+
+  if (entry.related && entry.related.length > 0) {
+    lines.push('', `  See also: ${entry.related.join(', ')}`);
+  }
+
+  return lines;
+}
 
 function calculateInterchange(amount: number): string[] {
   const issuerRate = 0.018;
@@ -231,23 +174,25 @@ function processCommand(input: string, onToggleToronto: () => void): { lines: st
   if (cmd === 'stack') {
     const term = parts.slice(1).join(' ');
     if (!term) {
+      const slugs = getStackSorted().map((e) => e.slug).join(', ');
       return {
         lines: [
           '// Usage: stack <term>',
           '',
           '  Available terms:',
-          '  baas, caas, bin, interchange, rpaa, open banking',
+          `  ${slugs}`,
         ],
         shouldClose: false,
       };
     }
-    const entry = STACK_TERMS[term];
-    if (entry) return { lines: entry, shouldClose: false };
+    const result = lookupStackTerm(term);
+    if (result) return { lines: result, shouldClose: false };
+    const slugs = getStackSorted().map((e) => e.slug).join(', ');
     return {
       lines: [
         `// stack.lookup("${term}") — not found`,
         '',
-        '  Available: baas, caas, bin, interchange, rpaa, open banking',
+        `  Available: ${slugs}`,
       ],
       shouldClose: false,
     };

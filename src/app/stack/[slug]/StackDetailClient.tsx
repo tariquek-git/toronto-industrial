@@ -24,7 +24,7 @@ export default function StackDetailClient({ entry }: Props) {
   return (
     <>
       <Header />
-      <main className="pt-20 pb-16">
+      <main id="main-content" className="pt-20 pb-16">
         <article className="max-w-2xl mx-auto px-6">
           {/* Breadcrumb */}
           <Link

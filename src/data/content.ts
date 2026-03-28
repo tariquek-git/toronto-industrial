@@ -132,25 +132,6 @@ export const productTiers = [
   },
 ];
 
-export const platformStats = [
-  { label: 'Cardholders', value: '1M+' },
-  { label: 'API Endpoints', value: '300+' },
-  { label: 'Platform SLA', value: '99.95%' },
-  { label: 'Deployment', value: '10-12 wks' },
-];
-
-// Cycling facts shown in card-number slot on front face (rotates every 3.5s)
-export const cardFacts = [
-  { label: 'US PIPELINE',    value: '$700M+  ACTIVE DEALS' },
-  { label: 'CARD PROGRAMS',  value: 'CONSUMER \u00b7 BIZ \u00b7 COMMERCIAL' },
-  { label: 'TIME TO LAUNCH', value: '10\u201312 WEEKS TO MARKET' },
-  { label: 'NETWORK REACH',  value: 'VISA \u00b7 MC \u00b7 INTERAC' },
-  { label: 'PLATFORM APIS',  value: '300+  RESTful  <100ms p95' },
-  { label: 'COMPLIANCE',     value: 'RPAA \u00b7 PCI-DSS v4 \u00b7 ISO 27001' },
-  { label: 'OPEN BANKING',   value: '// START BUILDING. STOP TALKING.' },
-  { label: 'MARKETS',        value: 'CANADA  //  UNITED STATES' },
-];
-
 // Cycling expiry dates — famous moments in payments/fintech history
 export const expiryDates = [
   { date: '01/09', note: 'Bitcoin genesis block mined' },

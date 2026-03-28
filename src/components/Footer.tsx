@@ -40,10 +40,10 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="font-mono text-[10px] text-text-tertiary tracking-widest uppercase">
-            Built with raccoon logic // Toronto, {new Date().getFullYear()} // still under construction
+            Built with raccoon logic // Toronto, {new Date().getFullYear()} // hand-assembled in Toronto
           </div>
           <div className="font-mono text-[10px] text-text-tertiary tracking-widest">
-            v0.1.0 // not yet PCI certified // <span className="hidden sm:inline">try &#x2318;K</span><span className="sm:hidden">try ctrl+K</span>
+            v1.0.0 // PCI DSS: pending self-assessment // <span className="hidden sm:inline">try &#x2318;K</span><span className="sm:hidden">try ctrl+K</span>
           </div>
         </div>
       </div>

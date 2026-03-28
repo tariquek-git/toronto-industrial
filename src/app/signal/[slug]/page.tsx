@@ -16,10 +16,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${signal.title} // Tarique Khan`,
     description: signal.excerpt,
+    alternates: { canonical: `/signal/${slug}` },
     openGraph: {
       title: signal.title,
       description: signal.excerpt,
       type: 'article',
+      images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: `${signal.title} — Tarique Khan` }],
     },
   };
 }

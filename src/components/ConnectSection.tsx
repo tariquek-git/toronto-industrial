@@ -1,10 +1,14 @@
 'use client';
 
+import { useTorontoMode } from '@/context/TorontoModeContext';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { connectPaths, contact } from '@/data/content';
 
+const torontoColors = ['#FFBD2E', '#0E8A45', '#C8956B'];
+
 export default function ConnectSection() {
   const ref = useScrollReveal<HTMLElement>();
+  const { torontoMode } = useTorontoMode();
 
   return (
     <section ref={ref} id="connect" className="scroll-reveal max-w-4xl mx-auto px-6 py-20">
@@ -18,14 +22,16 @@ export default function ConnectSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-        {connectPaths.map((path) => (
+        {connectPaths.map((path, index) => {
+          const color = torontoMode ? torontoColors[index] : path.color;
+          return (
           <div
             key={path.id}
             className="border border-border-strong p-6 bg-surface/30 hover:bg-surface/60 transition-all duration-300 group"
           >
             <span
               className="font-mono text-[10px] tracking-[0.15em] uppercase px-2 py-1 border rounded inline-block mb-4"
-              style={{ borderColor: path.color, color: path.color }}
+              style={{ borderColor: color, color }}
             >
               {path.audience}
             </span>
@@ -37,8 +43,16 @@ export default function ConnectSection() {
             <p className="font-mono text-xs text-text-secondary leading-relaxed">
               {path.detail}
             </p>
+
+            <a
+              href={`mailto:${contact.email}?subject=Re: ${path.audience}`}
+              className="inline-block mt-4 font-mono text-[10px] tracking-widest uppercase text-accent hover:text-accent-hover transition-colors"
+            >
+              Start conversation &rarr;
+            </a>
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Direct contact */}

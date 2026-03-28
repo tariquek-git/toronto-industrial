@@ -10,7 +10,7 @@ export interface StackEntry {
   related?: string[];
 }
 
-const categoryColors: Record<StackEntry['category'], string> = {
+export const categoryColors: Record<StackEntry['category'], string> = {
   infrastructure: '#2563EB',
   regulation: '#0E8A45',
   economics: '#B8860B',

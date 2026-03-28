@@ -89,7 +89,9 @@ export default function PaymentsRail() {
         {/* Visualizer */}
         <div className="border border-border-strong bg-surface/30 p-4 sm:p-8">
           {/* SVG Rail */}
-          <div className="relative w-full" style={{ paddingBottom: '45%' }}>
+          <div className="overflow-x-auto md:overflow-visible -mx-4 px-4">
+            <div className="min-w-[500px] md:min-w-0">
+            <div className="relative w-full" style={{ paddingBottom: '45%' }}>
             <svg
               viewBox="0 0 450 210"
               className="absolute inset-0 w-full h-full"
@@ -190,6 +192,8 @@ export default function PaymentsRail() {
               </text>
             </svg>
           </div>
+            </div>
+          </div>
 
           {/* Info panel */}
           <div
@@ -199,10 +203,10 @@ export default function PaymentsRail() {
           >
             {activeInfo ? (
               <>
-                <div className="font-mono text-[9px] text-accent tracking-[0.2em] uppercase mb-2">
+                <div className="font-mono text-[9px] sm:text-[10px] text-accent tracking-[0.2em] uppercase mb-2">
                   // {activeInfo.id}.explain()
                 </div>
-                <p className="font-mono text-sm text-text-secondary leading-relaxed">
+                <p className="font-mono text-xs sm:text-sm text-text-secondary leading-relaxed break-words">
                   {activeInfo.description}
                 </p>
               </>

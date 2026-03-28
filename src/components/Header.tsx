@@ -1,11 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTorontoMode } from '@/context/TorontoModeContext';
 
 export default function Header() {
   const { torontoMode } = useTorontoMode();
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href.includes('#')) return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   const navLinks = [
     { href: '/#hero', label: 'Home' },
@@ -29,22 +37,40 @@ export default function Header() {
         </div>
 
         {/* Desktop nav */}
-        <nav className="hidden sm:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) =>
+            link.href.startsWith('/') && !link.href.includes('#') ? (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`font-mono text-xs tracking-wide transition-colors uppercase ${
+                  isActive(link.href)
+                    ? 'text-accent font-medium'
+                    : 'text-text-secondary hover:text-primary'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`font-mono text-xs tracking-wide transition-colors uppercase ${
+                  isActive(link.href)
+                    ? 'text-accent font-medium'
+                    : 'text-text-secondary hover:text-primary'
+                }`}
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </nav>
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="sm:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
+          className="md:hidden flex flex-col gap-[5px] p-2 cursor-pointer"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
         >
           <span
@@ -67,22 +93,42 @@ export default function Header() {
 
       {/* Mobile menu */}
       <div
-        className={`sm:hidden overflow-hidden transition-all duration-300 border-t border-border bg-bg/95 backdrop-blur-md ${
+        className={`md:hidden overflow-hidden transition-all duration-300 border-t border-border bg-bg/95 backdrop-blur-md ${
           menuOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 border-t-0'
         }`}
       >
         <nav className="flex flex-col px-6 py-4 gap-1">
-          {navLinks.map((link, i) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-mono text-sm tracking-wide text-text-secondary hover:text-primary transition-colors uppercase py-3 border-b border-border/50 last:border-b-0"
-              style={{ animationDelay: `${i * 50}ms` }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link, i) =>
+            link.href.startsWith('/') && !link.href.includes('#') ? (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className={`font-mono text-sm tracking-wide transition-colors uppercase py-3 border-b border-border/50 last:border-b-0 ${
+                  isActive(link.href)
+                    ? 'text-accent border-l-2 border-l-accent pl-2'
+                    : 'text-text-secondary hover:text-primary'
+                }`}
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className={`font-mono text-sm tracking-wide transition-colors uppercase py-3 border-b border-border/50 last:border-b-0 ${
+                  isActive(link.href)
+                    ? 'text-accent border-l-2 border-l-accent pl-2'
+                    : 'text-text-secondary hover:text-primary'
+                }`}
+                style={{ animationDelay: `${i * 50}ms` }}
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <div className="font-mono text-[9px] text-text-tertiary tracking-[0.2em] uppercase mt-3 pt-2">
             {torontoMode ? '// toronto_mode: active' : '// nav.render()'}
           </div>

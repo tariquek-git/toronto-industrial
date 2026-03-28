@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { categoryColors } from '@/data/stack';
 import type { StackEntry } from '@/data/stack';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -14,7 +15,7 @@ export default function StackIndexClient({ entries }: Props) {
   return (
     <>
       <Header />
-      <main className="pt-20 pb-16">
+      <main id="main-content" className="pt-20 pb-16">
         <div className="max-w-4xl mx-auto px-6">
           {/* Page header */}
           <div className="mb-12">
@@ -44,17 +45,11 @@ export default function StackIndexClient({ entries }: Props) {
           {/* Category legend */}
           <div className="flex flex-wrap gap-4 mb-8 pb-6 border-b border-border">
             {(['infrastructure', 'regulation', 'economics', 'process'] as const).map((cat) => {
-              const colors: Record<string, string> = {
-                infrastructure: '#2563EB',
-                regulation: '#0E8A45',
-                economics: '#B8860B',
-                process: '#DA291C',
-              };
               return (
                 <div key={cat} className="flex items-center gap-2">
                   <div
                     className="w-2 h-2"
-                    style={{ backgroundColor: colors[cat] }}
+                    style={{ backgroundColor: categoryColors[cat] }}
                   />
                   <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-text-tertiary">
                     {cat}

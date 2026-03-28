@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <Header />
       <ScrollProgress />
-      <main>
+      <main id="main-content">
         <HeroSection />
         <JsonTicker />
         <IntroSection />

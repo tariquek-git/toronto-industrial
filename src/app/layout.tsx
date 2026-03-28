@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: 'Helping banks, fintechs, and brands navigate card issuance and payments infrastructure.',
     type: 'website',
     url: '/',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Tarique Khan — Payments Infrastructure' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Tarique Khan — Payments Infrastructure' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -53,6 +53,12 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${dmMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" style={{ fontFamily: 'var(--font-dm-mono), monospace' }}>
+        <a
+          href="#main-content"
+          className="absolute -top-full left-4 z-[100] bg-accent text-white px-4 py-2 font-mono text-xs focus:top-4 transition-all"
+        >
+          Skip to content
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
+import '@/app/card-effects.css';
 import { useTorontoMode } from '@/context/TorontoModeContext';
 import { expiryDates, contact, industryLogos } from '@/data/content';
 
@@ -204,8 +205,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       className="relative cursor-pointer group"
       style={{ perspective: '1200px' }}
       role="button"
+      tabIndex={0}
       aria-label="Interactive card — click to flip"
       onClick={handleFlip}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleFlip(); } }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >

@@ -226,10 +226,3 @@ export function getSignalBySlug(slug: string): Signal | undefined {
   return signals.find((s) => s.slug === slug);
 }
 
-// Category colors
-export const categoryColors: Record<Signal['category'], string> = {
-  take: '#DA291C',
-  breakdown: '#2563EB',
-  culture: '#7C3AED',
-  regulation: '#0E8A45',
-};
