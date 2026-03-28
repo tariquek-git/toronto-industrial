@@ -67,13 +67,22 @@ export default function CareerTimeline() {
                 </div>
 
                 {/* Metadata */}
-                <div className="audit-stamp mt-3 flex gap-4 border-b border-border pb-3 mb-3">
+                <div className="audit-stamp mt-3 flex flex-wrap gap-2 sm:gap-4 border-b border-border pb-3 mb-3">
                   <span>Period: {entry.period}</span>
-                  <span>|</span>
+                  <span className="hidden sm:inline">|</span>
                   <span>Loc: {entry.location}</span>
-                  <span>|</span>
+                  <span className="hidden sm:inline">|</span>
                   <span>Ref: #{entry.id}</span>
                 </div>
+
+                {/* Thesis — what I learned */}
+                {'thesis' in entry && entry.thesis && (
+                  <div className="mb-3 py-2 px-3 border-l-2 border-accent/40 bg-accent/5">
+                    <p className="font-mono text-xs text-text-primary/70 italic leading-relaxed">
+                      &ldquo;{entry.thesis}&rdquo;
+                    </p>
+                  </div>
+                )}
 
                 {/* Highlights */}
                 <ul className="space-y-1.5">
