@@ -25,7 +25,7 @@ export default function Header() {
             Timeline
           </a>
           <a href="#tiers" className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase">
-            Tiers
+            Clients
           </a>
         </nav>
       </div>

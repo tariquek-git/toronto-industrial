@@ -66,28 +66,28 @@ export const careerTimeline = [
 
 export const productTiers = [
   {
-    id: 'consumer',
-    segment: 'Consumer',
+    id: 'fintechs',
+    segment: 'Fintechs',
     color: '#2563EB',
-    title: 'Consumer Credit Cards',
-    description: 'White-label and co-branded credit card programs for everyday consumers. Real-time adjudication, digital-first onboarding, reward rails.',
-    features: ['Real-time decisioning', 'Digital wallet provisioning', 'Rewards engine', 'Mobile-first UX'],
+    title: 'Embedded Card Programs',
+    description: 'Helping early-stage and growth fintechs embed credit cards into their platforms. From BIN sponsorship to full-stack issuance — shortcutting the 18 months it usually takes.',
+    features: ['BaaS integration', 'Program design & launch', 'Scheme registration', 'Speed to market'],
   },
   {
-    id: 'business',
-    segment: 'Business',
+    id: 'banks',
+    segment: 'Banks & CUs',
     color: '#0E8A45',
-    title: 'Business Credit Cards',
-    description: 'Expense management and corporate purchasing card solutions. Multi-user controls, automated reconciliation, ERP integration.',
-    features: ['Multi-card management', 'Spend controls & limits', 'Automated reporting', 'ERP connectors'],
+    title: 'Digital Card Modernization',
+    description: 'Working with banks and credit unions ready to move beyond legacy processors. Modern card stack, real-time decisioning, and a platform that ships in weeks, not years.',
+    features: ['Legacy migration', 'Digital-first issuance', 'Custom rewards & loyalty', 'Regulatory alignment'],
   },
   {
-    id: 'commercial',
-    segment: 'Commercial',
+    id: 'brands',
+    segment: 'Brands',
     color: '#B8860B',
-    title: 'Commercial & Secured',
-    description: 'Large-scale commercial card programs and secured credit products. Treasury integration, custom settlement flows, compliance-ready.',
-    features: ['Custom settlement flows', 'Treasury integration', 'Secured card programs', 'Regulatory compliance'],
+    title: 'Co-Brand & Private Label',
+    description: 'Retailers, airlines, and platforms that want their own card. Structuring the economics, navigating scheme rules, and making the business case that gets past procurement.',
+    features: ['Co-brand structuring', 'Revenue share models', 'Merchant integration', 'Brand-first UX'],
   },
 ];
 

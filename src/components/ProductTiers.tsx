@@ -15,10 +15,10 @@ export default function ProductTiers() {
     <section id="tiers" className="max-w-5xl mx-auto px-6 py-20">
       <div className="flex items-baseline gap-4 mb-12">
         <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary">
-          PRODUCT TIERS
+          WHO I WORK WITH
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">
-          // issuance.segments — pick a card, any card
+          // clients.segments — pick a card, any card
         </span>
       </div>
 
