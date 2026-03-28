@@ -226,7 +226,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
       <div
         ref={cardRef}
-        className="relative w-[calc(100vw-48px)] max-w-[340px] aspect-[85.6/53.98] sm:w-[400px] sm:max-w-none lg:w-[440px] transition-transform duration-500"
+        className="relative w-[calc(100vw-48px)] max-w-[340px] h-[calc((100vw-48px)*0.631)] max-h-[214px] sm:w-[420px] sm:max-w-none sm:h-[265px] sm:max-h-none lg:w-[480px] lg:h-[303px] transition-transform duration-500"
         style={{
           transformStyle: 'preserve-3d',
           transform: `rotateX(${tilt.x}deg) rotateY(${isFlipped ? 180 + tilt.y : tilt.y}deg)`,
