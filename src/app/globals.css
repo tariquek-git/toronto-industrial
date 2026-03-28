@@ -357,6 +357,15 @@ body {
   animation: sig-draw 1.2s ease forwards 0.3s;
 }
 
+/* Terminal slide-in */
+@keyframes terminal-in {
+  0% { opacity: 0; transform: translateY(-16px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.terminal-enter {
+  animation: terminal-in 0.2s ease-out forwards;
+}
+
 /* Screen reader only */
 .sr-only {
   position: absolute;
@@ -397,7 +406,8 @@ body {
   .card-glow,
   .card-ambient-light,
   .card-particles span,
-  .typewriter-line {
+  .typewriter-line,
+  .terminal-enter {
     animation: none !important;
   }
   .typewriter-line {

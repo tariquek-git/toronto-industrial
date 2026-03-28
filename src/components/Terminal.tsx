@@ -380,7 +380,7 @@ export default function Terminal() {
 
       {/* Terminal window */}
       <div
-        className="relative w-full max-w-2xl mx-4 border border-border-strong shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
+        className="relative w-full max-w-2xl mx-4 border border-border-strong shadow-2xl terminal-enter"
         style={{ backgroundColor: '#0A1220' }}
       >
         {/* Title bar */}
