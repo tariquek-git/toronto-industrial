@@ -24,7 +24,7 @@ export default function ProductTiers() {
       </div>
 
       {/* Mobile: vertical stack. Desktop: fanned card deck */}
-      <div className="flex flex-col items-center gap-6 sm:hidden">
+      <div className="flex flex-col items-center gap-6 sm:hidden stagger-reveal">
         {productTiers.map((tier) => {
           const color = torontoMode ? torontoColors[productTiers.indexOf(tier)] : tier.color;
           return (

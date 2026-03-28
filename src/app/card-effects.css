@@ -194,6 +194,26 @@
   animation: sig-draw 1.2s ease forwards 0.3s;
 }
 
+/* Card number slot machine digit transition */
+.card-digit {
+  display: inline-block;
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+}
+.card-digit.rolling {
+  transform: translateY(-4px);
+  opacity: 0.5;
+}
+
+/* Dark mode card glow enhancements */
+[data-theme="dark"] .card-glow,
+[data-theme="auto"] .card-glow {
+  filter: blur(25px);
+}
+
+[data-theme="dark"] .card-glow-standard {
+  background: linear-gradient(135deg, rgba(248,81,73,0.35) 0%, rgba(230,237,243,0.15) 50%, rgba(248,81,73,0.30) 100%);
+}
+
 /* Card-specific reduced motion overrides */
 @media (prefers-reduced-motion: reduce) {
   .card-float,

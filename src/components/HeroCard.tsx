@@ -136,6 +136,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   const [datePhase, setDatePhase] = useState<'idle' | 'exit' | 'enter'>('idle');
   const [backHovered, setBackHovered] = useState(false);
   const [magX, setMagX] = useState(50);
+  const [cardDigits, setCardDigits] = useState(['4','5','0','6']);
+  const [lastFour, setLastFour] = useState(['0','0','0','1']);
+  const [isRolling, setIsRolling] = useState(false);
   const { torontoMode } = useTorontoMode();
 
   // Cycle expiry dates every 3.5s
@@ -180,6 +183,24 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   const handleFlip = useCallback(() => {
     setIsFlipped(prev => !prev);
   }, []);
+
+  const rollCardNumber = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isRolling) return;
+    setIsRolling(true);
+
+    const newFirst = ['4', '5', String(Math.floor(Math.random() * 10)), String(Math.floor(Math.random() * 10))];
+    const newLast = Array.from({length: 4}, () => String(Math.floor(Math.random() * 10)));
+
+    [...newFirst, ...newLast].forEach((digit, i) => {
+      setTimeout(() => {
+        if (i < 4) setCardDigits(prev => { const n = [...prev]; n[i] = digit; return n; });
+        else setLastFour(prev => { const n = [...prev]; n[i-4] = digit; return n; });
+      }, i * 80 + Math.random() * 50);
+    });
+
+    setTimeout(() => setIsRolling(false), 800);
+  }, [isRolling]);
 
   // Notify parent of flip state changes (skip initial mount)
   const didMount = useRef(false);
@@ -275,7 +296,15 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
             {/* Middle: card number */}
             <div className="font-mono text-xs sm:text-sm lg:text-base tracking-[0.3em] text-white/40 card-embossed">
-              4506 &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; 0001
+              <span onClick={rollCardNumber} className="cursor-pointer" title="Click to shuffle">
+                {cardDigits.map((d, i) => (
+                  <span key={`f${i}`} className={`card-digit ${isRolling ? 'rolling' : ''}`}>{d}</span>
+                ))}
+                {' '}&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;{' '}
+                {lastFour.map((d, i) => (
+                  <span key={`l${i}`} className={`card-digit ${isRolling ? 'rolling' : ''}`}>{d}</span>
+                ))}
+              </span>
             </div>
 
             {/* Bottom: name + cycling expiry date */}

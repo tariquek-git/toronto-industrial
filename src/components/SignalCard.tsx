@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import type { Signal } from '@/data/signals';
+import { useTiltHover } from '@/hooks/useTiltHover';
 
 interface SignalCardProps {
   signal: Signal;
@@ -9,6 +10,7 @@ interface SignalCardProps {
 }
 
 export default function SignalCard({ signal, index = 0 }: SignalCardProps) {
+  const { ref, style: tiltStyle, handleMove, handleLeave } = useTiltHover(2);
   const dateFormatted = new Date(signal.date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -17,6 +19,10 @@ export default function SignalCard({ signal, index = 0 }: SignalCardProps) {
   return (
     <Link href={`/signal/${signal.slug}`} className="group block">
       <article
+        ref={ref as React.Ref<HTMLElement>}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+        style={tiltStyle}
         className="border border-border-strong bg-surface/30 p-6 h-full flex flex-col
                    hover:bg-surface/60 hover:border-accent/40 transition-all duration-300
                    relative overflow-hidden"

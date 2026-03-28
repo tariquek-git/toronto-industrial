@@ -12,7 +12,7 @@ export default function SignalPreview() {
   return (
     <section ref={ref} className="scroll-reveal max-w-4xl mx-auto px-6 py-16 sm:py-20">
       <div className="flex flex-col sm:flex-row items-start sm:items-baseline gap-2 sm:gap-4 mb-10">
-        <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary">
+        <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary glitch-hover">
           SIGNAL
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">
@@ -20,7 +20,7 @@ export default function SignalPreview() {
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 stagger-reveal">
         {latestSignals.map((signal, i) => (
           <SignalCard key={signal.slug} signal={signal} index={i} />
         ))}

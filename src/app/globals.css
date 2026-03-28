@@ -44,8 +44,8 @@
   --surface: #161B22;
   --surface-hover: #1C2129;
   --shadow: rgba(0, 0, 0, 0.3);
-  --grid-color: rgba(230, 237, 243, 0.03);
-  --grid-color-strong: rgba(230, 237, 243, 0.06);
+  --grid-color: rgba(56, 189, 248, 0.03);
+  --grid-color-strong: rgba(56, 189, 248, 0.06);
 }
 
 /* System dark preference (auto mode, when no explicit theme set) */
@@ -65,8 +65,8 @@
     --surface: #161B22;
     --surface-hover: #1C2129;
     --shadow: rgba(0, 0, 0, 0.3);
-    --grid-color: rgba(230, 237, 243, 0.03);
-    --grid-color-strong: rgba(230, 237, 243, 0.06);
+    --grid-color: rgba(56, 189, 248, 0.03);
+    --grid-color-strong: rgba(56, 189, 248, 0.06);
   }
 }
 
@@ -243,6 +243,33 @@ body {
   opacity: 0.6;
 }
 
+/* Dark mode circuit node glow */
+[data-theme="dark"] .circuit-node {
+  filter: drop-shadow(0 0 3px var(--accent));
+}
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] .circuit-node {
+    filter: drop-shadow(0 0 3px var(--accent));
+  }
+}
+
+/* Circuit trace draw-on-scroll animation */
+.circuit-trace-animated {
+  stroke-dasharray: var(--trace-length, 800);
+  stroke-dashoffset: var(--trace-length, 800);
+  transition: stroke-dashoffset 1.2s ease-out;
+}
+.revealed .circuit-trace-animated {
+  stroke-dashoffset: 0;
+}
+.circuit-node-animated {
+  opacity: 0;
+  transition: opacity 0.4s ease-out 0.8s;
+}
+.revealed .circuit-node-animated {
+  opacity: 0.6;
+}
+
 /* Terminal slide-in */
 @keyframes terminal-in {
   0% { opacity: 0; transform: translateY(-16px) scale(0.98); }
@@ -270,6 +297,26 @@ body {
 }
 .cn-tower-beacon {
   animation: beacon-pulse 2s ease-in-out infinite;
+}
+
+/* Terminal CRT scanlines (dark mode) */
+.terminal-crt {
+  position: relative;
+}
+.terminal-crt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+  border-radius: inherit;
 }
 
 /* Screen reader only */
@@ -301,6 +348,54 @@ body {
   transform: translateY(0);
 }
 
+/* Staggered card entrances */
+.stagger-reveal > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.scroll-reveal.revealed .stagger-reveal > *:nth-child(1) { transition-delay: 0ms; }
+.scroll-reveal.revealed .stagger-reveal > *:nth-child(2) { transition-delay: 150ms; }
+.scroll-reveal.revealed .stagger-reveal > *:nth-child(3) { transition-delay: 300ms; }
+.scroll-reveal.revealed .stagger-reveal > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Noise/grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Industrial focus rings */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Glitch text hover effect */
+.glitch-hover {
+  position: relative;
+}
+.glitch-hover:hover {
+  animation: glitch-text 0.3s ease;
+}
+@keyframes glitch-text {
+  0%, 100% { transform: translate(0); text-shadow: none; }
+  10% { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--accent); }
+  20% { transform: translate(2px, -1px); text-shadow: -2px 0 var(--primary); }
+  30% { transform: translate(-1px, 2px); text-shadow: 1px 0 var(--accent); }
+  40% { transform: translate(1px, -2px); text-shadow: -1px 0 var(--primary); }
+  50% { transform: translate(0); text-shadow: none; }
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .ticker-animate,
@@ -313,6 +408,21 @@ body {
   .typewriter-line {
     width: auto !important;
     border-right: none !important;
+  }
+  .circuit-trace-animated {
+    stroke-dashoffset: 0 !important;
+  }
+  .circuit-node-animated {
+    opacity: 0.6 !important;
+  }
+  .glitch-hover:hover {
+    animation: none !important;
+  }
+  .terminal-crt::after {
+    display: none !important;
+  }
+  body::after {
+    display: none;
   }
   * {
     transition-duration: 0.01ms !important;

@@ -26,7 +26,11 @@ if (!existsSync(outDir)) {
 // --- Font loading from local TTF files ---
 
 function loadFont(filename: string): Buffer {
-  return readFileSync(join(__dirname, 'fonts', filename));
+  const fontPath = join(__dirname, 'fonts', filename);
+  if (!existsSync(fontPath)) {
+    throw new Error(`Font file not found: ${fontPath}. Skipping OG generation — images already exist.`);
+  }
+  return readFileSync(fontPath);
 }
 
 // --- SVG to PNG conversion ---
@@ -329,6 +333,10 @@ async function main() {
 }
 
 main().catch((err) => {
+  if (err.message?.includes('Font file not found')) {
+    console.warn('⚠ Skipping OG image generation (fonts not available). Existing images will be used.');
+    process.exit(0);
+  }
   console.error('OG image generation failed:', err);
   process.exit(1);
 });

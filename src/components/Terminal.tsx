@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useKeyboardShortcut } from '@/hooks/useKeyboardShortcut';
+import { useTheme } from '@/context/ThemeContext';
 import { getStackBySlug, getStackSorted } from '@/data/stack';
 import { getSignalsSorted } from '@/data/signals';
 
@@ -166,6 +167,70 @@ function processCommand(input: string, onToggleToronto: () => void): { lines: st
     return { lines: [COMMANDS.exit as string], shouldClose: true };
   }
 
+  // --- Secret commands (not in help) ---
+
+  if (cmd === 'raccoon') {
+    return {
+      lines: [
+        '    /\\___/\\',
+        '   (  o o  )',
+        '   (  =^=  )',
+        '    )     (   // toronto\'s finest',
+        '   (       )',
+        '  ( (  )  ) )',
+        ' (__(__)__)__)',
+      ],
+      shouldClose: false,
+    };
+  }
+
+  if (cmd === 'matrix') {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789@#$%&*';
+    const matrixLine = () => Array.from({ length: 40 }, () => chars[Math.floor(Math.random() * chars.length)]).join(' ');
+    return {
+      lines: [
+        '> Entering the matrix...',
+        matrixLine(),
+        matrixLine(),
+        matrixLine(),
+        matrixLine(),
+        '> Wake up, Tarique...',
+      ],
+      shouldClose: false,
+    };
+  }
+
+  if (cmd === 'version') {
+    return {
+      lines: ['toronto-industrial v1.0.0 // next@16.2.1 // react@19 // built with claude'],
+      shouldClose: false,
+    };
+  }
+
+  if (cmd === 'ping' && parts[1] === 'toronto') {
+    return {
+      lines: [
+        'PING toronto-industrial.vercel.app',
+        '64 bytes: seq=1 ttl=64 time=0.42ms',
+        '64 bytes: seq=2 ttl=64 time=0.38ms',
+        '64 bytes: seq=3 ttl=64 time=0.41ms',
+        '--- 3 packets transmitted, 0% loss ---',
+        '// latency lower than most bank APIs',
+      ],
+      shouldClose: false,
+    };
+  }
+
+  if (cmd === 'whoami') {
+    const hex = Array.from({ length: 8 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+    return {
+      lines: [`visitor_${hex} // clearance: public // role: curious`],
+      shouldClose: false,
+    };
+  }
+
+  // --- End secret commands ---
+
   if (cmd === 'toronto') {
     onToggleToronto();
     return { lines: ['// toronto_mode.toggle() — look around.'], shouldClose: false };
@@ -227,6 +292,7 @@ function processCommand(input: string, onToggleToronto: () => void): { lines: st
 }
 
 export default function Terminal() {
+  const { resolvedDark } = useTheme();
   const [open, setOpen] = useState(false);
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: 'system', text: '// tarique_terminal v0.1.0' },
@@ -325,7 +391,7 @@ export default function Terminal() {
 
       {/* Terminal window */}
       <div
-        className="relative w-full max-w-2xl mx-4 border border-border-strong shadow-2xl terminal-enter"
+        className={`relative w-full max-w-2xl mx-4 border border-border-strong shadow-2xl terminal-enter${resolvedDark ? ' terminal-crt' : ''}`}
         style={{ backgroundColor: '#0A1220' }}
       >
         {/* Title bar */}
@@ -354,23 +420,30 @@ export default function Terminal() {
           className="p-4 max-h-[60vh] overflow-y-auto font-mono text-sm leading-relaxed"
           style={{ scrollbarWidth: 'thin' }}
         >
-          {lines.map((line, i) => (
-            <div
-              key={i}
-              className={`${
-                line.type === 'input'
-                  ? 'text-accent'
-                  : line.type === 'system'
-                  ? 'text-text-tertiary'
-                  : line.type === 'error'
-                  ? 'text-red-400'
-                  : 'text-text-secondary'
-              } ${line.text === '' ? 'h-3' : ''}`}
-              style={{ whiteSpace: 'pre' }}
-            >
-              {line.text}
-            </div>
-          ))}
+          {lines.map((line, i) => {
+            const isOutput = line.type === 'output';
+            const isSystem = line.type === 'system';
+            return (
+              <div
+                key={i}
+                className={`${
+                  line.type === 'input'
+                    ? 'text-accent'
+                    : isSystem
+                    ? 'text-text-tertiary'
+                    : line.type === 'error'
+                    ? 'text-red-400'
+                    : 'text-text-secondary'
+                } ${line.text === '' ? 'h-3' : ''}`}
+                style={{
+                  whiteSpace: 'pre',
+                  ...(resolvedDark && (isOutput || isSystem) ? { color: 'rgba(168, 216, 168, 0.9)' } : {}),
+                }}
+              >
+                {line.text}
+              </div>
+            );
+          })}
 
           {/* Input line */}
           <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-1">
