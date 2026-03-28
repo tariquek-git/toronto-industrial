@@ -12,6 +12,7 @@ export default function Header() {
     { href: '/#timeline', label: 'Timeline' },
     { href: '/#tiers', label: 'Clients' },
     { href: '/signal', label: 'Signal' },
+    { href: '/stack', label: 'Stack' },
     { href: '/#connect', label: 'Connect' },
   ];
 
