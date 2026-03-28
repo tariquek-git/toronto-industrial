@@ -48,7 +48,7 @@ export function TorontoModeProvider({ children }: { children: ReactNode }) {
             color: torontoMode ? '#FFBD2E' : '#FAF8F3',
           }}
         >
-          {torontoMode ? '// SYSTEM OVERRIDE: Toronto Mode Engaged' : '// SYSTEM RESET: Standard Mode'}
+          {torontoMode ? '// SYSTEM OVERRIDE: Toronto Mode Engaged' : '// SYSTEM RESET: Raccoons contained. For now.'}
         </div>
       )}
     </TorontoModeContext.Provider>

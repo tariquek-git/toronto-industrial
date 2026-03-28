@@ -22,7 +22,7 @@ export default function HeroSection() {
 
         {/* Dynamic flip hint */}
         <div className="font-mono text-[9px] text-text-tertiary/60 tracking-[0.25em] uppercase">
-          {isFlipped ? 'click to flip back' : 'tap to flip'}
+          {isFlipped ? 'click to flip back' : 'tap to flip // magstripe not required'}
         </div>
       </div>
 

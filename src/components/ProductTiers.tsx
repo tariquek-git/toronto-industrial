@@ -18,7 +18,7 @@ export default function ProductTiers() {
           PRODUCT TIERS
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">
-          // issuance.segments
+          // issuance.segments — pick a card, any card
         </span>
       </div>
 

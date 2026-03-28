@@ -342,7 +342,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded px-2 sm:px-3 py-1.5 text-center flex flex-col justify-center">
                   <div className="font-mono text-[6px] sm:text-[7px] text-white/30 uppercase tracking-wider">CVV</div>
-                  <div className="font-mono text-xs sm:text-sm text-white/50">***</div>
+                  <div className="font-mono text-xs sm:text-sm text-white/50">416</div>
                 </div>
               </div>
 

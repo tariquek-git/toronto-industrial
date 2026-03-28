@@ -17,6 +17,8 @@ export const tickerItems = [
   { type: 'spec' as const, text: 'RPAA // Retail Payment Activities Act' },
   { type: 'spec' as const, text: 'PCI DSS v4.0.1 // Compliant' },
   { type: 'spec' as const, text: '300+ RESTful APIs // Sub-100ms p95' },
+  { type: 'opinion' as const, text: 'Settlement takes less time than the 501 Queen streetcar.' },
+  { type: 'spec' as const, text: 'Interchange // the tax nobody reads but everybody pays' },
 ];
 
 export const careerTimeline = [
@@ -115,12 +117,12 @@ export const expiryDates = [
   { date: '02/50', note: 'Diners Club — first charge card' },
   { date: '09/58', note: 'BankAmericard issued — became Visa' },
   { date: '08/66', note: 'Interbank Card Assn — became Mastercard' },
-  { date: '10/14', note: 'First tap-to-pay — Apple Pay' },
+  { date: '04/98', note: 'PayPal founded. Obviously.' },
   { date: '09/08', note: 'Lehman Brothers — fintech was born' },
   { date: '06/11', note: 'Stripe beta — 7 lines of code' },
   { date: '11/24', note: 'RPAA — Canada regulates payments' },
-  { date: '03/17', note: 'Interac e-Transfer hits 1M txns/day' },
-  { date: '07/13', note: 'Square ships first card reader to Canada' },
+  { date: '03/23', note: 'SVB collapses. Fintech discovers risk.' },
+  { date: '05/75', note: 'Magnetic stripe patent. Swipe era begins.' },
   { date: '∞/99',  note: 'This card never expires' },
 ];
 
