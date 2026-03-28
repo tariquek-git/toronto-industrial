@@ -20,6 +20,13 @@ export default function HeroSection() {
           <HeroCard onFlipChange={setIsFlipped} />
         </div>
 
+        {/* Tagline with typewriter effect */}
+        <div className="text-center mt-2">
+          <div className="font-mono text-[11px] sm:text-xs text-text-secondary/80 tracking-[0.15em] uppercase typewriter-line">
+            Payments infrastructure. Built from Toronto.
+          </div>
+        </div>
+
         {/* Dynamic flip hint */}
         <div className="font-mono text-[9px] text-text-tertiary/60 tracking-[0.25em] uppercase">
           {isFlipped ? 'click to flip back' : 'tap to flip // magstripe not required'}

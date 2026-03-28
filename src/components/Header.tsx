@@ -19,7 +19,7 @@ export default function Header() {
 
         <nav className="hidden sm:flex items-center gap-6">
           <a href="#hero" className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase">
-            Platform
+            Home
           </a>
           <a href="#timeline" className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase">
             Timeline
