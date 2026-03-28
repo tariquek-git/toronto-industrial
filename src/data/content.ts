@@ -135,8 +135,7 @@ export const contact = {
 
 // Industry affiliation badges on back of card
 export const industryLogos = [
-  { id: 'mentrad',  label: 'MENTRAD' },
-  { id: 'holtz',   label: 'HOLTZ' },
-  { id: 'fintech',  label: 'FINTECH' },
-  { id: 'cadence',  label: 'CADENCE' },
+  { id: 'holt',     label: 'HOLT' },
+  { id: 'cadence',  label: 'FT CADENCE' },
+  { id: 'acceleron', label: 'ACCELERON' },
 ];

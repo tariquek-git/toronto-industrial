@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTorontoMode } from '@/context/TorontoModeContext';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { productTiers } from '@/data/content';
 
 // Toronto Mode shifts the palette — gold, green, warm amber
@@ -10,9 +11,10 @@ const torontoColors = ['#FFBD2E', '#0E8A45', '#C8956B'];
 export default function ProductTiers() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { torontoMode } = useTorontoMode();
+  const ref = useScrollReveal<HTMLElement>();
 
   return (
-    <section id="tiers" className="max-w-5xl mx-auto px-6 py-20">
+    <section ref={ref} id="tiers" className="scroll-reveal max-w-5xl mx-auto px-6 py-20">
       <div className="flex items-baseline gap-4 mb-12">
         <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary">
           WHO I WORK WITH

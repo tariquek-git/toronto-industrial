@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import JsonTicker from '@/components/JsonTicker';
+import PlatformStats from '@/components/PlatformStats';
 import CareerTimeline from '@/components/CareerTimeline';
 import ProductTiers from '@/components/ProductTiers';
 import Footer from '@/components/Footer';
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <JsonTicker />
+        <PlatformStats />
         <CareerTimeline />
         <ProductTiers />
       </main>

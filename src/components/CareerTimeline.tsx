@@ -1,10 +1,13 @@
 'use client';
 
 import { careerTimeline } from '@/data/content';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function CareerTimeline() {
+  const ref = useScrollReveal<HTMLElement>();
+
   return (
-    <section id="timeline" className="max-w-4xl mx-auto px-6 py-20">
+    <section ref={ref} id="timeline" className="scroll-reveal max-w-4xl mx-auto px-6 py-20">
       <div className="flex items-baseline gap-4 mb-12">
         <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary">
           AUDIT LOG

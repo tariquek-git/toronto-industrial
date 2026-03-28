@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Bebas_Neue, DM_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { TorontoModeProvider } from '@/context/TorontoModeContext';
 import './globals.css';
 
@@ -29,6 +31,7 @@ export const metadata: Metadata = {
     description: 'Business Development at Brim Financial. BaaS, CaaS, Payment Rails. Toronto.',
     type: 'website',
     url: '/',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Tarique Khan — Payments Infrastructure' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -75,6 +78,8 @@ export default function RootLayout({
         <TorontoModeProvider>
           {children}
         </TorontoModeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
