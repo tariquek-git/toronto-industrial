@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { TorontoModeProvider } from '@/context/TorontoModeContext';
 import Terminal from '@/components/Terminal';
+import SeasonalEffects from '@/components/SeasonalEffects';
 import './globals.css';
 
 const bebasNeue = Bebas_Neue({
@@ -79,6 +80,7 @@ export default function RootLayout({
         <TorontoModeProvider>
           {children}
           <Terminal />
+          <SeasonalEffects />
         </TorontoModeProvider>
         <Analytics />
         <SpeedInsights />

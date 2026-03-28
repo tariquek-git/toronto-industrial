@@ -366,6 +366,26 @@ body {
   animation: terminal-in 0.2s ease-out forwards;
 }
 
+/* Snow particles (Toronto Mode, winter) */
+@keyframes snowfall {
+  0% { transform: translateY(-10px) translateX(0); opacity: 0; }
+  10% { opacity: var(--snow-opacity, 0.4); }
+  90% { opacity: var(--snow-opacity, 0.4); }
+  100% { transform: translateY(100vh) translateX(var(--drift, 20px)); opacity: 0; }
+}
+.snow-particle {
+  animation: snowfall linear infinite;
+}
+
+/* CN Tower beacon pulse */
+@keyframes beacon-pulse {
+  0%, 100% { opacity: 0.3; r: 3; }
+  50% { opacity: 1; r: 5; }
+}
+.cn-tower-beacon {
+  animation: beacon-pulse 2s ease-in-out infinite;
+}
+
 /* Screen reader only */
 .sr-only {
   position: absolute;
@@ -407,7 +427,9 @@ body {
   .card-ambient-light,
   .card-particles span,
   .typewriter-line,
-  .terminal-enter {
+  .terminal-enter,
+  .snow-particle,
+  .cn-tower-beacon {
     animation: none !important;
   }
   .typewriter-line {

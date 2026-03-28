@@ -1,6 +1,7 @@
 'use client';
 
 import { useScrollDepth } from '@/hooks/useScrollDepth';
+import { useTorontoMode } from '@/context/TorontoModeContext';
 
 interface TorontoSkylineProps {
   offsetX: number;
@@ -9,6 +10,7 @@ interface TorontoSkylineProps {
 
 export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps) {
   const scrollDepth = useScrollDepth();
+  const { torontoMode } = useTorontoMode();
   const fillOpacity = 0.04 + (scrollDepth / 100) * 0.21;
 
   return (
@@ -32,6 +34,10 @@ export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps
             ============================================ */}
 
         {/* CN Tower — the icon, full detail */}
+        {/* Beacon light — pulses in Toronto Mode */}
+        {torontoMode && (
+          <circle cx="719.5" cy="12" r="4" fill="#DA291C" className="cn-tower-beacon" />
+        )}
         {/* Antenna mast */}
         <rect x="718" y="12" width="3" height="18" />
         {/* Antenna base */}
