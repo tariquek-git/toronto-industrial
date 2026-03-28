@@ -275,7 +275,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                   TARIQUE KHAN
                 </div>
                 <div className="font-mono text-[7px] sm:text-[8px] text-white/40 tracking-[0.12em] mt-1">
-                  BD &middot; CaaS &middot; BaaS &middot; Raccoon Logic
+                  BD &middot; Fintech &middot; Enterprise Sales &middot; Toronto
                 </div>
               </div>
               <div className="text-right min-w-[75px] sm:min-w-[90px]">

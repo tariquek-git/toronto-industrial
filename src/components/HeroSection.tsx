@@ -14,7 +14,7 @@ export default function HeroSection() {
       <TorontoSkyline offsetX={parallax.x} offsetY={parallax.y} />
 
       <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-6">
-        <h1 className="sr-only">Tarique Khan — Business Development, Payments Infrastructure</h1>
+        <h1 className="sr-only">Tarique Khan — Selling Technology to Financial Institutions</h1>
         {/* THE CARD */}
         <div className="card-float">
           <HeroCard onFlipChange={setIsFlipped} />
@@ -23,7 +23,7 @@ export default function HeroSection() {
         {/* Tagline with typewriter effect */}
         <div className="text-center mt-2">
           <div className="font-mono text-[11px] sm:text-xs text-text-secondary/80 tracking-[0.15em] uppercase typewriter-line">
-            Payments infrastructure. Built from Toronto.
+            Selling technology to banks. Built from Toronto.
           </div>
         </div>
 

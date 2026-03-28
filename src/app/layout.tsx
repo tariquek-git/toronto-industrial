@@ -22,7 +22,7 @@ const dmMono = DM_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://toronto-industrial.vercel.app'),
   title: 'Tarique Khan // Fintech & Payments Expert',
-  description: 'Director of Business Development at Brim Financial. Helping banks, fintechs, and brands navigate card issuance, BaaS, CaaS, and payments infrastructure across Canada and the US.',
+  description: 'I sell technology to financial institutions. Card-as-a-service, API platforms, behavioral banking, digital adoption. Every product saves a bank money or makes them more.',
   alternates: {
     canonical: '/',
   },
@@ -65,7 +65,7 @@ export default function RootLayout({
               },
               url: 'https://toronto-industrial.vercel.app',
               sameAs: ['https://linkedin.com/in/tariquekhan'],
-              knowsAbout: ['BaaS', 'CaaS', 'Payment Rails', 'RPAA', 'Credit Card Issuance', 'Enterprise Sales', 'Go-to-Market Strategy', 'Open Banking', 'Interchange Economics', 'PCI DSS', 'Scheme Rules'],
+              knowsAbout: ['BaaS', 'CaaS', 'Payment Rails', 'RPAA', 'Credit Card Issuance', 'Enterprise Sales', 'Go-to-Market Strategy', 'Open Banking', 'Behavioral Banking', 'Digital Adoption', 'API Platforms', 'Fintech'],
               address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Toronto',

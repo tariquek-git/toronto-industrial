@@ -13,28 +13,31 @@ export default function IntroSection() {
           // system.profile — read-only
         </div>
 
-        {/* Positioning statement */}
+        {/* The story arc */}
         <p className="font-mono text-sm sm:text-base text-text-primary leading-relaxed">
-          I sell payments infrastructure to the people who build financial products.
+          I sell technology to financial institutions. Every product I&apos;ve ever
+          sold either helps a bank save money or make more money.
         </p>
         <p className="font-mono text-sm sm:text-base text-text-secondary leading-relaxed mt-3">
-          Banks, credit unions, fintechs, brands — if they want to issue cards, modernize
-          their stack, or launch a new program, I&apos;m the one structuring the deal
-          and getting it through procurement. Enterprise sales, partnerships, and
-          go-to-market strategy across Canada and the US.
+          Game-based employee training that drives digital adoption. Behavioral
+          AI that turned 40K accounts into $300M in deposits. API platforms that
+          replaced manual lending workflows overnight. And now &mdash; card-as-a-service
+          infrastructure that gets banks from zero to live card program in 12 weeks.
         </p>
         <p className="font-mono text-sm sm:text-base text-text-secondary leading-relaxed mt-3">
-          $700M+ pipeline. Consumer, business, and commercial card programs.
-          From first call to live cards in 10&ndash;12 weeks.
+          I&apos;m not a payments person who does sales. I&apos;m a fintech vertical
+          specialist who&apos;s spent a decade learning how financial institutions
+          buy, what their procurement teams need to hear, and how to structure
+          deals that actually close.
         </p>
 
         {/* Specialties grid */}
         <div className="mt-6 pt-4 border-t border-border">
           <div className="font-mono text-[9px] text-text-tertiary uppercase tracking-[0.2em] mb-3">
-            // core.specialties
+            // what.i.sell.into.banks
           </div>
           <div className="flex flex-wrap gap-2">
-            {['Enterprise Sales', 'BD & Partnerships', 'Go-to-Market', 'BaaS', 'CaaS', 'Payment Rails', 'RPAA', 'Open Banking', 'Scheme Rules', 'Procurement Strategy'].map(
+            {['Card-as-a-Service', 'API Platforms', 'Behavioral Banking', 'Digital Adoption', 'Payment Rails', 'Open Banking', 'BaaS Infrastructure', 'Enterprise Sales', 'Go-to-Market', 'Procurement Strategy'].map(
               (spec) => (
                 <span
                   key={spec}
