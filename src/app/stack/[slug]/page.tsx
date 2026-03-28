@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `${entry.term} — ${entry.fullName}`,
       description: entry.tldr,
       type: 'article',
-      images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: `${entry.term}: ${entry.fullName} — Tarique Khan` }],
+      images: [{ url: `/og/stack-${slug}.png`, width: 1200, height: 630, alt: `${entry.term}: ${entry.fullName} — Tarique Khan` }],
     },
   };
 }

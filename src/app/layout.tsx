@@ -2,9 +2,12 @@ import type { Metadata } from 'next';
 import { Bebas_Neue, DM_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ThemeProvider } from '@/context/ThemeContext';
 import { TorontoModeProvider } from '@/context/TorontoModeContext';
 import Terminal from '@/components/Terminal';
 import SeasonalEffects from '@/components/SeasonalEffects';
+import ThemeToggle from '@/components/ThemeToggle';
+import PageTransition from '@/components/PageTransition';
 import './globals.css';
 
 const bebasNeue = Bebas_Neue({
@@ -50,6 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="auto"
       className={`${bebasNeue.variable} ${dmMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" style={{ fontFamily: 'var(--font-dm-mono), monospace' }}>
@@ -83,11 +87,16 @@ export default function RootLayout({
             }),
           }}
         />
-        <TorontoModeProvider>
-          {children}
-          <Terminal />
-          <SeasonalEffects />
-        </TorontoModeProvider>
+        <ThemeProvider>
+          <TorontoModeProvider>
+            <PageTransition>
+              {children}
+            </PageTransition>
+            <Terminal />
+            <SeasonalEffects />
+            <ThemeToggle />
+          </TorontoModeProvider>
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

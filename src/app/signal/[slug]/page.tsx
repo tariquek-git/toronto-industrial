@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: signal.title,
       description: signal.excerpt,
       type: 'article',
-      images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: `${signal.title} — Tarique Khan` }],
+      images: [{ url: `/og/signal-${slug}.png`, width: 1200, height: 630, alt: `${signal.title} — Tarique Khan` }],
     },
   };
 }

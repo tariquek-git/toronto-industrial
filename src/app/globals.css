@@ -2,11 +2,12 @@
 
 /* ==============================
    TORONTO INDUSTRIAL BLUEPRINT
-   Dual Palette System
+   Triple Palette System
+   (Light / Dark / Toronto)
    ============================== */
 
 :root {
-  /* Standard Palette */
+  /* Standard Light Palette */
   --bg: #FAF8F3;
   --bg-secondary: #F0EDE5;
   --primary: #0A1525;
@@ -27,7 +28,49 @@
   --grid-color-strong: rgba(10, 21, 37, 0.08);
 }
 
-/* Toronto Mode Override */
+/* Dark Mode — activated by system preference or manual toggle */
+[data-theme="dark"] {
+  --bg: #0C1117;
+  --bg-secondary: #151B23;
+  --primary: #E6EDF3;
+  --primary-muted: #B0BAC6;
+  --accent: #F85149;
+  --accent-hover: #FF6E67;
+  --border: rgba(230, 237, 243, 0.10);
+  --border-strong: rgba(230, 237, 243, 0.20);
+  --text-primary: #E6EDF3;
+  --text-secondary: #8B949E;
+  --text-tertiary: #6E7681;
+  --surface: #161B22;
+  --surface-hover: #1C2129;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --grid-color: rgba(230, 237, 243, 0.03);
+  --grid-color-strong: rgba(230, 237, 243, 0.06);
+}
+
+/* System dark preference (auto mode, when no explicit theme set) */
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    --bg: #0C1117;
+    --bg-secondary: #151B23;
+    --primary: #E6EDF3;
+    --primary-muted: #B0BAC6;
+    --accent: #F85149;
+    --accent-hover: #FF6E67;
+    --border: rgba(230, 237, 243, 0.10);
+    --border-strong: rgba(230, 237, 243, 0.20);
+    --text-primary: #E6EDF3;
+    --text-secondary: #8B949E;
+    --text-tertiary: #6E7681;
+    --surface: #161B22;
+    --surface-hover: #1C2129;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --grid-color: rgba(230, 237, 243, 0.03);
+    --grid-color-strong: rgba(230, 237, 243, 0.06);
+  }
+}
+
+/* Toronto Mode Override (light) */
 [data-toronto="true"] {
   --bg: #E8E0D2;
   --bg-secondary: #DDD5C7;
@@ -45,6 +88,48 @@
   --shadow: rgba(14, 138, 69, 0.1);
   --grid-color: rgba(14, 138, 69, 0.05);
   --grid-color-strong: rgba(14, 138, 69, 0.1);
+}
+
+/* Toronto Mode + Dark Mode */
+[data-theme="dark"][data-toronto="true"] {
+  --bg: #0A1A10;
+  --bg-secondary: #112218;
+  --primary: #4ADE80;
+  --primary-muted: #22C55E;
+  --accent: #FFBD2E;
+  --accent-hover: #FFD060;
+  --border: rgba(74, 222, 128, 0.12);
+  --border-strong: rgba(74, 222, 128, 0.25);
+  --text-primary: #D1FAE5;
+  --text-secondary: #86EFAC;
+  --text-tertiary: #4ADE80;
+  --surface: #0F2416;
+  --surface-hover: #15301D;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --grid-color: rgba(74, 222, 128, 0.04);
+  --grid-color-strong: rgba(74, 222, 128, 0.08);
+}
+
+/* Toronto Mode + Dark via system preference */
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"][data-toronto="true"] {
+    --bg: #0A1A10;
+    --bg-secondary: #112218;
+    --primary: #4ADE80;
+    --primary-muted: #22C55E;
+    --accent: #FFBD2E;
+    --accent-hover: #FFD060;
+    --border: rgba(74, 222, 128, 0.12);
+    --border-strong: rgba(74, 222, 128, 0.25);
+    --text-primary: #D1FAE5;
+    --text-secondary: #86EFAC;
+    --text-tertiary: #4ADE80;
+    --surface: #0F2416;
+    --surface-hover: #15301D;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --grid-color: rgba(74, 222, 128, 0.04);
+    --grid-color-strong: rgba(74, 222, 128, 0.08);
+  }
 }
 
 @theme inline {

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     description:
       'Payments infrastructure terms explained by a fintech BD who actually uses them in deals.',
     type: 'website',
+    images: [{ url: '/og/stack.png', width: 1200, height: 630, alt: 'Stack — Payments Knowledge Base — Tarique Khan' }],
   },
 };
 

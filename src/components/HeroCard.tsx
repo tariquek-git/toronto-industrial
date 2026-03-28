@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import '@/app/card-effects.css';
 import { useTorontoMode } from '@/context/TorontoModeContext';
 import { expiryDates, contact, industryLogos } from '@/data/content';
@@ -227,13 +228,19 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
         <span /><span /><span /><span /><span />
       </div>
 
-      <div
+      <motion.div
         ref={cardRef}
-        className="relative w-[calc(100vw-48px)] max-w-[340px] h-[calc((100vw-48px)*0.631)] max-h-[214px] sm:w-[420px] sm:max-w-none sm:h-[265px] sm:max-h-none lg:w-[480px] lg:h-[303px] transition-transform duration-500"
+        className="relative w-[calc(100vw-48px)] max-w-[340px] h-[calc((100vw-48px)*0.631)] max-h-[214px] sm:w-[420px] sm:max-w-none sm:h-[265px] sm:max-h-none lg:w-[480px] lg:h-[303px]"
         style={{
           transformStyle: 'preserve-3d',
-          transform: `rotateX(${tilt.x}deg) rotateY(${isFlipped ? 180 + tilt.y : tilt.y}deg)`,
+          rotateX: tilt.x,
+          rotateY: tilt.y,
         }}
+        animate={{
+          rotateY: isFlipped ? 180 + tilt.y : tilt.y,
+          rotateX: tilt.x,
+        }}
+        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       >
         {/* Edge glow */}
         <div className={`card-glow ${torontoMode ? 'card-glow-toronto' : 'card-glow-standard'}`} />
@@ -408,7 +415,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           </div>
         </div>
 
-      </div>
+      </motion.div>
     </div>
   );
 }

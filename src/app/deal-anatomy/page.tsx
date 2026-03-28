@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og/deal-anatomy.png',
         width: 1200,
         height: 630,
         alt: 'Deal Anatomy — How Banks Buy Technology — Tarique Khan',
