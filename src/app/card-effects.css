@@ -1,17 +1,7 @@
 /* ==============================
    Card Visual Effects
-   Extracted from globals.css
+   Supports Light / Dark / Toronto
    ============================== */
-
-/* Card float animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-.card-float {
-  animation: float 4s ease-in-out infinite;
-}
 
 /* Card ambient glow — pulsing edge light */
 @keyframes glow-pulse {
@@ -27,14 +17,24 @@
   animation: glow-pulse 4s ease-in-out infinite;
   pointer-events: none;
 }
+.card-glow-light {
+  filter: blur(30px);
+  opacity: 0.3;
+}
 .card-glow-standard {
   background: linear-gradient(135deg, rgba(218,41,28,0.25) 0%, rgba(10,21,37,0.15) 50%, rgba(218,41,28,0.20) 100%);
+}
+.card-glow-light.card-glow-standard {
+  background: linear-gradient(135deg, rgba(218,41,28,0.08) 0%, rgba(245,240,230,0.1) 50%, rgba(218,41,28,0.06) 100%);
 }
 .card-glow-toronto {
   background: linear-gradient(135deg, rgba(255,189,46,0.3) 0%, rgba(14,138,69,0.2) 50%, rgba(255,189,46,0.25) 100%);
 }
+.card-glow-light.card-glow-toronto {
+  background: linear-gradient(135deg, rgba(255,189,46,0.12) 0%, rgba(14,138,69,0.08) 50%, rgba(255,189,46,0.10) 100%);
+}
 
-/* Ambient light bleed behind card — connects card to the scene */
+/* Ambient light bleed behind card */
 @keyframes ambient-breathe {
   0%, 100% { transform: scale(1); opacity: 0.3; }
   50% { transform: scale(1.05); opacity: 0.5; }
@@ -52,7 +52,7 @@
   animation: ambient-breathe 6s ease-in-out infinite;
 }
 
-/* Holographic foil shimmer on card front — enhanced */
+/* Holographic foil shimmer — dark mode */
 @keyframes holo-sweep {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -75,12 +75,36 @@
   mix-blend-mode: screen;
 }
 
-/* Embossed text effect for card number */
+/* Holographic foil — light mode (subtler, warm tones) */
+.holo-overlay-light {
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(218,41,28,0.04) 15%,
+    rgba(212,175,55,0.05) 25%,
+    rgba(80,160,200,0.04) 40%,
+    rgba(160,80,200,0.03) 55%,
+    rgba(80,200,140,0.04) 70%,
+    rgba(212,175,55,0.04) 85%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  animation: holo-sweep 6s ease infinite;
+  mix-blend-mode: multiply;
+  opacity: 0.6;
+}
+
+/* Embossed text — dark card (raised) */
 .card-embossed {
   text-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 -0.5px 0 rgba(255,255,255,0.08);
 }
 
-/* Card edge highlight — premium reflection line */
+/* Embossed text — light card (letterpress/debossed) */
+.card-embossed-light {
+  text-shadow: 0 -1px 0 rgba(255,255,255,0.5), 0 1px 1px rgba(0,0,0,0.06);
+}
+
+/* Card edge highlight — dark card (white shimmer) */
 .card-edge-highlight {
   position: relative;
 }
@@ -91,6 +115,24 @@
   border-radius: 16px;
   padding: 1px;
   background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.08) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* Card edge highlight — light card (subtle dark edge) */
+.card-edge-highlight-light {
+  position: relative;
+}
+.card-edge-highlight-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(0,0,0,0.06) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.03) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
@@ -209,15 +251,14 @@
 [data-theme="auto"] .card-glow {
   filter: blur(25px);
 }
-
 [data-theme="dark"] .card-glow-standard {
   background: linear-gradient(135deg, rgba(248,81,73,0.35) 0%, rgba(230,237,243,0.15) 50%, rgba(248,81,73,0.30) 100%);
 }
 
 /* Card-specific reduced motion overrides */
 @media (prefers-reduced-motion: reduce) {
-  .card-float,
   .holo-overlay,
+  .holo-overlay-light,
   .mag-stripe-shimmer,
   .fact-enter,
   .fact-exit,

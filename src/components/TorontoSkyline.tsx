@@ -11,7 +11,7 @@ interface TorontoSkylineProps {
 export default function TorontoSkyline({ offsetX, offsetY }: TorontoSkylineProps) {
   const scrollDepth = useScrollDepth();
   const { torontoMode } = useTorontoMode();
-  const fillOpacity = 0.04 + (scrollDepth / 100) * 0.21;
+  const fillOpacity = 0.06 + (scrollDepth / 100) * 0.19;
 
   return (
     <div

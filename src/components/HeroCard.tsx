@@ -4,85 +4,128 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import '@/app/card-effects.css';
 import { useTorontoMode } from '@/context/TorontoModeContext';
+import { useTheme } from '@/context/ThemeContext';
 import { expiryDates, contact, industryLogos } from '@/data/content';
 
 // ISO 7816-2 chip — 6 gold contact pads in 2×3 grid
-function ChipSVG() {
+function ChipSVG({ dark }: { dark?: boolean }) {
+  const base = dark ? 'rgba(212,175,55,' : 'rgba(180,145,40,';
+  const border = dark ? 'rgba(212,175,55,0.35)' : 'rgba(160,130,30,0.4)';
+  const bg = dark ? 'rgba(212,175,55,0.12)' : 'rgba(180,145,40,0.15)';
+  const pad = dark ? 0.55 : 0.6;
+  const padMid = dark ? 0.5 : 0.55;
+  const divider = dark ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.15)';
+
   return (
-    <svg viewBox="0 0 44 32" className="w-10 h-7 sm:w-12 sm:h-9" aria-hidden="true">
-      <rect x="1" y="1" width="42" height="30" rx="3" fill="none" stroke="rgba(212,175,55,0.35)" strokeWidth="0.5" />
-      <rect x="2" y="2" width="40" height="28" rx="2" fill="rgba(212,175,55,0.12)" />
-      <rect x="6"  y="4"  width="13" height="7" rx="1" fill="rgba(212,175,55,0.55)" />
-      <rect x="6"  y="13" width="13" height="6" rx="1" fill="rgba(212,175,55,0.50)" />
-      <rect x="6"  y="21" width="13" height="7" rx="1" fill="rgba(212,175,55,0.55)" />
-      <rect x="25" y="4"  width="13" height="7" rx="1" fill="rgba(212,175,55,0.55)" />
-      <rect x="25" y="13" width="13" height="6" rx="1" fill="rgba(212,175,55,0.50)" />
-      <rect x="25" y="21" width="13" height="7" rx="1" fill="rgba(212,175,55,0.55)" />
-      <rect x="20" y="2" width="4" height="28" fill="rgba(0,0,0,0.25)" />
+    <svg viewBox="0 0 44 32" className="w-11 h-8 sm:w-14 sm:h-10 lg:w-16 lg:h-11" aria-hidden="true">
+      <rect x="1" y="1" width="42" height="30" rx="3" fill="none" stroke={border} strokeWidth="0.5" />
+      <rect x="2" y="2" width="40" height="28" rx="2" fill={bg} />
+      <rect x="6"  y="4"  width="13" height="7" rx="1" fill={`${base}${pad})`} />
+      <rect x="6"  y="13" width="13" height="6" rx="1" fill={`${base}${padMid})`} />
+      <rect x="6"  y="21" width="13" height="7" rx="1" fill={`${base}${pad})`} />
+      <rect x="25" y="4"  width="13" height="7" rx="1" fill={`${base}${pad})`} />
+      <rect x="25" y="13" width="13" height="6" rx="1" fill={`${base}${padMid})`} />
+      <rect x="25" y="21" width="13" height="7" rx="1" fill={`${base}${pad})`} />
+      <rect x="20" y="2" width="4" height="28" fill={divider} />
     </svg>
   );
 }
 
 // Contactless 3-arc wave
-function ContactlessSVG() {
+function ContactlessSVG({ dark }: { dark?: boolean }) {
+  const color = dark ? 'rgba(255,255,255,' : 'rgba(10,21,37,';
   return (
-    <svg viewBox="0 0 14 20" className="w-4 h-5 sm:w-5 sm:h-6" fill="none" aria-hidden="true">
-      <path d="M 2 4 A 8 8 0 0 1 2 16" stroke="rgba(255,255,255,0.18)" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M 5 6.5 A 5 5 0 0 1 5 13.5" stroke="rgba(255,255,255,0.28)" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M 8 8.5 A 2.5 2.5 0 0 1 8 11.5" stroke="rgba(255,255,255,0.42)" strokeWidth="1.6" strokeLinecap="round" />
+    <svg viewBox="0 0 14 20" className="w-5 h-6 sm:w-6 sm:h-7" fill="none" aria-hidden="true">
+      <path d="M 2 4 A 8 8 0 0 1 2 16" stroke={`${color}${dark ? '0.18' : '0.15'})`} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M 5 6.5 A 5 5 0 0 1 5 13.5" stroke={`${color}${dark ? '0.28' : '0.22'})`} strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M 8 8.5 A 2.5 2.5 0 0 1 8 11.5" stroke={`${color}${dark ? '0.42' : '0.35'})`} strokeWidth="1.6" strokeLinecap="round" />
     </svg>
   );
 }
 
-// Toronto skyline watermark on card front — refined, recognizable silhouette
-function TorontoFrontSVG({ className }: { className?: string }) {
+// Toronto skyline — shared with background, cropped to card center
+// Uses the same landmarks as TorontoSkyline.tsx but with viewBox cropped to center
+function CardSkylineSVG({ className, dark }: { className?: string; dark?: boolean }) {
+  const opacity = dark ? 0.12 : 0.07;
+  const opacityHigh = dark ? 0.18 : 0.10;
+  const opacityLow = dark ? 0.08 : 0.05;
+  const opacityWater = dark ? 0.06 : 0.035;
+
   return (
-    <svg viewBox="0 0 440 280" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <svg viewBox="380 80 840 420" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       {/* CN Tower */}
-      <rect x="218" y="30" width="3" height="12" opacity="0.18" />
-      <rect x="216" y="42" width="7" height="6" rx="1" opacity="0.16" />
-      <rect x="218" y="48" width="3" height="85" opacity="0.18" />
-      <ellipse cx="219.5" cy="98" rx="12" ry="5" opacity="0.14" />
-      <rect x="209" y="94" width="21" height="14" rx="2" opacity="0.16" />
-      <rect x="213" y="108" width="13" height="6" rx="1" opacity="0.12" />
-      <polygon points="215,114 224,114 222,200 217,200" opacity="0.12" />
+      <rect x="718" y="12" width="3" height="18" opacity={opacityHigh} />
+      <rect x="715" y="30" width="9" height="10" rx="1" opacity={opacity} />
+      <rect x="717" y="40" width="5" height="80" opacity={opacityHigh} />
+      <ellipse cx="719.5" cy="108" rx="12" ry="5" opacity={opacity} />
+      <rect x="709" y="103" width="21" height="12" rx="2" opacity={opacity} />
+      <ellipse cx="719.5" cy="140" rx="22" ry="9" opacity={opacity} />
+      <rect x="700" y="132" width="39" height="20" rx="3" opacity={opacity} />
+      <rect x="705" y="152" width="29" height="8" rx="1" opacity={opacityLow} />
+      <polygon points="712,160 727,160 724,340 715,340" opacity={opacityLow} />
+      <polygon points="715,330 710,370 718,370" opacity={opacityLow * 0.8} />
+      <polygon points="724,330 729,370 721,370" opacity={opacityLow * 0.8} />
 
       {/* Rogers Centre dome */}
-      <path d="M 180 230 Q 195 210 210 207 Q 225 205 235 215 Q 245 225 248 240 Z" opacity="0.09" />
+      <path d="M 640 380 Q 660 340 690 332 Q 720 328 740 340 Q 755 350 760 380 Z" opacity={opacityLow} />
+      <rect x="640" y="380" width="120" height="15" rx="2" opacity={opacityLow} />
 
       {/* First Canadian Place */}
-      <rect x="252" y="135" width="18" height="105" opacity="0.10" />
-      <polygon points="252,135 261,120 270,135" opacity="0.10" />
+      <rect x="770" y="160" width="30" height="230" opacity={opacityLow} />
+      <polygon points="770,160 785,135 800,160" opacity={opacityLow} />
 
-      {/* TD Centre pair */}
-      <rect x="275" y="165" width="14" height="75" opacity="0.08" />
-      <rect x="292" y="175" width="12" height="65" opacity="0.07" />
+      {/* TD Centre */}
+      <rect x="808" y="210" width="26" height="180" opacity={opacityLow} />
+      <rect x="838" y="230" width="22" height="160" opacity={opacityLow * 0.9} />
 
       {/* Scotia Plaza */}
-      <rect x="163" y="155" width="15" height="85" opacity="0.08" />
-      <polygon points="163,155 170.5,143 178,155" opacity="0.07" />
+      <rect x="620" y="200" width="24" height="190" opacity={opacityLow} />
+      <polygon points="620,200 632,180 644,200" opacity={opacityLow * 0.9} />
+      <rect x="600" y="230" width="18" height="160" opacity={opacityLow * 0.8} />
 
       {/* Brookfield Place */}
-      <rect x="310" y="185" width="14" height="55" opacity="0.06" />
-      <polygon points="310,185 317,172 324,185" opacity="0.05" />
+      <rect x="865" y="240" width="22" height="150" opacity={opacityLow * 0.9} />
+      <polygon points="865,240 876,218 887,240" opacity={opacityLow * 0.8} />
 
       {/* Royal Bank Plaza */}
-      <rect x="140" y="185" width="12" height="55" opacity="0.06" />
-      <rect x="130" y="195" width="10" height="45" opacity="0.05" />
+      <rect x="575" y="250" width="20" height="140" opacity={opacityLow * 0.8} />
+      <rect x="555" y="270" width="16" height="120" opacity={opacityLow * 0.7} />
 
-      {/* Waterfront condos left */}
-      <rect x="95" y="210" width="12" height="30" opacity="0.04" />
-      <rect x="110" y="205" width="10" height="35" opacity="0.05" />
+      {/* Bay Adelaide Centre */}
+      <rect x="650" y="220" width="20" height="170" opacity={opacityLow} />
 
-      {/* Waterfront condos right */}
-      <rect x="330" y="205" width="12" height="35" opacity="0.05" />
-      <rect x="345" y="210" width="10" height="30" opacity="0.04" />
-      <rect x="360" y="215" width="14" height="25" opacity="0.03" />
+      {/* Aura */}
+      <rect x="530" y="190" width="16" height="200" opacity={opacityLow * 0.8} />
 
-      {/* Waterline */}
-      <rect x="0" y="240" width="440" height="40" opacity="0.025" />
-      <path d="M 0 243 Q 55 239 110 243 Q 165 247 220 243 Q 275 239 330 243 Q 385 247 440 243"
-            fill="none" stroke="currentColor" strokeWidth="0.6" opacity="0.05" />
+      {/* L Tower */}
+      <path d="M 920 280 Q 925 260 930 280 L 930 390 L 920 390 Z" opacity={opacityLow * 0.7} />
+
+      {/* ICE Condos */}
+      <rect x="500" y="270" width="14" height="120" opacity={opacityLow * 0.7} />
+      <rect x="518" y="280" width="12" height="110" opacity={opacityLow * 0.6} />
+
+      {/* CityPlace cluster */}
+      <rect x="440" y="300" width="16" height="90" opacity={opacityLow * 0.6} />
+      <rect x="460" y="310" width="14" height="80" opacity={opacityLow * 0.5} />
+      <rect x="478" y="295" width="12" height="95" opacity={opacityLow * 0.6} />
+      <rect x="420" y="320" width="14" height="70" opacity={opacityLow * 0.4} />
+
+      {/* East Bayfront */}
+      <rect x="950" y="310" width="18" height="80" opacity={opacityLow * 0.6} />
+      <rect x="972" y="320" width="16" height="70" opacity={opacityLow * 0.5} />
+      <rect x="992" y="330" width="20" height="60" opacity={opacityLow * 0.4} />
+      <rect x="1016" y="340" width="14" height="50" opacity={opacityLow * 0.3} />
+
+      {/* Harbourfront */}
+      <rect x="580" y="375" width="340" height="15" rx="1" opacity={opacityLow * 0.5} />
+
+      {/* Shoreline */}
+      <rect x="380" y="390" width="840" height="30" opacity={opacityWater} />
+
+      {/* Water */}
+      <rect x="380" y="420" width="840" height="80" opacity={opacityWater * 0.6} />
+      <path d="M 380 430 Q 460 426 540 430 Q 620 434 700 430 Q 780 426 860 430 Q 940 434 1020 430 Q 1100 426 1180 430 L 1220 430"
+            fill="none" stroke="currentColor" strokeWidth="0.8" opacity={opacityWater * 0.8} />
     </svg>
   );
 }
@@ -91,34 +134,21 @@ function TorontoFrontSVG({ className }: { className?: string }) {
 function TorontoBackSVG({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 440 280" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-      {/* Horizon line */}
       <rect x="0" y="220" width="440" height="1" opacity="0.05" />
-
-      {/* Toronto Islands silhouette */}
       <path d="M 60 224 Q 100 218 150 220 Q 190 218 230 222 Q 250 220 270 224" opacity="0.05" />
       <path d="M 290 224 Q 310 220 340 222 Q 360 220 380 224" opacity="0.04" />
-
-      {/* Island trees */}
       <circle cx="120" cy="216" r="2.5" opacity="0.035" />
       <circle cx="135" cy="215" r="2" opacity="0.03" />
       <circle cx="170" cy="217" r="2.5" opacity="0.035" />
       <circle cx="320" cy="218" r="2" opacity="0.03" />
-
-      {/* Billy Bishop airport */}
       <rect x="210" y="214" width="1.5" height="6" opacity="0.04" />
       <rect x="207" y="212" width="7" height="2.5" rx="1" opacity="0.035" />
-
-      {/* Lake waves */}
       <path d="M 0 232 Q 35 229 70 232 Q 105 235 140 232 Q 175 229 210 232 Q 245 235 280 232 Q 315 229 350 232 Q 385 235 420 232 L 440 232"
             fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.035" />
       <path d="M 0 245 Q 40 242 80 245 Q 120 248 160 245 Q 200 242 240 245 Q 280 248 320 245 Q 360 242 400 245 L 440 245"
             fill="none" stroke="currentColor" strokeWidth="0.4" opacity="0.025" />
-
-      {/* Distant shore hint */}
       <path d="M 0 218 Q 80 215 160 217 Q 240 215 320 217 Q 400 215 440 218"
             fill="none" stroke="currentColor" strokeWidth="0.4" opacity="0.025" />
-
-      {/* Water fill */}
       <rect x="0" y="225" width="440" height="55" opacity="0.02" />
     </svg>
   );
@@ -140,6 +170,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   const [lastFour, setLastFour] = useState(['0','0','0','1']);
   const [isRolling, setIsRolling] = useState(false);
   const { torontoMode } = useTorontoMode();
+  const { resolvedDark } = useTheme();
+
+  // Determine card color scheme
+  const isDark = resolvedDark;
 
   // Cycle expiry dates every 3.5s
   useEffect(() => {
@@ -165,8 +199,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const x = ((e.clientY - centerY) / (rect.height / 2)) * -8;
-    const y = ((e.clientX - centerX) / (rect.width / 2)) * 8;
+    const x = ((e.clientY - centerY) / (rect.height / 2)) * -6;
+    const y = ((e.clientX - centerX) / (rect.width / 2)) * 6;
     setTilt({ x, y });
   }, []);
 
@@ -188,44 +222,77 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     e.stopPropagation();
     if (isRolling) return;
     setIsRolling(true);
-
     const newFirst = ['4', '5', String(Math.floor(Math.random() * 10)), String(Math.floor(Math.random() * 10))];
     const newLast = Array.from({length: 4}, () => String(Math.floor(Math.random() * 10)));
-
     [...newFirst, ...newLast].forEach((digit, i) => {
       setTimeout(() => {
         if (i < 4) setCardDigits(prev => { const n = [...prev]; n[i] = digit; return n; });
         else setLastFour(prev => { const n = [...prev]; n[i-4] = digit; return n; });
       }, i * 80 + Math.random() * 50);
     });
-
     setTimeout(() => setIsRolling(false), 800);
   }, [isRolling]);
 
   // Notify parent of flip state changes (skip initial mount)
   const didMount = useRef(false);
   useEffect(() => {
-    if (!didMount.current) {
-      didMount.current = true;
-      return;
-    }
+    if (!didMount.current) { didMount.current = true; return; }
     onFlipChange?.(isFlipped);
   }, [isFlipped, onFlipChange]);
 
   const expiry = expiryDates[dateIndex];
   const dateClass = datePhase === 'exit' ? 'fact-exit' : datePhase === 'enter' ? 'fact-enter' : '';
 
-  const frontGrad = torontoMode
-    ? 'linear-gradient(160deg, #0E8A45 0%, #065A2C 40%, #043D1E 100%)'
-    : 'linear-gradient(160deg, #0F1D30 0%, #0A1525 40%, #060E1A 100%)';
-  const backGrad = torontoMode
-    ? 'linear-gradient(160deg, #043D1E 0%, #054525 60%, #076035 100%)'
-    : 'linear-gradient(160deg, #060E1A 0%, #0C1828 60%, #10202F 100%)';
+  // Color schemes: light-standard, dark-standard, light-toronto, dark-toronto
+  let frontGrad: string;
+  let backGrad: string;
+  let textColor: string;
+  let textMuted: string;
+  let textFaint: string;
+  let textGhost: string;
+
+  if (torontoMode) {
+    if (isDark) {
+      frontGrad = 'linear-gradient(160deg, #0E8A45 0%, #065A2C 40%, #043D1E 100%)';
+      backGrad = 'linear-gradient(160deg, #043D1E 0%, #054525 60%, #076035 100%)';
+      textColor = 'rgba(255,255,255,0.95)';
+      textMuted = 'rgba(255,255,255,0.40)';
+      textFaint = 'rgba(255,255,255,0.30)';
+      textGhost = 'rgba(255,255,255,0.20)';
+    } else {
+      frontGrad = 'linear-gradient(160deg, #E8E0D2 0%, #D5CDBD 40%, #C8C0B0 100%)';
+      backGrad = 'linear-gradient(160deg, #DDD5C7 0%, #D0C8BA 60%, #E0D8CA 100%)';
+      textColor = 'rgba(26,42,31,0.90)';
+      textMuted = 'rgba(26,42,31,0.35)';
+      textFaint = 'rgba(26,42,31,0.25)';
+      textGhost = 'rgba(26,42,31,0.15)';
+    }
+  } else {
+    if (isDark) {
+      frontGrad = 'linear-gradient(160deg, #0F1D30 0%, #0A1525 40%, #060E1A 100%)';
+      backGrad = 'linear-gradient(160deg, #060E1A 0%, #0C1828 60%, #10202F 100%)';
+      textColor = 'rgba(255,255,255,0.95)';
+      textMuted = 'rgba(255,255,255,0.40)';
+      textFaint = 'rgba(255,255,255,0.30)';
+      textGhost = 'rgba(255,255,255,0.20)';
+    } else {
+      // LIGHT MODE — warm cream card
+      frontGrad = 'linear-gradient(160deg, #F5F0E6 0%, #EDE7D9 40%, #E8E0D0 100%)';
+      backGrad = 'linear-gradient(160deg, #EDE7D9 0%, #E5DFD1 60%, #F0EADC 100%)';
+      textColor = 'rgba(10,21,37,0.85)';
+      textMuted = 'rgba(10,21,37,0.35)';
+      textFaint = 'rgba(10,21,37,0.25)';
+      textGhost = 'rgba(10,21,37,0.15)';
+    }
+  }
+
+  // Card skyline text color matches card text
+  const skylineTextClass = isDark ? 'text-white' : (torontoMode ? 'text-[#1A2A1F]' : 'text-[#0A1525]');
 
   return (
     <div
       className="relative cursor-pointer group"
-      style={{ perspective: '1200px' }}
+      style={{ perspective: '1800px' }}
       role="button"
       tabIndex={0}
       aria-label="Interactive card — click to flip"
@@ -234,13 +301,15 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Ambient light bleed — connects card to the scene */}
+      {/* Ambient light bleed */}
       <div
         className="card-ambient-light"
         style={{
           background: torontoMode
-            ? 'radial-gradient(ellipse, rgba(255,189,46,0.15) 0%, rgba(14,138,69,0.08) 40%, transparent 70%)'
-            : 'radial-gradient(ellipse, rgba(218,41,28,0.12) 0%, rgba(10,21,37,0.06) 40%, transparent 70%)',
+            ? 'radial-gradient(ellipse, rgba(255,189,46,0.12) 0%, rgba(14,138,69,0.06) 40%, transparent 70%)'
+            : isDark
+              ? 'radial-gradient(ellipse, rgba(218,41,28,0.12) 0%, rgba(10,21,37,0.06) 40%, transparent 70%)'
+              : 'radial-gradient(ellipse, rgba(218,41,28,0.06) 0%, rgba(245,240,230,0.08) 40%, transparent 70%)',
         }}
       />
 
@@ -251,7 +320,11 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
       <motion.div
         ref={cardRef}
-        className="relative w-[calc(100vw-48px)] max-w-[340px] h-[calc((100vw-48px)*0.631)] max-h-[214px] sm:w-[420px] sm:max-w-none sm:h-[265px] sm:max-h-none lg:w-[480px] lg:h-[303px]"
+        className={`relative
+          w-[calc(100vw-32px)] max-w-[560px] h-[calc((100vw-32px)*0.631)] max-h-[353px]
+          sm:w-[620px] sm:max-w-none sm:h-[391px] sm:max-h-none
+          lg:w-[740px] lg:h-[467px]
+          xl:w-[800px] xl:h-[505px]`}
         style={{
           transformStyle: 'preserve-3d',
           rotateX: tilt.x,
@@ -261,41 +334,43 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           rotateY: isFlipped ? 180 + tilt.y : tilt.y,
           rotateX: tilt.x,
         }}
-        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+        transition={{ type: 'spring', stiffness: 150, damping: 22 }}
       >
         {/* Edge glow */}
-        <div className={`card-glow ${torontoMode ? 'card-glow-toronto' : 'card-glow-standard'}`} />
+        <div className={`card-glow ${isDark ? '' : 'card-glow-light'} ${torontoMode ? 'card-glow-toronto' : 'card-glow-standard'}`} />
 
         {/* ===== FRONT FACE ===== */}
         <div
-          className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl card-edge-highlight"
+          className={`absolute inset-0 rounded-2xl overflow-hidden shadow-2xl ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'}`}
           style={{ backfaceVisibility: 'hidden', background: frontGrad }}
         >
-          {/* Toronto skyline watermark — looking AT the city */}
-          <div className="absolute inset-0 text-white pointer-events-none">
-            <TorontoFrontSVG className="absolute bottom-0 left-0 w-full h-full" />
+          {/* Toronto skyline — shared coordinate system with background */}
+          <div className={`absolute inset-0 ${skylineTextClass} pointer-events-none`}>
+            <CardSkylineSVG className="absolute bottom-0 left-0 w-full h-full" dark={isDark} />
           </div>
 
           {/* Holographic foil overlay */}
-          <div className="holo-overlay absolute inset-0 rounded-2xl pointer-events-none z-10" />
+          <div className={`absolute inset-0 rounded-2xl pointer-events-none z-10 ${isDark ? 'holo-overlay' : 'holo-overlay-light'}`} />
 
-          <div className="relative z-20 p-5 sm:p-6 lg:p-7 h-full flex flex-col justify-between">
+          <div className="relative z-20 p-5 sm:p-7 lg:p-8 xl:p-9 h-full flex flex-col justify-between">
 
             {/* Top row: chip + contactless */}
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-2 sm:gap-3">
-                <ChipSVG />
-                <ContactlessSVG />
+                <ChipSVG dark={isDark} />
+                <ContactlessSVG dark={isDark} />
               </div>
               <div className="text-right">
-                <div className="font-mono text-[8px] sm:text-[9px] tracking-[0.15em] text-white/40 uppercase">
+                <div className="font-mono text-[8px] sm:text-[10px] lg:text-[11px] tracking-[0.15em] uppercase"
+                     style={{ color: textMuted }}>
                   Payments &middot; Fintech &middot; Toronto
                 </div>
               </div>
             </div>
 
             {/* Middle: card number */}
-            <div className="font-mono text-xs sm:text-sm lg:text-base tracking-[0.3em] text-white/40 card-embossed">
+            <div className={`font-mono text-sm sm:text-base lg:text-lg xl:text-xl tracking-[0.3em] ${isDark ? 'card-embossed' : 'card-embossed-light'}`}
+                 style={{ color: textMuted }}>
               <span onClick={rollCardNumber} className="cursor-pointer" title="Click to shuffle">
                 {cardDigits.map((d, i) => (
                   <span key={`f${i}`} className={`card-digit ${isRolling ? 'rolling' : ''}`}>{d}</span>
@@ -310,21 +385,26 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             {/* Bottom: name + cycling expiry date */}
             <div className="flex justify-between items-end">
               <div>
-                <div className="font-display text-2xl sm:text-3xl lg:text-4xl tracking-wider text-white/95 leading-none card-embossed">
+                <div className={`font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-wider leading-none ${isDark ? 'card-embossed' : 'card-embossed-light'}`}
+                     style={{ color: textColor }}>
                   TARIQUE KHAN
                 </div>
-                <div className="font-mono text-[7px] sm:text-[8px] text-white/40 tracking-[0.12em] mt-1">
+                <div className="font-mono text-[7px] sm:text-[9px] lg:text-[10px] tracking-[0.12em] mt-1"
+                     style={{ color: textMuted }}>
                   BD &middot; Fintech &middot; Enterprise Sales &middot; Toronto
                 </div>
               </div>
-              <div className="text-right min-w-[75px] sm:min-w-[90px]">
-                <div className="font-mono text-[6px] sm:text-[7px] text-white/30 uppercase tracking-[0.2em]">
+              <div className="text-right min-w-[80px] sm:min-w-[100px] lg:min-w-[120px]">
+                <div className="font-mono text-[6px] sm:text-[8px] lg:text-[9px] uppercase tracking-[0.2em]"
+                     style={{ color: textFaint }}>
                   VALID THRU
                 </div>
-                <div className={`font-mono text-base sm:text-lg lg:text-xl text-white/75 tracking-wider leading-none mt-0.5 ${dateClass}`}>
+                <div className={`font-mono text-lg sm:text-xl lg:text-2xl xl:text-3xl tracking-wider leading-none mt-0.5 ${dateClass}`}
+                     style={{ color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,21,37,0.55)' }}>
                   {expiry.date}
                 </div>
-                <div className={`font-mono text-[5px] sm:text-[6px] text-white/25 mt-0.5 tracking-wider leading-tight max-w-[90px] ml-auto ${dateClass}`}>
+                <div className={`font-mono text-[5px] sm:text-[7px] lg:text-[8px] mt-0.5 tracking-wider leading-tight max-w-[100px] ml-auto ${dateClass}`}
+                     style={{ color: textGhost }}>
                   {expiry.note}
                 </div>
               </div>
@@ -332,24 +412,26 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           </div>
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 rounded-2xl flex items-center justify-center
-                          bg-black/0 group-hover:bg-black/15 opacity-0 group-hover:opacity-100
-                          transition-all duration-300 pointer-events-none z-30">
-            <span className="font-mono text-[10px] sm:text-[11px] tracking-[0.2em] uppercase text-white/90">
+          <div className={`absolute inset-0 rounded-2xl flex items-center justify-center
+                          opacity-0 group-hover:opacity-100
+                          transition-all duration-300 pointer-events-none z-30`}
+               style={{ background: isDark ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.05)' }}>
+            <span className="font-mono text-[10px] sm:text-xs lg:text-sm tracking-[0.2em] uppercase"
+                  style={{ color: isDark ? 'rgba(255,255,255,0.9)' : 'rgba(10,21,37,0.6)' }}>
               Click to flip
             </span>
           </div>
         </div>
 
-        {/* ===== BACK FACE — the view from the other side ===== */}
+        {/* ===== BACK FACE ===== */}
         <div
-          className={`absolute inset-0 rounded-2xl overflow-hidden shadow-2xl card-edge-highlight ${backHovered ? 'card-back-hovered' : ''}`}
+          className={`absolute inset-0 rounded-2xl overflow-hidden shadow-2xl ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'} ${backHovered ? 'card-back-hovered' : ''}`}
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', background: backGrad }}
           onMouseEnter={() => setBackHovered(true)}
           onMouseLeave={() => setBackHovered(false)}
         >
-          {/* Looking OUT from Toronto — lake, islands, horizon */}
-          <div className="absolute inset-0 text-white pointer-events-none">
+          {/* Looking OUT from Toronto */}
+          <div className={`absolute inset-0 ${skylineTextClass} pointer-events-none`}>
             <TorontoBackSVG className="absolute bottom-0 left-0 w-full h-full" />
           </div>
 
@@ -357,17 +439,23 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
             {/* Magnetic stripe */}
             <div
-              className="w-full relative overflow-hidden mt-5 sm:mt-6 flex-shrink-0"
-              style={{ height: '44px' }}
+              className="w-full relative overflow-hidden mt-6 sm:mt-7 lg:mt-8 flex-shrink-0"
+              style={{ height: '52px' }}
               onMouseMove={handleBackMouseMove}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900" />
+              <div className="absolute inset-0" style={{
+                background: isDark
+                  ? 'linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a)'
+                  : 'linear-gradient(to right, #8a8070, #9a9080, #8a8070)'
+              }} />
               <div
                 className="absolute top-0 h-full w-20 sm:w-24 pointer-events-none"
                 style={{
                   left: `${magX}%`,
                   transform: 'translateX(-50%)',
-                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)',
+                  background: isDark
+                    ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)'
+                    : 'linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)',
                   transition: 'left 0.08s linear',
                 }}
               />
@@ -376,67 +464,83 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             </div>
 
             {/* Content below stripe */}
-            <div className="mx-4 sm:mx-5 lg:mx-6 mt-2 sm:mt-3 flex-1 flex flex-col min-h-0">
+            <div className="mx-5 sm:mx-6 lg:mx-8 mt-3 sm:mt-4 flex-1 flex flex-col min-h-0">
 
               {/* Signature strip + CVV */}
-              <div className="flex items-stretch gap-2 sm:gap-3 mb-3 sm:mb-4">
-                <div className="flex-1 border border-white/10 bg-white/5 rounded px-2 sm:px-3 py-1.5">
-                  <div className="font-mono text-[6px] sm:text-[7px] text-white/30 uppercase tracking-widest mb-1">
+              <div className="flex items-stretch gap-2 sm:gap-3 mb-3 sm:mb-5">
+                <div className="flex-1 rounded px-3 sm:px-4 py-2"
+                     style={{
+                       border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
+                       background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
+                     }}>
+                  <div className="font-mono text-[7px] sm:text-[8px] uppercase tracking-widest mb-1"
+                       style={{ color: textFaint }}>
                     Authorized Signature
                   </div>
-                  <svg viewBox="0 0 160 30" className="w-full h-5 sm:h-6 overflow-visible">
+                  <svg viewBox="0 0 160 30" className="w-full h-6 sm:h-7 overflow-visible">
                     <path
                       className="sig-path"
                       d="M 8,24 C 14,8 22,6 26,18 C 30,28 32,14 40,13 C 48,12 50,24 54,19
                          C 58,14 64,10 70,18 C 76,26 78,18 86,16 C 94,14 100,20 106,17
                          C 112,14 115,24 121,21 C 126,18 130,12 138,20"
                       fill="none"
-                      stroke="rgba(255,255,255,0.65)"
+                      stroke={isDark ? 'rgba(255,255,255,0.65)' : 'rgba(10,21,37,0.45)'}
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
                 </div>
-                <div className="bg-white/5 border border-white/10 rounded px-2 sm:px-3 py-1.5 text-center flex flex-col justify-center">
-                  <div className="font-mono text-[6px] sm:text-[7px] text-white/30 uppercase tracking-wider">CVV</div>
-                  <div className="font-mono text-xs sm:text-sm text-white/50">416</div>
+                <div className="rounded px-3 sm:px-4 py-2 text-center flex flex-col justify-center"
+                     style={{
+                       border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
+                       background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
+                     }}>
+                  <div className="font-mono text-[7px] sm:text-[8px] uppercase tracking-wider"
+                       style={{ color: textFaint }}>CVV</div>
+                  <div className="font-mono text-sm sm:text-base" style={{ color: textMuted }}>416</div>
                 </div>
               </div>
 
               {/* Contact info */}
-              <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
-                <div className="font-mono text-[7px] sm:text-[8px] text-white/30 uppercase tracking-widest mb-1">
+              <div className="space-y-2 sm:space-y-2.5 mb-3 sm:mb-5">
+                <div className="font-mono text-[7px] sm:text-[9px] uppercase tracking-widest mb-1"
+                     style={{ color: textFaint }}>
                   // contact
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-wider w-14">Email</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/70">{contact.email}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-wider w-14">LinkedIn</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/70">{contact.linkedin}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-white/30 uppercase tracking-wider w-14">Based</span>
-                  <span className="font-mono text-[10px] sm:text-xs text-white/70">{contact.location}</span>
-                </div>
+                {[
+                  { label: 'Email', value: contact.email },
+                  { label: 'LinkedIn', value: contact.linkedin },
+                  { label: 'Based', value: contact.location },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex items-center gap-2">
+                    <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-wider w-16"
+                          style={{ color: textFaint }}>{label}</span>
+                    <span className="font-mono text-[10px] sm:text-sm"
+                          style={{ color: isDark ? 'rgba(255,255,255,0.70)' : 'rgba(10,21,37,0.60)' }}>{value}</span>
+                  </div>
+                ))}
               </div>
 
               {/* Bottom: industry badges */}
-              <div className="flex items-center justify-between mt-auto pt-2 border-t border-white/8">
-                <div className="flex gap-1 sm:gap-1.5 flex-wrap">
+              <div className="flex items-center justify-between mt-auto pt-2"
+                   style={{ borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(10,21,37,0.08)'}` }}>
+                <div className="flex gap-1.5 sm:gap-2 flex-wrap">
                   {industryLogos.map(logo => (
                     <span
                       key={logo.id}
-                      className="font-mono text-[6px] sm:text-[7px] tracking-widest uppercase px-1.5 py-0.5
-                                 border border-white/12 text-white/35"
+                      className="font-mono text-[6px] sm:text-[8px] tracking-widest uppercase px-1.5 py-0.5"
+                      style={{
+                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(10,21,37,0.10)'}`,
+                        color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(10,21,37,0.35)',
+                      }}
                     >
                       {logo.label}
                     </span>
                   ))}
                 </div>
-                <div className="font-mono text-[6px] sm:text-[7px] text-white/20 tracking-widest uppercase">
+                <div className="font-mono text-[6px] sm:text-[8px] tracking-widest uppercase"
+                     style={{ color: textGhost }}>
                   Toronto, ON
                 </div>
               </div>
