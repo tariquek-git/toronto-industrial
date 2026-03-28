@@ -27,6 +27,9 @@ export default function Header() {
           <a href="#tiers" className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase">
             Clients
           </a>
+          <a href="/signal" className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase">
+            Signal
+          </a>
           <a href="#connect" className="font-mono text-xs tracking-wide text-text-secondary hover:text-primary transition-colors uppercase">
             Connect
           </a>
