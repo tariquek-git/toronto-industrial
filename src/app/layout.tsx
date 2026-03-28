@@ -3,6 +3,7 @@ import { Bebas_Neue, DM_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { TorontoModeProvider } from '@/context/TorontoModeContext';
+import Terminal from '@/components/Terminal';
 import './globals.css';
 
 const bebasNeue = Bebas_Neue({
@@ -64,7 +65,7 @@ export default function RootLayout({
                 name: 'Brim Financial',
               },
               url: 'https://toronto-industrial.vercel.app',
-              sameAs: ['https://linkedin.com/in/tariquekhan'],
+              sameAs: ['https://linkedin.com/in/tariquekhan1'],
               knowsAbout: ['BaaS', 'CaaS', 'Payment Rails', 'RPAA', 'Credit Card Issuance', 'Enterprise Sales', 'Go-to-Market Strategy', 'Open Banking', 'Behavioral Banking', 'Digital Adoption', 'API Platforms', 'Fintech'],
               address: {
                 '@type': 'PostalAddress',
@@ -77,6 +78,7 @@ export default function RootLayout({
         />
         <TorontoModeProvider>
           {children}
+          <Terminal />
         </TorontoModeProvider>
         <Analytics />
         <SpeedInsights />

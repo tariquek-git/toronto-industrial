@@ -12,17 +12,43 @@ const TorontoModeContext = createContext<TorontoModeContextType>({
   toggle: () => {},
 });
 
+const STORAGE_KEY = 'toronto-mode';
+
 export function TorontoModeProvider({ children }: { children: ReactNode }) {
   const [torontoMode, setTorontoMode] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const [toast, setToast] = useState<'entering' | 'exiting' | null>(null);
 
+  // Hydrate from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === 'true') {
+        setTorontoMode(true);
+      }
+    } catch {
+      // localStorage unavailable (SSR, private browsing, etc.)
+    }
+    setHydrated(true);
+  }, []);
+
+  // Sync to DOM and localStorage whenever mode changes
   useEffect(() => {
     if (torontoMode) {
       document.documentElement.dataset.toronto = 'true';
     } else {
       delete document.documentElement.dataset.toronto;
     }
-  }, [torontoMode]);
+
+    // Only persist after initial hydration to avoid overwriting stored value
+    if (hydrated) {
+      try {
+        localStorage.setItem(STORAGE_KEY, String(torontoMode));
+      } catch {
+        // localStorage unavailable
+      }
+    }
+  }, [torontoMode, hydrated]);
 
   const toggle = useCallback(() => {
     setTorontoMode(prev => {
@@ -34,6 +60,13 @@ export function TorontoModeProvider({ children }: { children: ReactNode }) {
       return next;
     });
   }, []);
+
+  // Listen for terminal toggle events
+  useEffect(() => {
+    const handler = () => toggle();
+    window.addEventListener('terminal-toggle-toronto', handler);
+    return () => window.removeEventListener('terminal-toggle-toronto', handler);
+  }, [toggle]);
 
   return (
     <TorontoModeContext.Provider value={{ torontoMode, toggle }}>

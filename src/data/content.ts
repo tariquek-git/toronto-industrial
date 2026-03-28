@@ -169,7 +169,7 @@ export const expiryDates = [
 // Contact info shown on back of card
 export const contact = {
   email: 'tarique@brimfinancial.com',
-  linkedin: 'linkedin.com/in/tariquekhan',
+  linkedin: 'linkedin.com/in/tariquekhan1',
   location: 'Toronto, ON \u00b7 Canada',
 };
 
