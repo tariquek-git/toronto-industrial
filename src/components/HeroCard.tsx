@@ -180,12 +180,18 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   }, []);
 
   const handleFlip = useCallback(() => {
-    setIsFlipped(prev => {
-      const next = !prev;
-      onFlipChange?.(next);
-      return next;
-    });
-  }, [onFlipChange]);
+    setIsFlipped(prev => !prev);
+  }, []);
+
+  // Notify parent of flip state changes (skip initial mount)
+  const didMount = useRef(false);
+  useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
+    onFlipChange?.(isFlipped);
+  }, [isFlipped, onFlipChange]);
 
   const expiry = expiryDates[dateIndex];
   const dateClass = datePhase === 'exit' ? 'fact-exit' : datePhase === 'enter' ? 'fact-enter' : '';
