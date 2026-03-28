@@ -15,6 +15,26 @@ export interface Signal {
 
 export const signals: Signal[] = [
   {
+    slug: 'procurement-is-the-product',
+    title: 'Why Procurement Is the Product When Selling to Banks',
+    subtitle: 'Nobody Builds for the Buying Process',
+    date: '2026-03-28',
+    category: 'take',
+    categoryLabel: 'Hot Take',
+    readTime: '4 min',
+    excerpt: 'Everyone builds for the end user. Nobody builds for procurement. That\'s why 80% of deals die before the contract is signed.',
+    body: [
+      'The conventional wisdom in fintech is wrong. Founders obsess over product demos and user experience. They build beautiful dashboards and slick APIs. They rehearse their pitch until they can deliver it in their sleep. Then they walk into a bank\'s procurement process and realize none of that matters. The product that got them the meeting is not the product that gets them the contract.',
+      'Procurement at a financial institution is not like procurement anywhere else. It\'s not just about price. It\'s risk assessment, vendor due diligence, SOC 2 audits, penetration test results, business continuity plans, insurance certificates, and a 200-page RFP that asks the same question twelve different ways. The procurement team has never used your product and never will. They don\'t care about your UI. They evaluate vendors the way an actuary evaluates risk — through documentation, controls, and contractual protections. If your security questionnaire has gaps, your deal is dead. The CTO who loved your demo can\'t save you.',
+      'Here\'s what I learned after sitting through dozens of these cycles at Brim and before: the product IS the procurement package. Your technical documentation, your compliance posture, your reference clients, your insurance coverage, your incident response plan — that\'s what gets evaluated. The actual software is maybe 20% of the decision. The other 80% is "can we trust this vendor not to blow up?" Banks have seen vendors fail. They\'ve seen data breaches make the front page. Every question in that RFP exists because something went wrong somewhere, and the bank is making sure it doesn\'t happen to them.',
+      'The best enterprise fintech sales teams I\'ve seen build procurement-first. They have a "bank-ready" package before they have a sales deck. SOC 2 Type II before Series B. They know that a CISO\'s sign-off matters more than a CTO\'s enthusiasm. They pre-answer the RFP questions that kill deals: "What happens to our data if you go bankrupt?" "Who owns the IP?" "Can we audit your code?" "What\'s your disaster recovery RTO?" They treat the procurement process as a product surface — designed, tested, and optimized — not as an administrative hurdle to clear after the handshake.',
+      'If you\'re building fintech infrastructure and your go-to-market strategy doesn\'t include a procurement survival guide, you\'re not selling to banks — you\'re doing demo theater. I\'ve watched founders spend 18 months in "pipeline" wondering why nothing converts, while their competitor with an inferior product but a bulletproof compliance package closes three deals in the same quarter. The founders who figure this out close deals. The ones who don\'t become a cautionary tale about the gap between a great demo and a signed MSA.',
+    ],
+    linkedinUrl: '',
+    engagement: '',
+    color: '#EF4444',
+  },
+  {
     slug: 'lost-in-buzzwords',
     title: 'Lost in Buzzwords',
     subtitle: 'Where Humans Fit in Digital Banking',

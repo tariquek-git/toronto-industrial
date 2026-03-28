@@ -81,6 +81,31 @@ export default function StackDetailClient({ entry }: Props) {
             ))}
           </div>
 
+          {/* Interactive Deal Anatomy callout */}
+          {entry.slug === 'deal-anatomy' && (
+            <Link
+              href="/deal-anatomy"
+              className="group block border border-accent/30 hover:border-accent/60 p-5 mb-10 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="font-mono text-[9px] text-accent tracking-[0.2em] uppercase mb-1">
+                    // interactive version
+                  </div>
+                  <div className="font-mono text-sm text-text-primary group-hover:text-accent transition-colors">
+                    Explore the full Deal Anatomy interactive walkthrough
+                  </div>
+                  <div className="font-mono text-xs text-text-tertiary mt-1">
+                    Expandable stages, pipeline funnel, survival rates, and field notes.
+                  </div>
+                </div>
+                <span className="font-mono text-sm text-text-tertiary group-hover:text-accent group-hover:tracking-widest transition-all duration-300 shrink-0">
+                  EXPLORE &rarr;
+                </span>
+              </div>
+            </Link>
+          )}
+
           {/* Related terms */}
           {relatedEntries.length > 0 && (
             <div className="mb-10">

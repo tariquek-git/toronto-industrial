@@ -40,6 +40,29 @@ export default function StackIndexClient({ entries }: Props) {
               not someone who read about them on Wikipedia. These are field definitions &mdash;
               how the concepts actually work when you&apos;re selling to banks.
             </p>
+
+            {/* Deal Anatomy callout */}
+            <Link
+              href="/deal-anatomy"
+              className="group mt-6 block border border-accent/30 hover:border-accent/60 p-4 transition-all duration-300 max-w-2xl"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="font-mono text-[9px] text-accent tracking-[0.2em] uppercase mb-1">
+                    // interactive
+                  </div>
+                  <div className="font-mono text-sm text-text-primary group-hover:text-accent transition-colors">
+                    Deal Anatomy: How Banks Buy Technology
+                  </div>
+                  <div className="font-mono text-xs text-text-tertiary mt-1">
+                    6 stages. 100 deals in, 38 survive. See the full lifecycle.
+                  </div>
+                </div>
+                <span className="font-mono text-sm text-text-tertiary group-hover:text-accent group-hover:tracking-widest transition-all duration-300 shrink-0">
+                  EXPLORE &rarr;
+                </span>
+              </div>
+            </Link>
           </div>
 
           {/* Category legend */}

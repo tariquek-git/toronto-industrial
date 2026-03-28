@@ -77,6 +77,14 @@ export default function ConnectSection() {
             <span className="text-text-tertiary text-[10px] uppercase tracking-wider block mb-0.5">LinkedIn</span>
             {contact.linkedin}
           </a>
+          <a
+            href="/tarique-khan-resume.pdf"
+            download
+            className="font-mono text-sm text-text-secondary hover:text-accent transition-colors group"
+          >
+            <span className="text-text-tertiary text-[10px] uppercase tracking-wider block mb-0.5">Resume</span>
+            &darr; Download Resume (PDF)
+          </a>
           <div className="font-mono text-sm text-text-secondary">
             <span className="text-text-tertiary text-[10px] uppercase tracking-wider block mb-0.5">Based</span>
             {contact.location}

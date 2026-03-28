@@ -1,5 +1,6 @@
 import Header from '@/components/Header';
 import ScrollProgress from '@/components/ScrollProgress';
+import HashScrollHandler from '@/components/HashScrollHandler';
 import HeroSection from '@/components/HeroSection';
 import JsonTicker from '@/components/JsonTicker';
 import IntroSection from '@/components/IntroSection';
@@ -17,6 +18,7 @@ export default function Home() {
     <>
       <Header />
       <ScrollProgress />
+      <HashScrollHandler />
       <main id="main-content">
         <HeroSection />
         <JsonTicker />
