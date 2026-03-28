@@ -1,10 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useTorontoMode } from '@/context/TorontoModeContext';
 import { productTiers } from '@/data/content';
+
+// Toronto Mode shifts the palette — gold, green, warm amber
+const torontoColors = ['#FFBD2E', '#0E8A45', '#C8956B'];
 
 export default function ProductTiers() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { torontoMode } = useTorontoMode();
 
   return (
     <section id="tiers" className="max-w-5xl mx-auto px-6 py-20">
@@ -24,6 +29,7 @@ export default function ProductTiers() {
           const offset = (index - 1) * 30; // Fan out from center
           const rotation = (index - 1) * -5;
           const zIndex = isHovered ? 30 : 10 - Math.abs(index - 1);
+          const color = torontoMode ? torontoColors[index] : tier.color;
 
           return (
             <div
@@ -42,10 +48,10 @@ export default function ProductTiers() {
               <div
                 className="rounded-lg border p-6 h-[380px] flex flex-col transition-all duration-300"
                 style={{
-                  borderColor: isHovered ? tier.color : 'var(--border-strong)',
-                  backgroundColor: isHovered ? `${tier.color}08` : 'var(--surface)',
+                  borderColor: isHovered ? color : 'var(--border-strong)',
+                  backgroundColor: isHovered ? `${color}08` : 'var(--surface)',
                   boxShadow: isHovered
-                    ? `0 12px 40px ${tier.color}20`
+                    ? `0 12px 40px ${color}20`
                     : '0 2px 8px var(--shadow)',
                 }}
               >
@@ -53,7 +59,7 @@ export default function ProductTiers() {
                 <div className="flex items-center justify-between mb-4">
                   <span
                     className="font-mono text-[10px] tracking-[0.15em] uppercase px-2 py-1 border rounded"
-                    style={{ borderColor: tier.color, color: tier.color }}
+                    style={{ borderColor: color, color: color }}
                   >
                     {tier.segment}
                   </span>
@@ -64,7 +70,7 @@ export default function ProductTiers() {
 
                 <h3
                   className="font-display text-2xl tracking-wider transition-colors duration-300"
-                  style={{ color: isHovered ? tier.color : 'var(--text-primary)' }}
+                  style={{ color: isHovered ? color : 'var(--text-primary)' }}
                 >
                   {tier.title.toUpperCase()}
                 </h3>
@@ -83,7 +89,7 @@ export default function ProductTiers() {
                       <div key={i} className="flex items-center gap-2">
                         <div
                           className="w-1 h-1 rounded-full"
-                          style={{ backgroundColor: tier.color }}
+                          style={{ backgroundColor: color }}
                         />
                         <span className="font-mono text-[11px] text-text-secondary">{f}</span>
                       </div>

@@ -196,3 +196,35 @@ body {
 .card-flipped .sig-path {
   animation: sig-draw 1.2s ease forwards 0.3s;
 }
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .card-float,
+  .ticker-animate,
+  .holo-overlay,
+  .mag-stripe-shimmer,
+  .fact-enter,
+  .fact-exit {
+    animation: none !important;
+  }
+  .sig-path {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

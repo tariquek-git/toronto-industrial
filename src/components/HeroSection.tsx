@@ -10,10 +10,11 @@ export default function HeroSection() {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-14 pb-8">
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-14 pb-8">
       <TorontoSkyline offsetX={parallax.x} offsetY={parallax.y} />
 
       <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-8 px-6">
+        <h1 className="sr-only">Tarique Khan — Business Development, Payments Infrastructure</h1>
         {/* THE CARD */}
         <div className="card-float">
           <HeroCard onFlipChange={setIsFlipped} />

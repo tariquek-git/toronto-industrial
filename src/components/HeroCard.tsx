@@ -7,7 +7,7 @@ import { expiryDates, contact, industryLogos } from '@/data/content';
 // ISO 7816-2 chip — 6 gold contact pads in 2×3 grid
 function ChipSVG() {
   return (
-    <svg viewBox="0 0 44 32" className="w-10 h-7 sm:w-12 sm:h-9" aria-hidden>
+    <svg viewBox="0 0 44 32" className="w-10 h-7 sm:w-12 sm:h-9" aria-hidden="true">
       <rect x="1" y="1" width="42" height="30" rx="3" fill="none" stroke="rgba(212,175,55,0.35)" strokeWidth="0.5" />
       <rect x="2" y="2" width="40" height="28" rx="2" fill="rgba(212,175,55,0.12)" />
       <rect x="6"  y="4"  width="13" height="7" rx="1" fill="rgba(212,175,55,0.55)" />
@@ -24,7 +24,7 @@ function ChipSVG() {
 // Contactless 3-arc wave
 function ContactlessSVG() {
   return (
-    <svg viewBox="0 0 14 20" className="w-4 h-5 sm:w-5 sm:h-6" fill="none" aria-hidden>
+    <svg viewBox="0 0 14 20" className="w-4 h-5 sm:w-5 sm:h-6" fill="none" aria-hidden="true">
       <path d="M 2 4 A 8 8 0 0 1 2 16" stroke="rgba(255,255,255,0.18)" strokeWidth="1.6" strokeLinecap="round" />
       <path d="M 5 6.5 A 5 5 0 0 1 5 13.5" stroke="rgba(255,255,255,0.28)" strokeWidth="1.6" strokeLinecap="round" />
       <path d="M 8 8.5 A 2.5 2.5 0 0 1 8 11.5" stroke="rgba(255,255,255,0.42)" strokeWidth="1.6" strokeLinecap="round" />
@@ -35,7 +35,7 @@ function ContactlessSVG() {
 // Toronto skyline — recognizable landmarks, more detail
 function TorontoFrontSVG({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 540 340" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice">
+    <svg viewBox="0 0 540 340" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       {/* CN Tower — proper proportions with observation deck + antenna */}
       <rect x="268" y="40" width="4" height="10" opacity="0.18" />
       <rect x="267" y="50" width="6" height="8" rx="1" opacity="0.18" />
@@ -93,7 +93,7 @@ function TorontoFrontSVG({ className }: { className?: string }) {
 // Back face — "the other side" — looking out FROM Toronto (lake, islands, horizon)
 function TorontoBackSVG({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 540 340" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice">
+    <svg viewBox="0 0 540 340" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       {/* Horizon line — the view looking south from the city */}
       <rect x="0" y="280" width="540" height="1" opacity="0.06" />
 
@@ -142,15 +142,21 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
   // Cycle expiry dates every 3.5s
   useEffect(() => {
+    const timeoutRefs: ReturnType<typeof setTimeout>[] = [];
     const interval = setInterval(() => {
       setDatePhase('exit');
-      setTimeout(() => {
+      const t1 = setTimeout(() => {
         setDateIndex(i => (i + 1) % expiryDates.length);
         setDatePhase('enter');
-        setTimeout(() => setDatePhase('idle'), 350);
+        const t2 = setTimeout(() => setDatePhase('idle'), 350);
+        timeoutRefs.push(t2);
       }, 350);
+      timeoutRefs.push(t1);
     }, 3500);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      timeoutRefs.forEach(t => clearTimeout(t));
+    };
   }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -174,10 +180,12 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   }, []);
 
   const handleFlip = useCallback(() => {
-    const next = !isFlipped;
-    setIsFlipped(next);
-    onFlipChange?.(next);
-  }, [isFlipped, onFlipChange]);
+    setIsFlipped(prev => {
+      const next = !prev;
+      onFlipChange?.(next);
+      return next;
+    });
+  }, [onFlipChange]);
 
   const expiry = expiryDates[dateIndex];
   const dateClass = datePhase === 'exit' ? 'fact-exit' : datePhase === 'enter' ? 'fact-enter' : '';
@@ -193,6 +201,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     <div
       className="relative cursor-pointer group"
       style={{ perspective: '1200px' }}
+      role="button"
+      aria-label="Interactive card — click to flip"
       onClick={handleFlip}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
