@@ -7,6 +7,7 @@ import CircuitDivider from '@/components/CircuitDivider';
 import CareerTimeline from '@/components/CareerTimeline';
 import ProductTiers from '@/components/ProductTiers';
 import SignalPreview from '@/components/SignalPreview';
+import PaymentsRail from '@/components/PaymentsRail';
 import ConnectSection from '@/components/ConnectSection';
 import Footer from '@/components/Footer';
 import RaccoonToggle from '@/components/RaccoonToggle';
@@ -22,6 +23,8 @@ export default function Home() {
         <IntroSection />
         <CircuitDivider />
         <CareerTimeline />
+        <CircuitDivider />
+        <PaymentsRail />
         <CircuitDivider />
         <ProductTiers />
         <CircuitDivider />
