@@ -131,6 +131,10 @@ export default function PaymentsRail() {
                     key={node.id}
                     onClick={() => setActiveNode(isActive ? null : node.id)}
                     className="cursor-pointer"
+                    role="button"
+                    aria-label={`View ${node.label} details`}
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveNode(isActive ? null : node.id); } }}
                   >
                     <rect
                       x={node.x}

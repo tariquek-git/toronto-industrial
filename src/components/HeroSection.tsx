@@ -22,7 +22,7 @@ export default function HeroSection() {
 
         {/* Tagline with typewriter effect */}
         <div className="text-center mt-1">
-          <div className="font-mono text-[11px] sm:text-xs text-text-secondary/80 tracking-[0.15em] uppercase typewriter-line">
+          <div className="font-mono text-[10px] sm:text-xs text-text-secondary/80 tracking-[0.08em] sm:tracking-[0.15em] uppercase typewriter-line">
             Selling technology to banks. Built from Toronto.
           </div>
         </div>
