@@ -298,9 +298,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       textFaint = 'rgba(255,255,255,0.30)';
       textGhost = 'rgba(255,255,255,0.20)';
     } else {
-      // LIGHT MODE — slightly warmer/richer than page bg for contrast
-      frontGrad = 'linear-gradient(160deg, #EDE8DC 0%, #E4DDD0 40%, #DDD6C8 100%)';
-      backGrad = 'linear-gradient(160deg, #E4DDD0 0%, #DCD5C7 60%, #E8E1D5 100%)';
+      // LIGHT MODE — warm sand, clearly distinct from page bg
+      frontGrad = 'linear-gradient(160deg, #E5DECE 0%, #DAD2C2 40%, #D2CAB8 100%)';
+      backGrad = 'linear-gradient(160deg, #DAD2C2 0%, #D0C8B8 60%, #E0D8C8 100%)';
       textColor = 'rgba(10,21,37,0.85)';
       textMuted = 'rgba(10,21,37,0.35)';
       textFaint = 'rgba(10,21,37,0.25)';
@@ -324,23 +324,6 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Ambient light bleed */}
-      <div
-        className="card-ambient-light"
-        style={{
-          background: torontoMode
-            ? 'radial-gradient(ellipse, rgba(255,189,46,0.12) 0%, rgba(14,138,69,0.06) 40%, transparent 70%)'
-            : isDark
-              ? 'radial-gradient(ellipse, rgba(218,41,28,0.12) 0%, rgba(10,21,37,0.06) 40%, transparent 70%)'
-              : 'radial-gradient(ellipse, rgba(218,41,28,0.06) 0%, rgba(245,240,230,0.08) 40%, transparent 70%)',
-        }}
-      />
-
-      {/* Floating particles */}
-      <div className="card-particles" aria-hidden="true">
-        <span /><span /><span /><span /><span />
-      </div>
-
       <motion.div
         ref={cardRef}
         className={`relative
@@ -368,7 +351,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           style={{
             backfaceVisibility: 'hidden',
             background: frontGrad,
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)'}`,
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.14)'}`,
             boxShadow: isDark
               ? '0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(0,0,0,0.3)'
               : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
@@ -421,7 +404,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 </div>
                 <div className="font-mono text-[9px] sm:text-[9px] lg:text-[10px] tracking-[0.12em] mt-1"
                      style={{ color: textMuted }}>
-                  BD &middot; Fintech &middot; Enterprise Sales &middot; Toronto
+                  Business Development
                 </div>
               </div>
               <div className="text-right min-w-[80px] sm:min-w-[100px] lg:min-w-[120px]">
@@ -432,10 +415,6 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 <div className={`font-mono text-lg sm:text-xl lg:text-2xl xl:text-3xl tracking-wider leading-none mt-0.5 ${dateClass}`}
                      style={{ color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,21,37,0.55)' }}>
                   {expiry.date}
-                </div>
-                <div className={`font-mono text-[7px] sm:text-[7px] lg:text-[8px] mt-0.5 tracking-wider leading-tight max-w-[100px] ml-auto ${dateClass}`}
-                     style={{ color: textGhost }}>
-                  {expiry.note}
                 </div>
               </div>
             </div>
@@ -460,7 +439,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
             background: backGrad,
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)'}`,
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.14)'}`,
             boxShadow: isDark
               ? '0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(0,0,0,0.3)'
               : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
