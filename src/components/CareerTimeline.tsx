@@ -37,8 +37,9 @@ function AnimatedHighlight({ text, index }: { text: string; index: number }) {
     return () => obs.disconnect();
   }, []);
 
-  // Split text on number patterns like $700M+, 40K+, 11x, $300M+
-  const parts = text.split(/(\$?\d+(?:\.\d+)?[MKBx%]?\+?)/);
+  // Split text on number patterns that have a prefix ($) or suffix (M/K/B/x/%/+)
+  // Plain numbers like "18" or "10" are left as-is to avoid broken-looking animations
+  const parts = text.split(/(\$\d+(?:\.\d+)?[MKBx%]?\+?|\d+(?:\.\d+)?[MKBx%]\+?|\d+(?:\.\d+)?\+)/);
 
   return (
     <li ref={ref} className="flex gap-2 text-sm text-text-secondary">
@@ -47,7 +48,7 @@ function AnimatedHighlight({ text, index }: { text: string; index: number }) {
       </span>
       <span>
         {parts.map((part, i) => {
-          const match = part.match(/^(\$?)(\d+(?:\.\d+)?)([MKBx%]?\+?)$/);
+          const match = part.match(/^(\$?)(\d+(?:\.\d+)?)([MKBx%]\+?|\+)$/);
           if (match && revealed) {
             const [, pre, num, suf] = match;
             return <AnimatedNum key={i} prefix={pre} target={parseFloat(num)} suffix={suf} />;
