@@ -17,7 +17,7 @@ export default function ConnectSection() {
           LET&apos;S TALK
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">
-          // connection.request — pick your path
+          pick your path
         </span>
       </div>
 
@@ -45,7 +45,7 @@ export default function ConnectSection() {
             </p>
 
             <a
-              href={`mailto:${contact.email}?subject=Re: ${path.audience}`}
+              href={`mailto:${contact.email}?subject=${encodeURIComponent(path.subject)}`}
               className="inline-block mt-4 font-mono text-[10px] tracking-widest uppercase text-accent hover:text-accent-hover transition-colors"
             >
               Start conversation &rarr;
@@ -57,16 +57,15 @@ export default function ConnectSection() {
 
       {/* Direct contact */}
       <div className="border-t border-border-strong pt-8">
-        <div className="font-mono text-[9px] text-text-tertiary uppercase tracking-[0.2em] mb-4">
-          // direct.channels
-        </div>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
           <a
-            href={`mailto:${contact.email}?subject=Let%27s%20connect%20%E2%80%94%20booking%20a%20call`}
+            href="https://cal.com/tarique-khan/tarique30"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-mono text-sm text-accent hover:text-accent-hover transition-colors group"
           >
             <span className="text-text-tertiary text-[10px] uppercase tracking-wider block mb-0.5">Book a Call</span>
-            Schedule 15 minutes &rarr;
+            Schedule 30 minutes &rarr;
           </a>
           <a
             href={`mailto:${contact.email}`}

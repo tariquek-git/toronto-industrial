@@ -25,12 +25,10 @@ export default function Home() {
         <CircuitDivider />
         <CareerTimeline />
         <CircuitDivider />
+        <ProductTiers />
         <PaymentsRail />
         <CircuitDivider />
-        <ProductTiers />
-        <CircuitDivider />
         <SignalPreview />
-        <CircuitDivider />
         <ConnectSection />
       </main>
       <Footer />

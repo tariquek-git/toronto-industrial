@@ -16,7 +16,7 @@ export default function SignalPreview() {
           SIGNAL
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">
-          // dispatch.log &mdash; viewpoints &amp; analysis
+          viewpoints &amp; analysis
         </span>
       </div>
 

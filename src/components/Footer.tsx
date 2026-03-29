@@ -38,12 +38,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div className="mt-8 pt-6 border-t border-border flex justify-center">
           <div className="font-mono text-[10px] text-text-tertiary tracking-widest uppercase">
             Hand-assembled in Toronto // {new Date().getFullYear()}
-          </div>
-          <div className="font-mono text-[10px] text-text-tertiary tracking-widest">
-            <span className="hidden sm:inline">try &#x2318;K</span><span className="sm:hidden">try ctrl+K</span>
           </div>
         </div>
       </div>

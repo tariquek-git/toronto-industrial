@@ -33,7 +33,7 @@ export default function HeroSection() {
 
         {/* Tagline */}
         <p className="font-mono text-[10px] sm:text-xs text-text-secondary/80 tracking-[0.08em] sm:tracking-[0.15em] uppercase mt-5 text-center">
-          Selling technology to banks across Canada and the US.
+          Selling technology to banks, credit unions, and fintechs.
         </p>
 
         {/* Flip hint — more visible */}

@@ -31,7 +31,7 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <AnimatedWordmark />
           <span className="font-mono text-[10px] tracking-widest text-text-tertiary uppercase">
-            {torontoMode ? '// toronto.override' : '// payments \u2022 fintech'}
+            {torontoMode ? '// toronto.override' : '// infrastructure for FIs'}
           </span>
         </div>
 
@@ -128,9 +128,6 @@ export default function Header() {
               </a>
             )
           )}
-          <div className="font-mono text-[9px] text-text-tertiary tracking-[0.2em] uppercase mt-3 pt-2">
-            {torontoMode ? '// toronto_mode: active' : '// nav.render()'}
-          </div>
         </nav>
       </div>
     </header>

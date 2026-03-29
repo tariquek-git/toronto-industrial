@@ -21,7 +21,7 @@ export const tickerItems = [
   { type: 'opinion' as const, text: 'If your RFP is 200 pages, you\u2019re not buying technology \u2014 you\u2019re buying process.' },
   { type: 'opinion' as const, text: 'The future of finance isn\u2019t big vs. small \u2014 it\u2019s connected.' },
   { type: 'opinion' as const, text: 'Banks don\u2019t buy technology. They buy regulatory cover and speed.' },
-  { type: 'opinion' as const, text: 'Every product I\u2019ve sold to a bank does one of two things: saves money or makes money.' },
+  { type: 'opinion' as const, text: 'If your integration timeline is longer than your contract term, you\u2019ve already lost.' },
   { type: 'opinion' as const, text: 'Fintech is a vertical. Sales is the skill. Don\u2019t confuse them.' },
   { type: 'opinion' as const, text: 'The best partnerships start with a procurement team that says no.' },
   { type: 'spec' as const, text: 'BaaS // Banking-as-a-Service' },
@@ -169,6 +169,7 @@ export const connectPaths = [
     hook: 'Building a financial product and need to sell into banks?',
     detail: 'I\u2019ve been on your side of the table at four different fintechs. I know what procurement looks like from the inside, how to structure the deal, and what the compliance team actually needs to hear.',
     color: '#2563EB',
+    subject: 'Let\u2019s talk card programs',
   },
   {
     id: 'bank',
@@ -176,6 +177,7 @@ export const connectPaths = [
     hook: 'Looking for technology that saves money or makes money?',
     detail: 'Whether it\u2019s card modernization, API infrastructure, digital adoption, or behavioral insights \u2014 I\u2019ve sold all of them into FIs. Let\u2019s talk about what your institution actually needs.',
     color: '#0E8A45',
+    subject: 'Modernizing our card stack',
   },
   {
     id: 'builder',
@@ -183,5 +185,6 @@ export const connectPaths = [
     hook: 'Want to connect in the fintech ecosystem?',
     detail: 'I advise startups, mentor founders, and connect people across Canada\u2019s fintech landscape. If you\u2019re building something in financial services, let\u2019s find the overlap.',
     color: '#B8860B',
+    subject: 'Ecosystem connection',
   },
 ];
