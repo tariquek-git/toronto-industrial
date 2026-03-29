@@ -20,8 +20,8 @@ export default function Header() {
     { href: '/#hero', label: 'Home' },
     { href: '/#timeline', label: 'Timeline' },
     { href: '/#tiers', label: 'Clients' },
+    { href: '/deal-anatomy', label: 'Deal Anatomy' },
     { href: '/signal', label: 'Signal' },
-    { href: '/stack', label: 'Stack' },
     { href: '/#connect', label: 'Connect' },
   ];
 

@@ -41,10 +41,10 @@ export const careerTimeline = [
     status: 'ACTIVE',
     thesis: 'Selling infrastructure is selling trust. The product is secondary to the compliance story and the speed guarantee.',
     highlights: [
-      'Building and managing US pipeline across banks, fintechs, and brands',
-      'Structuring enterprise CaaS deals end-to-end: BIN sponsorship, scheme registration, processor integration',
-      'Navigating RPAA regulatory landscape \u2014 turning compliance from blocker to selling point',
-      'Reducing partner time-to-market from 18 months (industry avg) to 10\u201312 weeks',
+      'Building the US pipeline from scratch \u2014 banks, fintechs, and brands who want their own card program but don\u2019t want to spend 18 months getting there',
+      'Structuring CaaS deals end-to-end: BIN sponsor, scheme registration, processor integration. The kind of deal where one missing compliance doc kills the whole thing',
+      'Turned RPAA compliance from a blocker into a selling point \u2014 when the bank\u2019s compliance team asks \u201care you RPAA-ready?\u201d, the answer better be yes',
+      'Cut partner time-to-market from 18 months (industry average) to 10\u201312 weeks. That number closes deals.',
     ],
   },
   {
@@ -56,9 +56,9 @@ export const careerTimeline = [
     status: 'ARCHIVED',
     thesis: 'A single API to all accounting data is the unlock for SMB lending. Banks don\u2019t need more data \u2014 they need the right data, faster.',
     highlights: [
-      'Sold API-based accounting data platform to banks, fintechs, and lenders for underwriting and risk decisioning',
-      'Connected financial institutions to real-time QuickBooks, Xero, and Sage data via one integration',
-      'Helped banks modernize SMB lending workflows \u2014 replacing manual document collection with API pulls',
+      'Gave banks a single API to pull QuickBooks, Xero, and Sage data \u2014 replaced the \u201cemail us your financials\u201d workflow killing SMB lending speed',
+      'Sold to banks and lenders who were still doing manual document collection for underwriting. The pitch: real-time data, faster decisions, fewer defaults',
+      'Acquired by FIS \u2014 which tells you something about what the big players thought the API was worth',
     ],
   },
   {
@@ -70,9 +70,9 @@ export const careerTimeline = [
     status: 'ARCHIVED',
     thesis: 'Banks sit on mountains of behavioral data and do nothing with it. The ones who act on it see 11x lift in account openings.',
     highlights: [
-      'Sold behavioral banking platform combining behavioral economics, psycholinguistics, and AI to credit unions and community banks',
-      'Drove adoption at Desjardins: 11x increase in new savings accounts, $300M+ deposited, 40K+ new accounts',
-      'Positioned the platform as a revenue-generation play, not just analytics \u2014 reframed behavioral data as a growth lever',
+      'Sold behavioral banking AI to credit unions and community banks \u2014 the pitch was \u201cyou\u2019re sitting on behavioral data and doing nothing with it\u201d',
+      'Desjardins case study: 11x increase in new savings accounts, $300M+ deposited, 40K+ new accounts opened. That one number got us into every other meeting',
+      'Repositioned the product from \u201canalytics tool\u201d to \u201crevenue engine\u201d \u2014 behavioral data isn\u2019t a dashboard, it\u2019s a growth lever',
     ],
   },
   {
@@ -84,9 +84,9 @@ export const careerTimeline = [
     status: 'ARCHIVED',
     thesis: 'Digital transformation fails when the employees can\u2019t use the tools. Training is the unsexy foundation that makes everything else work.',
     highlights: [
-      'Sold AI-powered, game-based learning platform to banks and credit unions for digital adoption and employee training',
-      'Positioned product at the intersection of customer experience and operational efficiency \u2014 both a save-money and make-money play',
-      'Learned that selling to FIs means selling to compliance, IT, marketing, and HR simultaneously',
+      'First fintech sales role. Game-based training platform that helped bank employees actually use the digital tools their employer spent millions on',
+      'Learned the hard way that selling to an FI means selling to compliance, IT, marketing, and HR simultaneously \u2014 and any one of them can kill the deal',
+      'This is where I figured out that the product that gets you the meeting is not the product that gets you the contract',
     ],
   },
   {
@@ -98,9 +98,9 @@ export const careerTimeline = [
     status: 'ACTIVE',
     thesis: 'The best way to understand a market is to advise the people building in it.',
     highlights: [
-      'Advisory board \u2014 Acceleron Bank: guiding digital banking, FX payments, and card issuance strategy',
-      'Holt Xchange: mentoring fintech founders on enterprise sales and bank partnerships',
-      'Fintech Cadence: contributing to Canada\u2019s fintech ecosystem \u2014 co-hosting Canadian Fintech Summit events',
+      'Advisory board at Acceleron Bank \u2014 guiding digital banking, FX payments, and card issuance strategy',
+      'Holt Xchange \u2014 mentoring fintech founders who are learning that selling to banks is nothing like selling SaaS',
+      'Fintech Cadence \u2014 co-hosting Canadian Fintech Summit events, building the ecosystem connections that turn into warm intros',
     ],
   },
 ];
@@ -110,25 +110,25 @@ export const productTiers = [
     id: 'fintechs',
     segment: 'Fintechs',
     color: '#2563EB',
-    title: 'Embedded Card Programs',
-    description: 'Helping early-stage and growth fintechs embed credit cards into their platforms. From BIN sponsorship to full-stack issuance \u2014 shortcutting the 18 months it usually takes.',
-    features: ['BaaS integration', 'Program design & launch', 'Scheme registration', 'Speed to market'],
+    title: 'Fintechs Selling to Banks',
+    description: 'I\u2019ve been on the fintech side of the table four times. I know what procurement looks like from the inside, what the compliance team actually needs to hear, and how to structure a deal that survives the 47-stakeholder approval process. If your deals keep dying in committee, that\u2019s what I fix.',
+    features: ['Navigating bank procurement', 'Compliance-first positioning', 'Deal structuring', 'Speed to signed MSA'],
   },
   {
     id: 'banks',
     segment: 'Banks & CUs',
     color: '#0E8A45',
-    title: 'Digital Card Modernization',
-    description: 'Working with banks and credit unions ready to move beyond legacy processors. Modern card stack, real-time decisioning, and a platform that ships in weeks, not years.',
-    features: ['Legacy migration', 'Digital-first issuance', 'Custom rewards & loyalty', 'Regulatory alignment'],
+    title: 'Banks & Credit Unions',
+    description: 'Banks are my buyers, not my employers. I speak their language \u2014 risk appetite, regulatory alignment, integration timelines \u2014 because I\u2019ve sold into dozens of them. When a bank needs modern card infrastructure without touching their core, I build the bridge between what they need and what the technology can deliver.',
+    features: ['Card program modernization', 'Core-adjacent integration', 'Regulatory alignment', 'Vendor due diligence support'],
   },
   {
     id: 'brands',
     segment: 'Brands',
     color: '#B8860B',
-    title: 'Co-Brand & Private Label',
-    description: 'Retailers, airlines, and platforms that want their own card. Structuring the economics, navigating scheme rules, and making the business case that gets past procurement.',
-    features: ['Co-brand structuring', 'Revenue share models', 'Merchant integration', 'Brand-first UX'],
+    title: 'Brands & Platforms',
+    description: 'Retailers, airlines, and platforms that want their own card don\u2019t realize how deep the iceberg goes. Scheme rules, interchange economics, BIN sponsor relationships, co-brand revenue models \u2014 I\u2019ve structured these deals and I know where they break. The brand gets the logo on the card. I handle everything underneath.',
+    features: ['Co-brand deal structuring', 'Revenue share modeling', 'Scheme rule navigation', 'Program economics'],
   },
 ];
 

@@ -6,6 +6,7 @@ import JsonTicker from '@/components/JsonTicker';
 import IntroSection from '@/components/IntroSection';
 import CircuitDivider from '@/components/CircuitDivider';
 import CareerTimeline from '@/components/CareerTimeline';
+import SalesPhilosophy from '@/components/SalesPhilosophy';
 import ProductTiers from '@/components/ProductTiers';
 import SignalPreview from '@/components/SignalPreview';
 import PaymentsRail from '@/components/PaymentsRail';
@@ -25,6 +26,7 @@ export default function Home() {
         <CircuitDivider />
         <CareerTimeline />
         <CircuitDivider />
+        <SalesPhilosophy />
         <ProductTiers />
         <PaymentsRail />
         <CircuitDivider />
