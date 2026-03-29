@@ -298,18 +298,22 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       textFaint = 'rgba(255,255,255,0.30)';
       textGhost = 'rgba(255,255,255,0.20)';
     } else {
-      // LIGHT MODE — warm sand, clearly distinct from page bg
-      frontGrad = 'linear-gradient(160deg, #E5DECE 0%, #DAD2C2 40%, #D2CAB8 100%)';
-      backGrad = 'linear-gradient(160deg, #DAD2C2 0%, #D0C8B8 60%, #E0D8C8 100%)';
-      textColor = 'rgba(10,21,37,0.85)';
-      textMuted = 'rgba(10,21,37,0.35)';
-      textFaint = 'rgba(10,21,37,0.25)';
-      textGhost = 'rgba(10,21,37,0.15)';
+      // LIGHT MODE — dark premium card (like Amex Centurion / Chase Sapphire)
+      // Dark card on light page = dramatic contrast, instant premium feel
+      frontGrad = 'linear-gradient(160deg, #1C2D42 0%, #142233 40%, #0E1A2A 100%)';
+      backGrad = 'linear-gradient(160deg, #142233 0%, #0E1A2A 60%, #1A2B3E 100%)';
+      textColor = 'rgba(255,255,255,0.92)';
+      textMuted = 'rgba(255,255,255,0.38)';
+      textFaint = 'rgba(255,255,255,0.28)';
+      textGhost = 'rgba(255,255,255,0.18)';
     }
   }
 
-  // Card skyline text color matches card text
-  const skylineTextClass = isDark ? 'text-white' : (torontoMode ? 'text-[#1A2A1F]' : 'text-[#0A1525]');
+  // Card is always dark-themed for premium look — standard light mode gets dark navy card
+  // Toronto light mode keeps the warm sand card for thematic consistency
+  const isCardDark = isDark || !torontoMode;
+  // Card skyline text color
+  const skylineTextClass = isCardDark ? 'text-white' : 'text-[#1A2A1F]';
 
   return (
     <div
@@ -343,35 +347,35 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
         transition={{ type: 'spring', stiffness: 150, damping: 22 }}
       >
         {/* Edge glow */}
-        <div className={`card-glow ${isDark ? '' : 'card-glow-light'} ${torontoMode ? 'card-glow-toronto' : 'card-glow-standard'}`} />
+        <div className={`card-glow ${isCardDark ? '' : 'card-glow-light'} ${torontoMode ? 'card-glow-toronto' : 'card-glow-standard'}`} />
 
         {/* ===== FRONT FACE ===== */}
         <div
-          className={`absolute inset-0 rounded-xl overflow-hidden ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'}`}
+          className={`absolute inset-0 rounded-xl overflow-hidden ${isCardDark ? 'card-edge-highlight' : 'card-edge-highlight-light'}`}
           style={{
             backfaceVisibility: 'hidden',
             background: frontGrad,
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.14)'}`,
-            boxShadow: isDark
-              ? '0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(0,0,0,0.3)'
+            border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.14)'}`,
+            boxShadow: isCardDark
+              ? '0 12px 48px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15)'
               : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
           }}
         >
           {/* Toronto skyline — shared coordinate system with background */}
           <div className={`absolute inset-0 ${skylineTextClass} pointer-events-none`}>
-            <CardSkylineSVG className="absolute bottom-0 left-0 w-full h-full" dark={isDark} />
+            <CardSkylineSVG className="absolute bottom-0 left-0 w-full h-full" dark={isCardDark} />
           </div>
 
           {/* Holographic foil overlay */}
-          <div className={`absolute inset-0 rounded-xl pointer-events-none z-10 ${isDark ? 'holo-overlay' : 'holo-overlay-light'}`} />
+          <div className={`absolute inset-0 rounded-xl pointer-events-none z-10 ${isCardDark ? 'holo-overlay' : 'holo-overlay-light'}`} />
 
           <div className="relative z-20 p-5 sm:p-7 lg:p-8 xl:p-9 h-full flex flex-col justify-between">
 
             {/* Top row: chip + contactless */}
             <div className="flex justify-between items-start">
               <div className="flex items-center gap-2 sm:gap-3">
-                <ChipSVG dark={isDark} />
-                <ContactlessSVG dark={isDark} />
+                <ChipSVG dark={isCardDark} />
+                <ContactlessSVG dark={isCardDark} />
               </div>
               <div className="text-right">
                 <div className="font-mono text-[10px] sm:text-[10px] lg:text-[11px] tracking-[0.15em] uppercase"
@@ -382,7 +386,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             </div>
 
             {/* Middle: card number */}
-            <div className={`font-mono text-sm sm:text-base lg:text-lg xl:text-xl tracking-[0.3em] ${isDark ? 'card-embossed' : 'card-embossed-light'}`}
+            <div className={`font-mono text-sm sm:text-base lg:text-lg xl:text-xl tracking-[0.3em] ${isCardDark ? 'card-embossed' : 'card-embossed-light'}`}
                  style={{ color: textMuted }}>
               <span onClick={rollCardNumber} className="cursor-pointer" title="Click to shuffle">
                 {cardDigits.map((d, i) => (
@@ -398,7 +402,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             {/* Bottom: name + cycling expiry date */}
             <div className="flex justify-between items-end">
               <div>
-                <div className={`font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-wider leading-none ${isDark ? 'card-embossed' : 'card-embossed-light'}`}
+                <div className={`font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-wider leading-none ${isCardDark ? 'card-embossed' : 'card-embossed-light'}`}
                      style={{ color: textColor }}>
                   TARIQUE KHAN
                 </div>
@@ -413,7 +417,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                   VALID THRU
                 </div>
                 <div className={`font-mono text-lg sm:text-xl lg:text-2xl xl:text-3xl tracking-wider leading-none mt-0.5 ${dateClass}`}
-                     style={{ color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,21,37,0.55)' }}>
+                     style={{ color: isCardDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,21,37,0.55)' }}>
                   {expiry.date}
                 </div>
               </div>
@@ -424,9 +428,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           <div className={`absolute inset-0 rounded-xl flex items-center justify-center
                           opacity-0 group-hover:opacity-100
                           transition-all duration-300 pointer-events-none z-30`}
-               style={{ background: isDark ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.05)' }}>
+               style={{ background: isCardDark ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.05)' }}>
             <span className="font-mono text-[10px] sm:text-xs lg:text-sm tracking-[0.2em] uppercase"
-                  style={{ color: isDark ? 'rgba(255,255,255,0.9)' : 'rgba(10,21,37,0.6)' }}>
+                  style={{ color: isCardDark ? 'rgba(255,255,255,0.9)' : 'rgba(10,21,37,0.6)' }}>
               Click to flip
             </span>
           </div>
@@ -434,14 +438,14 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
         {/* ===== BACK FACE ===== */}
         <div
-          className={`absolute inset-0 rounded-xl overflow-hidden ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'} ${backHovered ? 'card-back-hovered' : ''}`}
+          className={`absolute inset-0 rounded-xl overflow-hidden ${isCardDark ? 'card-edge-highlight' : 'card-edge-highlight-light'} ${backHovered ? 'card-back-hovered' : ''}`}
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
             background: backGrad,
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.14)'}`,
-            boxShadow: isDark
-              ? '0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(0,0,0,0.3)'
+            border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.14)'}`,
+            boxShadow: isCardDark
+              ? '0 12px 48px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15)'
               : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
           }}
           onMouseEnter={() => setBackHovered(true)}
@@ -461,7 +465,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
               onMouseMove={handleBackMouseMove}
             >
               <div className="absolute inset-0" style={{
-                background: isDark
+                background: isCardDark
                   ? 'linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a)'
                   : 'linear-gradient(to right, #8a8070, #9a9080, #8a8070)'
               }} />
@@ -470,7 +474,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 style={{
                   left: `${magX}%`,
                   transform: 'translateX(-50%)',
-                  background: isDark
+                  background: isCardDark
                     ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)'
                     : 'linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)',
                   transition: 'left 0.08s linear',
@@ -487,8 +491,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
               <div className="flex items-stretch gap-2 sm:gap-3 mb-3 sm:mb-5">
                 <div className="flex-1 rounded px-3 sm:px-4 py-2"
                      style={{
-                       border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
-                       background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
+                       border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
+                       background: isCardDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
                      }}>
                   <div className="font-mono text-[7px] sm:text-[8px] uppercase tracking-widest mb-1"
                        style={{ color: textFaint }}>
@@ -501,7 +505,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                          C 58,14 64,10 70,18 C 76,26 78,18 86,16 C 94,14 100,20 106,17
                          C 112,14 115,24 121,21 C 126,18 130,12 138,20"
                       fill="none"
-                      stroke={isDark ? 'rgba(255,255,255,0.65)' : 'rgba(10,21,37,0.45)'}
+                      stroke={isCardDark ? 'rgba(255,255,255,0.65)' : 'rgba(10,21,37,0.45)'}
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -510,8 +514,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 </div>
                 <div className="rounded px-3 sm:px-4 py-2 text-center flex flex-col justify-center"
                      style={{
-                       border: `1px solid ${isDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
-                       background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
+                       border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
+                       background: isCardDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
                      }}>
                   <div className="font-mono text-[7px] sm:text-[8px] uppercase tracking-wider"
                        style={{ color: textFaint }}>CVV</div>
@@ -534,22 +538,22 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                     <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-wider w-16"
                           style={{ color: textFaint }}>{label}</span>
                     <span className="font-mono text-[10px] sm:text-sm"
-                          style={{ color: isDark ? 'rgba(255,255,255,0.70)' : 'rgba(10,21,37,0.60)' }}>{value}</span>
+                          style={{ color: isCardDark ? 'rgba(255,255,255,0.70)' : 'rgba(10,21,37,0.60)' }}>{value}</span>
                   </div>
                 ))}
               </div>
 
               {/* Bottom: industry badges */}
               <div className="flex items-center justify-between mt-auto pt-2"
-                   style={{ borderTop: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(10,21,37,0.08)'}` }}>
+                   style={{ borderTop: `1px solid ${isCardDark ? 'rgba(255,255,255,0.08)' : 'rgba(10,21,37,0.08)'}` }}>
                 <div className="flex gap-1.5 sm:gap-2 flex-wrap">
                   {industryLogos.map(logo => (
                     <span
                       key={logo.id}
                       className="font-mono text-[6px] sm:text-[8px] tracking-widest uppercase px-1.5 py-0.5"
                       style={{
-                        border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(10,21,37,0.10)'}`,
-                        color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(10,21,37,0.35)',
+                        border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.12)' : 'rgba(10,21,37,0.10)'}`,
+                        color: isCardDark ? 'rgba(255,255,255,0.35)' : 'rgba(10,21,37,0.35)',
                       }}
                     >
                       {logo.label}

@@ -25,7 +25,7 @@
   background: linear-gradient(135deg, rgba(218,41,28,0.25) 0%, rgba(10,21,37,0.15) 50%, rgba(218,41,28,0.20) 100%);
 }
 .card-glow-light.card-glow-standard {
-  background: linear-gradient(135deg, rgba(218,41,28,0.08) 0%, rgba(245,240,230,0.1) 50%, rgba(218,41,28,0.06) 100%);
+  background: linear-gradient(135deg, rgba(218,41,28,0.15) 0%, rgba(10,21,37,0.08) 50%, rgba(218,41,28,0.12) 100%);
 }
 .card-glow-toronto {
   background: linear-gradient(135deg, rgba(255,189,46,0.3) 0%, rgba(14,138,69,0.2) 50%, rgba(255,189,46,0.25) 100%);

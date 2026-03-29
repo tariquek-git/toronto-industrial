@@ -23,9 +23,9 @@
   --surface-hover: #F5F3ED;
   --shadow: rgba(10, 21, 37, 0.08);
 
-  /* Grid texture */
-  --grid-color: rgba(10, 21, 37, 0.04);
-  --grid-color-strong: rgba(10, 21, 37, 0.08);
+  /* Grid texture — subtle blueprint, not distracting */
+  --grid-color: rgba(10, 21, 37, 0.025);
+  --grid-color-strong: rgba(10, 21, 37, 0.045);
 }
 
 /* Dark Mode — activated by system preference or manual toggle */
@@ -44,8 +44,8 @@
   --surface: #161B22;
   --surface-hover: #1C2129;
   --shadow: rgba(0, 0, 0, 0.3);
-  --grid-color: rgba(56, 189, 248, 0.03);
-  --grid-color-strong: rgba(56, 189, 248, 0.06);
+  --grid-color: rgba(56, 189, 248, 0.02);
+  --grid-color-strong: rgba(56, 189, 248, 0.04);
 }
 
 /* System dark preference (auto mode, when no explicit theme set) */
@@ -65,8 +65,8 @@
     --surface: #161B22;
     --surface-hover: #1C2129;
     --shadow: rgba(0, 0, 0, 0.3);
-    --grid-color: rgba(56, 189, 248, 0.03);
-    --grid-color-strong: rgba(56, 189, 248, 0.06);
+    --grid-color: rgba(56, 189, 248, 0.02);
+    --grid-color-strong: rgba(56, 189, 248, 0.04);
   }
 }
 
@@ -86,8 +86,8 @@
   --surface: #F0E8DA;
   --surface-hover: #E8E0D2;
   --shadow: rgba(14, 138, 69, 0.1);
-  --grid-color: rgba(14, 138, 69, 0.05);
-  --grid-color-strong: rgba(14, 138, 69, 0.1);
+  --grid-color: rgba(14, 138, 69, 0.03);
+  --grid-color-strong: rgba(14, 138, 69, 0.06);
 }
 
 /* Toronto Mode + Dark Mode */
@@ -106,8 +106,8 @@
   --surface: #0F2416;
   --surface-hover: #15301D;
   --shadow: rgba(0, 0, 0, 0.3);
-  --grid-color: rgba(74, 222, 128, 0.04);
-  --grid-color-strong: rgba(74, 222, 128, 0.08);
+  --grid-color: rgba(74, 222, 128, 0.025);
+  --grid-color-strong: rgba(74, 222, 128, 0.05);
 }
 
 /* Toronto Mode + Dark via system preference */
