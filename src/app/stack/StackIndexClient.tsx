@@ -5,7 +5,6 @@ import { categoryColors } from '@/data/stack';
 import type { StackEntry } from '@/data/stack';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 
 interface Props {
   entries: StackEntry[];
@@ -138,7 +137,6 @@ export default function StackIndexClient({ entries }: Props) {
         </div>
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }

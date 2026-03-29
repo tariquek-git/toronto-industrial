@@ -6,7 +6,6 @@ import { dealStages, getSurvivalRate } from '@/data/deal-anatomy';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 
 function StageCard({
   stage,
@@ -295,7 +294,6 @@ export default function DealAnatomyClient() {
         </div>
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }

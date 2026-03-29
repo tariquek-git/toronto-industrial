@@ -5,7 +5,6 @@ import type { StackEntry } from '@/data/stack';
 import { getStackSorted, getStackBySlug } from '@/data/stack';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 
 interface Props {
   entry: StackEntry;
@@ -176,7 +175,6 @@ export default function StackDetailClient({ entry }: Props) {
         </article>
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }

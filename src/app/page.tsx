@@ -12,7 +12,6 @@ import PaymentsRail from '@/components/PaymentsRail';
 import PaymentsTimeline from '@/components/PaymentsTimeline';
 import ConnectSection from '@/components/ConnectSection';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 
 export default function Home() {
   return (
@@ -37,7 +36,6 @@ export default function Home() {
         <ConnectSection />
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }

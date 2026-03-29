@@ -5,7 +5,6 @@ import type { Signal } from '@/data/signals';
 import { getSignalsSorted } from '@/data/signals';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 
 interface Props {
   signal: Signal;
@@ -156,7 +155,6 @@ export default function SignalDetailClient({ signal }: Props) {
         </article>
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }

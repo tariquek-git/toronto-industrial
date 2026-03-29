@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 import InterchangeCalculator from '@/components/InterchangeCalculator';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -120,7 +119,6 @@ export default function InterchangePageClient() {
         </div>
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }

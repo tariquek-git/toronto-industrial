@@ -5,7 +5,6 @@ import type { Signal } from '@/data/signals';
 import SignalCard from '@/components/SignalCard';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import RaccoonToggle from '@/components/RaccoonToggle';
 
 interface Props {
   signals: Signal[];
@@ -66,7 +65,6 @@ export default function SignalIndexClient({ signals }: Props) {
         </div>
       </main>
       <Footer />
-      <RaccoonToggle />
     </>
   );
 }
