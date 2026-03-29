@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 type Season = 'winter' | 'spring' | 'summer' | 'fall';
 
@@ -23,22 +23,25 @@ interface Particle {
   opacity: number;
   drift: number;
   rotation: number;
-  variant: number; // 0 or 1 for color variation
+  variant: number;
 }
 
 function generateParticles(count: number): Particle[] {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
-    left: Math.random() * 100,
-    delay: Math.random() * 10,
-    duration: 6 + Math.random() * 9,
-    size: 2 + Math.random() * 4,
-    opacity: 0.3 + Math.random() * 0.2,
-    drift: -30 + Math.random() * 60,
-    rotation: Math.random() * 360,
-    variant: Math.random() > 0.5 ? 1 : 0,
+    left: (i * 4.17) % 100, // Deterministic spread instead of Math.random()
+    delay: (i * 0.43) % 10,
+    duration: 6 + (i * 0.37) % 9,
+    size: 2 + (i * 0.19) % 4,
+    opacity: 0.3 + (i * 0.009) % 0.2,
+    drift: -30 + (i * 2.5) % 60,
+    rotation: (i * 15.3) % 360,
+    variant: i % 2,
   }));
 }
+
+// Pre-compute particles deterministically (same on server & client)
+const PARTICLES = generateParticles(PARTICLE_COUNT);
 
 /** Inline SVG petal for spring cherry blossoms */
 function PetalShape({ size, opacity }: { size: number; opacity: number }) {
@@ -83,10 +86,20 @@ function LeafShape({ size, opacity, variant }: { size: number; opacity: number; 
 }
 
 export default function SeasonalEffects() {
-  const season = useMemo(() => getSeason(), []);
-  const particles = useMemo(() => generateParticles(PARTICLE_COUNT), []);
+  // Defer season detection to client to avoid hydration mismatch
+  // (server might be in a different timezone)
+  const [season, setSeason] = useState<Season | null>(null);
 
-  // Determine the CSS animation class and particle rendering per season
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced) {
+      setSeason(getSeason());
+    }
+  }, []);
+
+  // Render nothing on server or if reduced motion
+  if (!season) return null;
+
   const renderParticle = (p: Particle) => {
     const baseStyle: React.CSSProperties = {
       left: `${p.left}%`,
@@ -170,7 +183,7 @@ export default function SeasonalEffects() {
       className="fixed inset-0 pointer-events-none z-50 overflow-hidden seasonal-container"
       aria-hidden="true"
     >
-      {particles.map(renderParticle)}
+      {PARTICLES.map(renderParticle)}
     </div>
   );
 }

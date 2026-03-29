@@ -6,11 +6,11 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { TorontoModeProvider } from '@/context/TorontoModeContext';
 import Terminal from '@/components/Terminal';
 import KonamiHandler from '@/components/KonamiHandler';
-import SeasonalEffects from '@/components/SeasonalEffects';
+
 import ThemeToggle from '@/components/ThemeToggle';
 import PageTransition from '@/components/PageTransition';
 import GridSpotlight from '@/components/GridSpotlight';
-import CustomCursor from '@/components/CustomCursor';
+
 import './globals.css';
 
 const bebasNeue = Bebas_Neue({
@@ -92,14 +92,14 @@ export default function RootLayout({
         />
         <ThemeProvider>
           <GridSpotlight />
-          <CustomCursor />
+
           <TorontoModeProvider>
             <PageTransition>
               {children}
             </PageTransition>
             <Terminal />
             <KonamiHandler />
-            <SeasonalEffects />
+
             <ThemeToggle />
           </TorontoModeProvider>
         </ThemeProvider>
