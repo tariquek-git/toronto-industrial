@@ -40,7 +40,7 @@ const COMMANDS: Record<string, string | string[]> = {
     '│  bank save money or make more money.        │',
     '│                                             │',
     '│  Career: 4 fintechs, 1 advisory portfolio   │',
-    '│  Pipeline: $700M+ US (active)               │',
+    '│  Focus: US + Canada enterprise pipeline       │',
     '│  Markets: Canada, United States              │',
     '│  Stack: CaaS, BaaS, API platforms,           │',
     '│         behavioral banking, digital adoption │',

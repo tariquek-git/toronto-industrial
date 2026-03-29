@@ -41,7 +41,7 @@ export const careerTimeline = [
     status: 'ACTIVE',
     thesis: 'Selling infrastructure is selling trust. The product is secondary to the compliance story and the speed guarantee.',
     highlights: [
-      'Building and managing $700M+ US pipeline across banks, fintechs, and brands',
+      'Building and managing US pipeline across banks, fintechs, and brands',
       'Structuring enterprise CaaS deals end-to-end: BIN sponsorship, scheme registration, processor integration',
       'Navigating RPAA regulatory landscape \u2014 turning compliance from blocker to selling point',
       'Reducing partner time-to-market from 18 months (industry avg) to 10\u201312 weeks',
