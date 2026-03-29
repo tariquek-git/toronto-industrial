@@ -331,10 +331,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       <motion.div
         ref={cardRef}
         className={`relative
-          w-[calc(100vw-48px)] max-w-[500px] h-[calc((100vw-48px)*0.631)] max-h-[315px]
-          sm:w-[540px] sm:max-w-none sm:h-[341px] sm:max-h-none
-          lg:w-[640px] lg:h-[404px]
-          xl:w-[720px] xl:h-[454px]`}
+          w-[calc(100vw-48px)] max-w-[420px] h-[calc((100vw-48px)*0.631)] max-h-[265px]
+          sm:w-[440px] sm:max-w-none sm:h-[277px] sm:max-h-none
+          lg:w-[520px] lg:h-[328px]
+          xl:w-[560px] xl:h-[353px]`}
         style={{
           transformStyle: 'preserve-3d',
           rotateX: tilt.x,
@@ -355,9 +355,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           style={{
             backfaceVisibility: 'hidden',
             background: frontGrad,
-            border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.14)'}`,
+            border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.14)'}`,
             boxShadow: isCardDark
-              ? '0 12px 48px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15)'
+              ? '0 16px 48px rgba(0,0,0,0.5), 0 6px 20px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.2)'
               : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
           }}
         >
@@ -443,9 +443,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
             background: backGrad,
-            border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.14)'}`,
+            border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.14)'}`,
             boxShadow: isCardDark
-              ? '0 12px 48px rgba(0,0,0,0.45), 0 4px 16px rgba(0,0,0,0.25), 0 1px 4px rgba(0,0,0,0.15)'
+              ? '0 16px 48px rgba(0,0,0,0.5), 0 6px 20px rgba(0,0,0,0.3), 0 2px 6px rgba(0,0,0,0.2)'
               : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
           }}
           onMouseEnter={() => setBackHovered(true)}
