@@ -362,7 +362,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 <ContactlessSVG dark={isDark} />
               </div>
               <div className="text-right">
-                <div className="font-mono text-[8px] sm:text-[10px] lg:text-[11px] tracking-[0.15em] uppercase"
+                <div className="font-mono text-[10px] sm:text-[10px] lg:text-[11px] tracking-[0.15em] uppercase"
                      style={{ color: textMuted }}>
                   Payments &middot; Fintech &middot; Toronto
                 </div>
@@ -390,13 +390,13 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                      style={{ color: textColor }}>
                   TARIQUE KHAN
                 </div>
-                <div className="font-mono text-[7px] sm:text-[9px] lg:text-[10px] tracking-[0.12em] mt-1"
+                <div className="font-mono text-[9px] sm:text-[9px] lg:text-[10px] tracking-[0.12em] mt-1"
                      style={{ color: textMuted }}>
                   BD &middot; Fintech &middot; Enterprise Sales &middot; Toronto
                 </div>
               </div>
               <div className="text-right min-w-[80px] sm:min-w-[100px] lg:min-w-[120px]">
-                <div className="font-mono text-[6px] sm:text-[8px] lg:text-[9px] uppercase tracking-[0.2em]"
+                <div className="font-mono text-[8px] sm:text-[8px] lg:text-[9px] uppercase tracking-[0.2em]"
                      style={{ color: textFaint }}>
                   VALID THRU
                 </div>
@@ -404,7 +404,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                      style={{ color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,21,37,0.55)' }}>
                   {expiry.date}
                 </div>
-                <div className={`font-mono text-[5px] sm:text-[7px] lg:text-[8px] mt-0.5 tracking-wider leading-tight max-w-[100px] ml-auto ${dateClass}`}
+                <div className={`font-mono text-[7px] sm:text-[7px] lg:text-[8px] mt-0.5 tracking-wider leading-tight max-w-[100px] ml-auto ${dateClass}`}
                      style={{ color: textGhost }}>
                   {expiry.note}
                 </div>

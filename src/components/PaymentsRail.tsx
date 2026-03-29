@@ -25,7 +25,7 @@ const nodes: Node[] = [
     id: 'merchant',
     label: 'MERCHANT',
     sublabel: 'Accepts Payment',
-    description: 'The business accepting the card. They pay 2-3% of every transaction for the privilege. This funds the entire ecosystem.',
+    description: 'The business accepting the card. They pay 2-3% of every transaction for the privilege (US rates; Canadian interchange varies by network and is typically lower). This funds the entire ecosystem.',
     x: 200,
     y: 30,
   },

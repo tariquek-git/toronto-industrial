@@ -20,7 +20,7 @@ export default function IntroSection() {
         </p>
         <p className="font-mono text-sm sm:text-base text-text-secondary leading-relaxed mt-3">
           Game-based employee training that drives digital adoption. Behavioral
-          AI that turned 40K accounts into $300M in deposits. API platforms that
+          AI that opened 40K+ new accounts and drove $300M in deposits. API platforms that
           replaced manual lending workflows overnight. And now &mdash; card-as-a-service
           infrastructure that gets banks from zero to live card program in 12 weeks.
         </p>

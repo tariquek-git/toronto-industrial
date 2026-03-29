@@ -201,9 +201,9 @@ export default function PaymentsTimeline() {
             </div>
           </div>
 
-          {/* Fade edges */}
+          {/* Fade edges — wider on mobile for stronger scroll affordance */}
           <div
-            className="absolute top-0 left-0 bottom-0 w-6 pointer-events-none"
+            className="absolute top-0 left-0 bottom-0 w-6 md:w-6 pointer-events-none"
             style={{
               background: 'linear-gradient(to right, var(--bg), transparent)',
               opacity: canScrollLeft ? 1 : 0,
@@ -211,13 +211,20 @@ export default function PaymentsTimeline() {
             }}
           />
           <div
-            className="absolute top-0 right-0 bottom-0 w-6 pointer-events-none"
+            className="absolute top-0 right-0 bottom-0 w-10 md:w-6 pointer-events-none"
             style={{
               background: 'linear-gradient(to left, var(--bg), transparent)',
               opacity: canScrollRight ? 1 : 0,
               transition: 'opacity 0.2s',
             }}
           />
+          {/* Mobile scroll hint */}
+          {canScrollRight && (
+            <div className="md:hidden flex items-center justify-center mt-3 gap-1">
+              <span className="font-mono text-[10px] text-text-tertiary tracking-wider">swipe</span>
+              <span className="font-mono text-[10px] text-text-tertiary">&rarr;</span>
+            </div>
+          )}
         </div>
       </div>
     </section>
