@@ -10,6 +10,7 @@ import SeasonalEffects from '@/components/SeasonalEffects';
 import ThemeToggle from '@/components/ThemeToggle';
 import PageTransition from '@/components/PageTransition';
 import GridSpotlight from '@/components/GridSpotlight';
+import CustomCursor from '@/components/CustomCursor';
 import './globals.css';
 
 const bebasNeue = Bebas_Neue({
@@ -91,6 +92,7 @@ export default function RootLayout({
         />
         <ThemeProvider>
           <GridSpotlight />
+          <CustomCursor />
           <TorontoModeProvider>
             <PageTransition>
               {children}

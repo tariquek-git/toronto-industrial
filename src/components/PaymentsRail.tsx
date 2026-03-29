@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface Node {
@@ -63,9 +63,142 @@ const nodes: Node[] = [
   },
 ];
 
+/* Node center coordinates in SVG space (each box is 100x40, center = x+50, y+20) */
+const nodeCenters = nodes.map((n) => ({ x: n.x + 50, y: n.y + 20 }));
+
+/* Status messages shown as the dot reaches each node */
+const statusMessages = [
+  'Authorization request sent...',
+  'Merchant received...',
+  'Acquirer processing...',
+  'Network routing...',
+  'Issuer approved...',
+  'Settlement complete \u2713',
+];
+
 export default function PaymentsRail() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const revealRef = useScrollReveal<HTMLElement>();
+
+  /* Transaction simulator state */
+  const [simRunning, setSimRunning] = useState(false);
+  const [simStatus, setSimStatus] = useState<string | null>(null);
+  const [simHighlight, setSimHighlight] = useState<number | null>(null);
+  const [dotPos, setDotPos] = useState<{ x: number; y: number } | null>(null);
+  const [trailPositions, setTrailPositions] = useState<{ x: number; y: number; opacity: number }[]>([]);
+  const rafRef = useRef<number | null>(null);
+  const prefersReducedMotion = useRef(false);
+
+  useEffect(() => {
+    prefersReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }, []);
+
+  const runTransaction = useCallback(() => {
+    if (simRunning) return;
+    setSimRunning(true);
+    setSimStatus(statusMessages[0]);
+    setSimHighlight(0);
+
+    /* Reduced motion: just cycle through status text with no dot animation */
+    if (prefersReducedMotion.current) {
+      let step = 0;
+      const interval = setInterval(() => {
+        step++;
+        if (step < nodes.length) {
+          setSimStatus(statusMessages[step]);
+          setSimHighlight(step);
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            setSimRunning(false);
+            setSimStatus(null);
+            setSimHighlight(null);
+          }, 1200);
+        }
+      }, 500);
+      return;
+    }
+
+    /* Build waypoints: travel from node 0 center to node 1 center, etc. */
+    const centers = nodeCenters;
+    const segmentDuration = 500; /* ms per segment travel */
+    const pauseDuration = 300;   /* ms pause at each node */
+    const totalSegments = centers.length - 1;
+
+    let currentSegment = 0;
+    let segmentStart = performance.now();
+    let pausing = true; /* start with a brief pause on node 0 */
+    let pauseStart = performance.now();
+    const trail: { x: number; y: number; opacity: number }[] = [];
+
+    setDotPos(centers[0]);
+
+    const tick = (now: number) => {
+      if (pausing) {
+        if (now - pauseStart >= pauseDuration) {
+          pausing = false;
+          segmentStart = now;
+          if (currentSegment >= totalSegments) {
+            /* Animation complete — hold final state briefly then clean up */
+            setTimeout(() => {
+              setSimRunning(false);
+              setSimStatus(null);
+              setSimHighlight(null);
+              setDotPos(null);
+              setTrailPositions([]);
+            }, 1200);
+            return;
+          }
+        } else {
+          rafRef.current = requestAnimationFrame(tick);
+          return;
+        }
+      }
+
+      const elapsed = now - segmentStart;
+      const t = Math.min(elapsed / segmentDuration, 1);
+      /* ease-in-out */
+      const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+      const from = centers[currentSegment];
+      const to = centers[currentSegment + 1];
+      const x = from.x + (to.x - from.x) * eased;
+      const y = from.y + (to.y - from.y) * eased;
+
+      setDotPos({ x, y });
+
+      /* Update trail */
+      trail.push({ x, y, opacity: 1 });
+      /* Keep last ~20 trail points, fade them */
+      const maxTrail = 20;
+      if (trail.length > maxTrail) trail.splice(0, trail.length - maxTrail);
+      const trailCopy = trail.map((p, i) => ({
+        ...p,
+        opacity: (i + 1) / trail.length * 0.5,
+      }));
+      setTrailPositions(trailCopy);
+
+      if (t >= 1) {
+        /* Arrived at next node */
+        currentSegment++;
+        setSimStatus(statusMessages[currentSegment]);
+        setSimHighlight(currentSegment);
+        pausing = true;
+        pauseStart = now;
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+  }, [simRunning]);
+
+  /* Clean up on unmount */
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   const activeInfo = nodes.find((n) => n.id === activeNode);
 
@@ -123,9 +256,10 @@ export default function PaymentsRail() {
               <polygon points="67,75 70,70 73,75" fill="var(--accent)" opacity="0.4" />
 
               {/* Node boxes */}
-              {nodes.map((node) => {
+              {nodes.map((node, idx) => {
                 const isActive = activeNode === node.id;
                 const isBaas = node.id === 'issuer' || node.id === 'network';
+                const isSimHighlighted = simHighlight === idx;
                 return (
                   <g
                     key={node.id}
@@ -143,10 +277,25 @@ export default function PaymentsRail() {
                       height="40"
                       rx="0"
                       fill={isActive ? 'var(--accent)' : 'var(--surface)'}
-                      stroke={isActive ? 'var(--accent)' : isBaas ? 'var(--accent)' : 'var(--border-strong)'}
-                      strokeWidth={isActive ? '2' : '1'}
+                      stroke={isActive ? 'var(--accent)' : isSimHighlighted ? 'var(--accent)' : isBaas ? 'var(--accent)' : 'var(--border-strong)'}
+                      strokeWidth={isActive ? '2' : isSimHighlighted ? '2' : '1'}
                       opacity={isActive ? '1' : '0.9'}
                     />
+                    {/* Sim highlight glow rect */}
+                    {isSimHighlighted && !isActive && (
+                      <rect
+                        x={node.x - 2}
+                        y={node.y - 2}
+                        width="104"
+                        height="44"
+                        rx="0"
+                        fill="none"
+                        stroke="var(--accent)"
+                        strokeWidth="1"
+                        opacity="0.4"
+                        className="sim-node-glow"
+                      />
+                    )}
                     <text
                       x={node.x + 50}
                       y={node.y + 18}
@@ -187,6 +336,41 @@ export default function PaymentsRail() {
                 );
               })}
 
+              {/* Transaction simulator trail */}
+              {trailPositions.map((tp, i) => (
+                <circle
+                  key={`trail-${i}`}
+                  cx={tp.x}
+                  cy={tp.y}
+                  r={3}
+                  fill="var(--accent)"
+                  opacity={tp.opacity}
+                />
+              ))}
+
+              {/* Transaction simulator dot */}
+              {dotPos && (
+                <>
+                  {/* Glow */}
+                  <circle
+                    cx={dotPos.x}
+                    cy={dotPos.y}
+                    r={12}
+                    fill="var(--accent)"
+                    opacity={0.2}
+                    className="sim-dot-glow"
+                  />
+                  {/* Core dot */}
+                  <circle
+                    cx={dotPos.x}
+                    cy={dotPos.y}
+                    r={4}
+                    fill="var(--accent)"
+                    className="sim-dot"
+                  />
+                </>
+              )}
+
               {/* Flow label */}
               <text x="225" y="100" textAnchor="middle" fontSize="7" letterSpacing="0.15em" fill="var(--text-tertiary)" className="font-mono">
                 AUTHORIZATION (~2 sec)
@@ -197,6 +381,35 @@ export default function PaymentsRail() {
             </svg>
           </div>
             </div>
+          </div>
+
+          {/* Transaction simulator controls */}
+          <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <button
+              onClick={runTransaction}
+              disabled={simRunning}
+              className="font-mono text-[10px] tracking-[0.15em] uppercase px-4 py-2 border transition-all duration-200"
+              style={{
+                borderColor: simRunning ? 'var(--border-strong)' : 'var(--accent)',
+                color: simRunning ? 'var(--text-tertiary)' : 'var(--accent)',
+                background: 'var(--surface)',
+                cursor: simRunning ? 'not-allowed' : 'pointer',
+                opacity: simRunning ? 0.5 : 1,
+              }}
+              aria-label="Run transaction simulation"
+            >
+              {simRunning ? '// running...' : '> Run Transaction'}
+            </button>
+            {simStatus && (
+              <span
+                className="font-mono text-[10px] sm:text-xs tracking-wider"
+                style={{ color: 'var(--accent)' }}
+                role="status"
+                aria-live="polite"
+              >
+                {simStatus}
+              </span>
+            )}
           </div>
 
           {/* Info panel */}

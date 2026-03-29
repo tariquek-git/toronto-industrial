@@ -292,6 +292,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   return (
     <div
       className="relative cursor-pointer group"
+      data-hero-card
       style={{ perspective: '1800px' }}
       role="button"
       tabIndex={0}

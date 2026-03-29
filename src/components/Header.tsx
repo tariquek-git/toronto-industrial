@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTorontoMode } from '@/context/TorontoModeContext';
+import AnimatedWordmark from '@/components/AnimatedWordmark';
 
 export default function Header() {
   const { torontoMode } = useTorontoMode();
@@ -28,9 +29,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-30 backdrop-blur-md border-b border-border bg-bg/80">
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <a href="/" className="font-display text-2xl tracking-wider text-primary hover:text-accent transition-colors">
-            TARIQUE
-          </a>
+          <AnimatedWordmark />
           <span className="font-mono text-[10px] tracking-widest text-text-tertiary uppercase">
             {torontoMode ? '// toronto.override' : '// payments \u2022 fintech'}
           </span>

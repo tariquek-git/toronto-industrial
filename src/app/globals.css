@@ -279,15 +279,107 @@ body {
   animation: terminal-in 0.2s ease-out forwards;
 }
 
-/* Snow particles (Toronto Mode, winter) */
+/* ==============================
+   Year-round seasonal particles
+   ============================== */
+
+/* Hide all seasonal particles when reduced motion is preferred */
+@media (prefers-reduced-motion: reduce) {
+  .seasonal-container {
+    display: none !important;
+  }
+}
+
+/* Winter — snow drifting down with horizontal sway */
 @keyframes snowfall {
   0% { transform: translateY(-10px) translateX(0); opacity: 0; }
   10% { opacity: var(--snow-opacity, 0.4); }
   90% { opacity: var(--snow-opacity, 0.4); }
   100% { transform: translateY(100vh) translateX(var(--drift, 20px)); opacity: 0; }
 }
+.seasonal-snow {
+  animation: snowfall linear infinite;
+}
+
+/* Legacy class alias */
 .snow-particle {
   animation: snowfall linear infinite;
+}
+
+/* Spring — cherry blossom petals floating with rotation */
+@keyframes blossom-fall {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% { opacity: 1; }
+  50% {
+    transform: translateY(50vh) translateX(calc(var(--drift, 20px) * 0.6)) rotate(180deg);
+  }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift, 20px)) rotate(var(--rotation, 360deg));
+    opacity: 0;
+  }
+}
+.seasonal-blossom {
+  animation: blossom-fall ease-in-out infinite;
+}
+
+/* Summer — fireflies pulsing and drifting randomly */
+@keyframes firefly-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% { opacity: 0.5; }
+  25% {
+    transform: translateY(-15vh) translateX(calc(var(--drift, 20px) * 0.5));
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-30vh) translateX(var(--drift, 20px));
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-15vh) translateX(calc(var(--drift, 20px) * 0.3));
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+}
+.seasonal-firefly {
+  top: auto !important;
+  bottom: 10%;
+  animation: firefly-float ease-in-out infinite;
+}
+
+/* Fall — leaves tumbling down with rotation */
+@keyframes leaf-tumble {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% { opacity: 1; }
+  25% {
+    transform: translateY(25vh) translateX(calc(var(--drift, 20px) * 0.4)) rotate(90deg);
+  }
+  50% {
+    transform: translateY(50vh) translateX(calc(var(--drift, 20px) * -0.3)) rotate(200deg);
+  }
+  75% {
+    transform: translateY(75vh) translateX(calc(var(--drift, 20px) * 0.6)) rotate(300deg);
+  }
+  90% { opacity: 1; }
+  100% {
+    transform: translateY(100vh) translateX(var(--drift, 20px)) rotate(var(--rotation, 400deg));
+    opacity: 0;
+  }
+}
+.seasonal-leaf {
+  animation: leaf-tumble ease-in-out infinite;
 }
 
 /* CN Tower beacon pulse */
@@ -396,14 +488,44 @@ body::after {
   50% { transform: translate(0); text-shadow: none; }
 }
 
+/* Transaction simulator dot pulse */
+@keyframes sim-dot-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+.sim-dot {
+  animation: sim-dot-pulse 0.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+.sim-dot-glow {
+  animation: sim-dot-pulse 0.6s ease-in-out infinite;
+}
+@keyframes sim-node-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.15; }
+}
+.sim-node-glow {
+  animation: sim-node-pulse 0.8s ease-in-out infinite;
+}
+
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .ticker-animate,
   .typewriter-line,
   .terminal-enter,
   .snow-particle,
-  .cn-tower-beacon {
+  .seasonal-snow,
+  .seasonal-blossom,
+  .seasonal-firefly,
+  .seasonal-leaf,
+  .cn-tower-beacon,
+  .sim-dot,
+  .sim-dot-glow,
+  .sim-node-glow {
     animation: none !important;
+  }
+  .sim-dot {
+    filter: none !important;
   }
   .typewriter-line {
     width: auto !important;
