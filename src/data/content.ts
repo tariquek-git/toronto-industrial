@@ -12,7 +12,7 @@ export const profile = {
 export const tickerItems = [
   { type: 'opinion' as const, text: 'Open Banking: Start building, stop talking.' },
   { type: 'opinion' as const, text: 'Procurement is the product when selling to FIs.' },
-  { type: 'opinion' as const, text: 'Raccoon Logic: Smart, resourceful, underestimated.' },
+  { type: 'opinion' as const, text: 'Four fintechs. One thesis. Sell the thing that moves the needle.' },
   { type: 'opinion' as const, text: 'The BIN sponsor is the product. Everything else is middleware.' },
   { type: 'opinion' as const, text: 'Nobody reads the scheme rules until they get fined.' },
   { type: 'opinion' as const, text: 'Every bank wants modern issuance. None want to change their core.' },
@@ -72,7 +72,7 @@ export const careerTimeline = [
     highlights: [
       'Sold behavioral banking platform combining behavioral economics, psycholinguistics, and AI to credit unions and community banks',
       'Drove adoption at Desjardins: 11x increase in new savings accounts, $300M+ deposited, 40K+ new accounts',
-      'Named "Cool Vendor in Banking" by Gartner \u2014 positioned the product as revenue-generation, not just analytics',
+      'Positioned the platform as a revenue-generation play, not just analytics \u2014 reframed behavioral data as a growth lever',
     ],
   },
   {

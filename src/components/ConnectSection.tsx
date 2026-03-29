@@ -13,7 +13,7 @@ export default function ConnectSection() {
   return (
     <section ref={ref} id="connect" className="scroll-reveal max-w-4xl mx-auto px-6 py-20">
       <div className="flex flex-col sm:flex-row items-start sm:items-baseline gap-2 sm:gap-4 mb-12">
-        <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary glitch-hover">
+        <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary">
           LET&apos;S TALK
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">
@@ -61,6 +61,13 @@ export default function ConnectSection() {
           // direct.channels
         </div>
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+          <a
+            href={`mailto:${contact.email}?subject=Let%27s%20connect%20%E2%80%94%20booking%20a%20call`}
+            className="font-mono text-sm text-accent hover:text-accent-hover transition-colors group"
+          >
+            <span className="text-text-tertiary text-[10px] uppercase tracking-wider block mb-0.5">Book a Call</span>
+            Schedule 15 minutes &rarr;
+          </a>
           <a
             href={`mailto:${contact.email}`}
             className="font-mono text-sm text-text-secondary hover:text-accent transition-colors group"

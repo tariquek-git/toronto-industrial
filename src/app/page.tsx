@@ -9,7 +9,6 @@ import CareerTimeline from '@/components/CareerTimeline';
 import ProductTiers from '@/components/ProductTiers';
 import SignalPreview from '@/components/SignalPreview';
 import PaymentsRail from '@/components/PaymentsRail';
-import PaymentsTimeline from '@/components/PaymentsTimeline';
 import ConnectSection from '@/components/ConnectSection';
 import Footer from '@/components/Footer';
 
@@ -27,7 +26,6 @@ export default function Home() {
         <CareerTimeline />
         <CircuitDivider />
         <PaymentsRail />
-        <PaymentsTimeline />
         <CircuitDivider />
         <ProductTiers />
         <CircuitDivider />

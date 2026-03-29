@@ -12,7 +12,7 @@ export default function SignalPreview() {
   return (
     <section ref={ref} className="scroll-reveal max-w-4xl mx-auto px-6 py-16 sm:py-20">
       <div className="flex flex-col sm:flex-row items-start sm:items-baseline gap-2 sm:gap-4 mb-10">
-        <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary glitch-hover">
+        <h2 className="font-display text-4xl sm:text-5xl tracking-wider text-primary">
           SIGNAL
         </h2>
         <span className="font-mono text-[10px] tracking-[0.2em] text-text-tertiary uppercase">

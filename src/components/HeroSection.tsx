@@ -36,9 +36,9 @@ export default function HeroSection() {
           Selling technology to banks across Canada and the US.
         </p>
 
-        {/* Flip hint */}
-        <div className="font-mono text-[9px] text-text-tertiary/40 tracking-[0.25em] uppercase mt-1.5">
-          {isFlipped ? 'click to flip back' : 'tap the card'}
+        {/* Flip hint — more visible */}
+        <div className="font-mono text-[10px] sm:text-[11px] text-text-tertiary/60 tracking-[0.15em] uppercase mt-2">
+          {isFlipped ? '← flip back' : 'click the card to flip →'}
         </div>
       </div>
 
