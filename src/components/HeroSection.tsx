@@ -17,7 +17,7 @@ export default function HeroSection() {
 
         {/* Tagline — tight to card */}
         <div className="font-mono text-[10px] sm:text-xs text-text-secondary/80 tracking-[0.08em] sm:tracking-[0.15em] uppercase mt-4">
-          Selling technology to banks. Built from Toronto.
+          Selling technology to banks across Canada and the US.
         </div>
 
         {/* Flip hint */}
