@@ -17,7 +17,7 @@ function ChipSVG({ dark }: { dark?: boolean }) {
   const divider = dark ? 'rgba(0,0,0,0.25)' : 'rgba(0,0,0,0.15)';
 
   return (
-    <svg viewBox="0 0 44 32" className="w-11 h-8 sm:w-14 sm:h-10 lg:w-16 lg:h-11" aria-hidden="true">
+    <svg viewBox="0 0 44 32" className="w-9 h-6 sm:w-10 sm:h-7 lg:w-11 lg:h-8" aria-hidden="true">
       <rect x="1" y="1" width="42" height="30" rx="3" fill="none" stroke={border} strokeWidth="0.5" />
       <rect x="2" y="2" width="40" height="28" rx="2" fill={bg} />
       <rect x="6"  y="4"  width="13" height="7" rx="1" fill={`${base}${pad})`} />
@@ -35,7 +35,7 @@ function ChipSVG({ dark }: { dark?: boolean }) {
 function ContactlessSVG({ dark }: { dark?: boolean }) {
   const color = dark ? 'rgba(255,255,255,' : 'rgba(10,21,37,';
   return (
-    <svg viewBox="0 0 14 20" className="w-5 h-6 sm:w-6 sm:h-7" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 14 20" className="w-4 h-5 sm:w-5 sm:h-6" fill="none" aria-hidden="true">
       <path d="M 2 4 A 8 8 0 0 1 2 16" stroke={`${color}${dark ? '0.18' : '0.15'})`} strokeWidth="1.6" strokeLinecap="round" />
       <path d="M 5 6.5 A 5 5 0 0 1 5 13.5" stroke={`${color}${dark ? '0.28' : '0.22'})`} strokeWidth="1.6" strokeLinecap="round" />
       <path d="M 8 8.5 A 2.5 2.5 0 0 1 8 11.5" stroke={`${color}${dark ? '0.42' : '0.35'})`} strokeWidth="1.6" strokeLinecap="round" />
@@ -55,7 +55,7 @@ function CardSkylineSVG({ className, dark }: { className?: string; dark?: boolea
   const windowOp = dark ? 0.10 : 0.05;
 
   return (
-    <svg viewBox="380 80 840 420" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <svg viewBox="520 120 560 380" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       {/* CN Tower — THE iconic landmark, most prominent */}
       {/* Antenna tip */}
       <rect x="718" y="8" width="3" height="22" opacity={opacityHigh} />
@@ -155,7 +155,7 @@ function CardSkylineSVG({ className, dark }: { className?: string; dark?: boolea
 // Back face — looking out FROM Toronto (lake, islands, horizon)
 function TorontoBackSVG({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 440 280" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <svg viewBox="0 0 380 240" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
       <rect x="0" y="220" width="440" height="1" opacity="0.05" />
       <path d="M 60 224 Q 100 218 150 220 Q 190 218 230 222 Q 250 220 270 224" opacity="0.05" />
       <path d="M 290 224 Q 310 220 340 222 Q 360 220 380 224" opacity="0.04" />
@@ -369,7 +369,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           {/* Holographic foil overlay */}
           <div className={`absolute inset-0 rounded-xl pointer-events-none z-10 ${isCardDark ? 'holo-overlay' : 'holo-overlay-light'}`} />
 
-          <div className="relative z-20 p-5 sm:p-7 lg:p-8 xl:p-9 h-full flex flex-col justify-between">
+          <div className="relative z-20 p-4 sm:p-5 lg:p-6 h-full flex flex-col justify-between">
 
             {/* Top row: chip + contactless */}
             <div className="flex justify-between items-start">
@@ -378,7 +378,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                 <ContactlessSVG dark={isCardDark} />
               </div>
               <div className="text-right">
-                <div className="font-mono text-[10px] sm:text-[10px] lg:text-[11px] tracking-[0.15em] uppercase"
+                <div className="font-mono text-[8px] sm:text-[9px] lg:text-[10px] tracking-[0.15em] uppercase"
                      style={{ color: textFaint }}>
                   BRIM FINANCIAL
                 </div>
@@ -386,7 +386,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             </div>
 
             {/* Middle: card number */}
-            <div className={`font-mono text-sm sm:text-base lg:text-lg xl:text-xl tracking-[0.3em] ${isCardDark ? 'card-embossed' : 'card-embossed-light'}`}
+            <div className={`font-mono text-xs sm:text-sm lg:text-base tracking-[0.25em] ${isCardDark ? 'card-embossed' : 'card-embossed-light'}`}
                  style={{ color: textMuted }}>
               <span onClick={rollCardNumber} className="cursor-pointer" title="Click to shuffle">
                 {cardDigits.map((d, i) => (
@@ -402,21 +402,21 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             {/* Bottom: name + cycling expiry date */}
             <div className="flex justify-between items-end">
               <div>
-                <div className={`font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl tracking-wider leading-none ${isCardDark ? 'card-embossed' : 'card-embossed-light'}`}
+                <div className={`font-display text-xl sm:text-2xl lg:text-3xl tracking-wider leading-none ${isCardDark ? 'card-embossed' : 'card-embossed-light'}`}
                      style={{ color: textColor }}>
                   TARIQUE KHAN
                 </div>
-                <div className="font-mono text-[9px] sm:text-[9px] lg:text-[10px] tracking-[0.12em] mt-1"
+                <div className="font-mono text-[7px] sm:text-[8px] lg:text-[9px] tracking-[0.12em] mt-0.5"
                      style={{ color: textMuted }}>
                   Business Development
                 </div>
               </div>
-              <div className="text-right min-w-[80px] sm:min-w-[100px] lg:min-w-[120px]">
+              <div className="text-right min-w-[60px] sm:min-w-[70px] lg:min-w-[80px]">
                 <div className="font-mono text-[8px] sm:text-[8px] lg:text-[9px] uppercase tracking-[0.2em]"
                      style={{ color: textFaint }}>
                   VALID THRU
                 </div>
-                <div className={`font-mono text-lg sm:text-xl lg:text-2xl xl:text-3xl tracking-wider leading-none mt-0.5 ${dateClass}`}
+                <div className={`font-mono text-sm sm:text-base lg:text-lg tracking-wider leading-none mt-0.5 ${dateClass}`}
                      style={{ color: isCardDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,21,37,0.55)' }}>
                   {expiry.date}
                 </div>
@@ -450,8 +450,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
             {/* Magnetic stripe */}
             <div
-              className="w-full relative overflow-hidden mt-6 sm:mt-7 lg:mt-8 flex-shrink-0"
-              style={{ height: '52px' }}
+              className="w-full relative overflow-hidden mt-4 sm:mt-5 lg:mt-6 flex-shrink-0"
+              style={{ height: '36px' }}
               onMouseMove={handleBackMouseMove}
             >
               <div className="absolute inset-0" style={{
@@ -460,7 +460,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                   : 'linear-gradient(to right, #8a8070, #9a9080, #8a8070)'
               }} />
               <div
-                className="absolute top-0 h-full w-20 sm:w-24 pointer-events-none"
+                className="absolute top-0 h-full w-16 sm:w-20 pointer-events-none"
                 style={{
                   left: `${magX}%`,
                   transform: 'translateX(-50%)',
@@ -475,20 +475,20 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             </div>
 
             {/* Content below stripe */}
-            <div className="mx-5 sm:mx-6 lg:mx-8 mt-3 sm:mt-4 flex-1 flex flex-col min-h-0">
+            <div className="mx-3 sm:mx-4 lg:mx-5 mt-2 sm:mt-3 flex-1 flex flex-col min-h-0">
 
               {/* Signature strip + CVV */}
-              <div className="flex items-stretch gap-2 sm:gap-3 mb-3 sm:mb-5">
-                <div className="flex-1 rounded px-3 sm:px-4 py-2"
+              <div className="flex items-stretch gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                <div className="flex-1 rounded px-2 sm:px-3 py-1.5"
                      style={{
                        border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
                        background: isCardDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
                      }}>
-                  <div className="font-mono text-[7px] sm:text-[8px] uppercase tracking-widest mb-1"
+                  <div className="font-mono text-[6px] sm:text-[7px] uppercase tracking-widest mb-0.5"
                        style={{ color: textFaint }}>
                     Authorized Signature
                   </div>
-                  <svg viewBox="0 0 160 30" className="w-full h-6 sm:h-7 overflow-visible">
+                  <svg viewBox="0 0 160 30" className="w-full h-4 sm:h-5 overflow-visible">
                     <path
                       className="sig-path"
                       d="M 8,24 C 14,8 22,6 26,18 C 30,28 32,14 40,13 C 48,12 50,24 54,19
@@ -502,20 +502,20 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                     />
                   </svg>
                 </div>
-                <div className="rounded px-3 sm:px-4 py-2 text-center flex flex-col justify-center"
+                <div className="rounded px-2 sm:px-3 py-1.5 text-center flex flex-col justify-center"
                      style={{
                        border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.10)' : 'rgba(10,21,37,0.10)'}`,
                        background: isCardDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.4)',
                      }}>
-                  <div className="font-mono text-[7px] sm:text-[8px] uppercase tracking-wider"
+                  <div className="font-mono text-[6px] sm:text-[7px] uppercase tracking-wider"
                        style={{ color: textFaint }}>CVV</div>
-                  <div className="font-mono text-sm sm:text-base" style={{ color: textMuted }}>416</div>
+                  <div className="font-mono text-xs sm:text-sm" style={{ color: textMuted }}>416</div>
                 </div>
               </div>
 
               {/* Contact info */}
-              <div className="space-y-2 sm:space-y-2.5 mb-3 sm:mb-5">
-                <div className="font-mono text-[7px] sm:text-[9px] uppercase tracking-widest mb-1"
+              <div className="space-y-1 sm:space-y-1.5 mb-2 sm:mb-3">
+                <div className="font-mono text-[6px] sm:text-[7px] uppercase tracking-widest mb-0.5"
                      style={{ color: textFaint }}>
                   // contact
                 </div>
@@ -524,23 +524,23 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                   { label: 'LinkedIn', value: contact.linkedin },
                   { label: 'Based', value: contact.location },
                 ].map(({ label, value }) => (
-                  <div key={label} className="flex items-center gap-2">
-                    <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-wider w-16"
+                  <div key={label} className="flex items-center gap-1.5">
+                    <span className="font-mono text-[6px] sm:text-[8px] uppercase tracking-wider w-12 sm:w-14"
                           style={{ color: textFaint }}>{label}</span>
-                    <span className="font-mono text-[10px] sm:text-sm"
+                    <span className="font-mono text-[8px] sm:text-[10px]"
                           style={{ color: isCardDark ? 'rgba(255,255,255,0.70)' : 'rgba(10,21,37,0.60)' }}>{value}</span>
                   </div>
                 ))}
               </div>
 
               {/* Bottom: industry badges */}
-              <div className="flex items-center justify-between mt-auto pt-2"
+              <div className="flex items-center justify-between mt-auto pt-1.5"
                    style={{ borderTop: `1px solid ${isCardDark ? 'rgba(255,255,255,0.08)' : 'rgba(10,21,37,0.08)'}` }}>
-                <div className="flex gap-1.5 sm:gap-2 flex-wrap">
+                <div className="flex gap-1 sm:gap-1.5 flex-wrap">
                   {industryLogos.map(logo => (
                     <span
                       key={logo.id}
-                      className="font-mono text-[6px] sm:text-[8px] tracking-widest uppercase px-1.5 py-0.5"
+                      className="font-mono text-[5px] sm:text-[6px] tracking-widest uppercase px-1 py-0.5"
                       style={{
                         border: `1px solid ${isCardDark ? 'rgba(255,255,255,0.12)' : 'rgba(10,21,37,0.10)'}`,
                         color: isCardDark ? 'rgba(255,255,255,0.35)' : 'rgba(10,21,37,0.35)',
@@ -550,7 +550,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
                     </span>
                   ))}
                 </div>
-                <div className="font-mono text-[6px] sm:text-[8px] tracking-widest uppercase"
+                <div className="font-mono text-[5px] sm:text-[6px] tracking-widest uppercase"
                      style={{ color: textGhost }}>
                   Toronto, ON
                 </div>
