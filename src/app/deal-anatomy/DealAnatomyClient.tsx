@@ -214,10 +214,10 @@ export default function DealAnatomyClient() {
         <div className="max-w-3xl mx-auto px-6">
           {/* Breadcrumb */}
           <Link
-            href="/stack"
+            href="/"
             className="inline-block font-mono text-[10px] tracking-[0.15em] uppercase text-text-tertiary hover:text-accent transition-colors mb-8"
           >
-            &larr; Back to Stack
+            &larr; Home
           </Link>
 
           {/* Page header */}
