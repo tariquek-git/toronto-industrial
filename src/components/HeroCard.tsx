@@ -317,7 +317,11 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
   return (
     <div
-      className="relative cursor-pointer group"
+      className={`relative cursor-pointer group
+        w-[calc(100vw-48px)] max-w-[380px] h-[calc((100vw-48px)*0.631)] max-h-[240px]
+        sm:w-[400px] sm:max-w-none sm:h-[252px] sm:max-h-none
+        lg:w-[440px] lg:h-[277px]
+        xl:w-[480px] xl:h-[303px]`}
       data-hero-card
       style={{ perspective: '1800px' }}
       role="button"
@@ -330,11 +334,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     >
       <motion.div
         ref={cardRef}
-        className={`relative
-          w-[calc(100vw-48px)] max-w-[380px] h-[calc((100vw-48px)*0.631)] max-h-[240px]
-          sm:w-[400px] sm:max-w-none sm:h-[252px] sm:max-h-none
-          lg:w-[440px] lg:h-[277px]
-          xl:w-[480px] xl:h-[303px]`}
+        className="absolute inset-0"
         style={{
           transformStyle: 'preserve-3d',
           rotateX: tilt.x,
