@@ -46,78 +46,97 @@ function ContactlessSVG({ dark }: { dark?: boolean }) {
 // Toronto skyline — shared with background, cropped to card center
 // Uses the same landmarks as TorontoSkyline.tsx but with viewBox cropped to center
 function CardSkylineSVG({ className, dark }: { className?: string; dark?: boolean }) {
-  const opacity = dark ? 0.12 : 0.07;
-  const opacityHigh = dark ? 0.18 : 0.10;
-  const opacityLow = dark ? 0.08 : 0.05;
-  const opacityWater = dark ? 0.06 : 0.035;
+  // Opacities tuned so CN Tower + SkyDome are clearly recognizable
+  const opacity = dark ? 0.20 : 0.13;
+  const opacityHigh = dark ? 0.30 : 0.18;
+  const opacityMed = dark ? 0.16 : 0.10;
+  const opacityLow = dark ? 0.11 : 0.07;
+  const opacityWater = dark ? 0.08 : 0.05;
+  const windowOp = dark ? 0.10 : 0.05;
 
   return (
     <svg viewBox="380 80 840 420" fill="currentColor" className={className} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-      {/* CN Tower */}
-      <rect x="718" y="12" width="3" height="18" opacity={opacityHigh} />
+      {/* CN Tower — THE iconic landmark, most prominent */}
+      {/* Antenna tip */}
+      <rect x="718" y="8" width="3" height="22" opacity={opacityHigh} />
+      {/* Antenna base */}
       <rect x="715" y="30" width="9" height="10" rx="1" opacity={opacity} />
+      {/* Upper shaft */}
       <rect x="717" y="40" width="5" height="80" opacity={opacityHigh} />
-      <ellipse cx="719.5" cy="108" rx="12" ry="5" opacity={opacity} />
-      <rect x="709" y="103" width="21" height="12" rx="2" opacity={opacity} />
-      <ellipse cx="719.5" cy="140" rx="22" ry="9" opacity={opacity} />
-      <rect x="700" y="132" width="39" height="20" rx="3" opacity={opacity} />
-      <rect x="705" y="152" width="29" height="8" rx="1" opacity={opacityLow} />
-      <polygon points="712,160 727,160 724,340 715,340" opacity={opacityLow} />
-      <polygon points="715,330 710,370 718,370" opacity={opacityLow * 0.8} />
-      <polygon points="724,330 729,370 721,370" opacity={opacityLow * 0.8} />
+      {/* SkyPod observation deck */}
+      <ellipse cx="719.5" cy="108" rx="14" ry="6" opacity={opacity} />
+      <rect x="707" y="102" width="25" height="14" rx="2" opacity={opacity} />
+      {/* Main pod — the recognizable donut shape */}
+      <ellipse cx="719.5" cy="138" rx="26" ry="11" opacity={opacityHigh} />
+      <rect x="696" y="128" width="47" height="24" rx="4" opacity={opacity} />
+      <rect x="701" y="152" width="37" height="10" rx="1" opacity={opacityMed} />
+      {/* Lower shaft tapers */}
+      <polygon points="710,162 729,162 725,340 714,340" opacity={opacityMed} />
+      {/* Support legs at base */}
+      <polygon points="714,328 707,375 717,375" opacity={opacityLow} />
+      <polygon points="725,328 732,375 722,375" opacity={opacityLow} />
 
-      {/* Rogers Centre dome */}
-      <path d="M 640 380 Q 660 340 690 332 Q 720 328 740 340 Q 755 350 760 380 Z" opacity={opacityLow} />
-      <rect x="640" y="380" width="120" height="15" rx="2" opacity={opacityLow} />
+      {/* Rogers Centre / SkyDome — dome is the signature shape */}
+      <path d="M 635 380 Q 650 335 685 325 Q 720 320 745 335 Q 762 350 770 380 Z" opacity={opacityMed} />
+      <rect x="635" y="380" width="135" height="15" rx="2" opacity={opacityLow} />
+      {/* Dome ribs — make the dome recognizable */}
+      <path d="M 665 358 Q 700 328 735 358" fill="none" stroke="currentColor" strokeWidth="1.5" opacity={opacityLow} />
+      <path d="M 680 348 Q 700 332 720 348" fill="none" stroke="currentColor" strokeWidth="1" opacity={opacityLow * 0.7} />
+      <path d="M 693 340 Q 700 335 707 340" fill="none" stroke="currentColor" strokeWidth="0.8" opacity={opacityLow * 0.5} />
 
-      {/* First Canadian Place */}
-      <rect x="770" y="160" width="30" height="230" opacity={opacityLow} />
-      <polygon points="770,160 785,135 800,160" opacity={opacityLow} />
+      {/* First Canadian Place — tallest office tower */}
+      <rect x="770" y="155" width="32" height="235" opacity={opacityMed} />
+      <polygon points="770,155 786,128 802,155" opacity={opacityMed} />
+      {/* Window grid */}
+      <line x1="780" y1="165" x2="780" y2="390" stroke="currentColor" strokeWidth="0.5" opacity={windowOp} />
+      <line x1="792" y1="165" x2="792" y2="390" stroke="currentColor" strokeWidth="0.5" opacity={windowOp} />
 
-      {/* TD Centre */}
-      <rect x="808" y="210" width="26" height="180" opacity={opacityLow} />
-      <rect x="838" y="230" width="22" height="160" opacity={opacityLow * 0.9} />
+      {/* TD Centre — Mies van der Rohe black towers */}
+      <rect x="808" y="205" width="28" height="185" opacity={opacityMed} />
+      <rect x="840" y="225" width="24" height="165" opacity={opacityLow} />
+      {/* Horizontal bands */}
+      <rect x="808" y="245" width="28" height="1" opacity={windowOp} />
+      <rect x="808" y="285" width="28" height="1" opacity={windowOp} />
+      <rect x="808" y="325" width="28" height="1" opacity={windowOp} />
 
-      {/* Scotia Plaza */}
-      <rect x="620" y="200" width="24" height="190" opacity={opacityLow} />
-      <polygon points="620,200 632,180 644,200" opacity={opacityLow * 0.9} />
-      <rect x="600" y="230" width="18" height="160" opacity={opacityLow * 0.8} />
+      {/* Scotia Plaza — stepped crown */}
+      <rect x="618" y="195" width="26" height="195" opacity={opacityMed} />
+      <polygon points="618,195 631,172 644,195" opacity={opacityMed * 0.9} />
+      <rect x="598" y="225" width="18" height="165" opacity={opacityLow} />
 
-      {/* Brookfield Place */}
-      <rect x="865" y="240" width="22" height="150" opacity={opacityLow * 0.9} />
-      <polygon points="865,240 876,218 887,240" opacity={opacityLow * 0.8} />
+      {/* Brookfield Place — angular glass top */}
+      <rect x="865" y="235" width="24" height="155" opacity={opacityLow} />
+      <polygon points="865,235 877,210 889,235" opacity={opacityLow * 0.9} />
 
-      {/* Royal Bank Plaza */}
-      <rect x="575" y="250" width="20" height="140" opacity={opacityLow * 0.8} />
-      <rect x="555" y="270" width="16" height="120" opacity={opacityLow * 0.7} />
+      {/* Royal Bank Plaza — gold towers */}
+      <rect x="575" y="245" width="22" height="145" opacity={opacityLow} />
+      <rect x="553" y="265" width="18" height="125" opacity={opacityLow * 0.8} />
 
       {/* Bay Adelaide Centre */}
-      <rect x="650" y="220" width="20" height="170" opacity={opacityLow} />
+      <rect x="650" y="215" width="22" height="175" opacity={opacityMed} />
 
-      {/* Aura */}
-      <rect x="530" y="190" width="16" height="200" opacity={opacityLow * 0.8} />
+      {/* Aura at College Park */}
+      <rect x="528" y="185" width="18" height="205" opacity={opacityLow} />
 
       {/* L Tower */}
-      <path d="M 920 280 Q 925 260 930 280 L 930 390 L 920 390 Z" opacity={opacityLow * 0.7} />
+      <path d="M 920 275 Q 926 252 932 275 L 932 390 L 920 390 Z" opacity={opacityLow * 0.8} />
 
       {/* ICE Condos */}
-      <rect x="500" y="270" width="14" height="120" opacity={opacityLow * 0.7} />
-      <rect x="518" y="280" width="12" height="110" opacity={opacityLow * 0.6} />
+      <rect x="498" y="265" width="16" height="125" opacity={opacityLow * 0.8} />
+      <rect x="518" y="275" width="14" height="115" opacity={opacityLow * 0.7} />
 
       {/* CityPlace cluster */}
-      <rect x="440" y="300" width="16" height="90" opacity={opacityLow * 0.6} />
-      <rect x="460" y="310" width="14" height="80" opacity={opacityLow * 0.5} />
-      <rect x="478" y="295" width="12" height="95" opacity={opacityLow * 0.6} />
-      <rect x="420" y="320" width="14" height="70" opacity={opacityLow * 0.4} />
+      <rect x="438" y="295" width="18" height="95" opacity={opacityLow * 0.7} />
+      <rect x="460" y="305" width="16" height="85" opacity={opacityLow * 0.6} />
+      <rect x="480" y="290" width="14" height="100" opacity={opacityLow * 0.7} />
 
       {/* East Bayfront */}
-      <rect x="950" y="310" width="18" height="80" opacity={opacityLow * 0.6} />
-      <rect x="972" y="320" width="16" height="70" opacity={opacityLow * 0.5} />
-      <rect x="992" y="330" width="20" height="60" opacity={opacityLow * 0.4} />
-      <rect x="1016" y="340" width="14" height="50" opacity={opacityLow * 0.3} />
+      <rect x="950" y="305" width="20" height="85" opacity={opacityLow * 0.7} />
+      <rect x="974" y="315" width="18" height="75" opacity={opacityLow * 0.5} />
+      <rect x="996" y="325" width="22" height="65" opacity={opacityLow * 0.4} />
 
       {/* Harbourfront */}
-      <rect x="580" y="375" width="340" height="15" rx="1" opacity={opacityLow * 0.5} />
+      <rect x="580" y="375" width="340" height="15" rx="1" opacity={opacityLow * 0.6} />
 
       {/* Shoreline */}
       <rect x="380" y="390" width="840" height="30" opacity={opacityWater} />
@@ -126,6 +145,9 @@ function CardSkylineSVG({ className, dark }: { className?: string; dark?: boolea
       <rect x="380" y="420" width="840" height="80" opacity={opacityWater * 0.6} />
       <path d="M 380 430 Q 460 426 540 430 Q 620 434 700 430 Q 780 426 860 430 Q 940 434 1020 430 Q 1100 426 1180 430 L 1220 430"
             fill="none" stroke="currentColor" strokeWidth="0.8" opacity={opacityWater * 0.8} />
+
+      {/* CN Tower reflection on water */}
+      <rect x="717" y="400" width="5" height="50" opacity={opacityWater * 1.2} />
     </svg>
   );
 }
@@ -276,9 +298,9 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       textFaint = 'rgba(255,255,255,0.30)';
       textGhost = 'rgba(255,255,255,0.20)';
     } else {
-      // LIGHT MODE — warm cream card
-      frontGrad = 'linear-gradient(160deg, #F5F0E6 0%, #EDE7D9 40%, #E8E0D0 100%)';
-      backGrad = 'linear-gradient(160deg, #EDE7D9 0%, #E5DFD1 60%, #F0EADC 100%)';
+      // LIGHT MODE — slightly warmer/richer than page bg for contrast
+      frontGrad = 'linear-gradient(160deg, #EDE8DC 0%, #E4DDD0 40%, #DDD6C8 100%)';
+      backGrad = 'linear-gradient(160deg, #E4DDD0 0%, #DCD5C7 60%, #E8E1D5 100%)';
       textColor = 'rgba(10,21,37,0.85)';
       textMuted = 'rgba(10,21,37,0.35)';
       textFaint = 'rgba(10,21,37,0.25)';
@@ -322,10 +344,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       <motion.div
         ref={cardRef}
         className={`relative
-          w-[calc(100vw-32px)] max-w-[560px] h-[calc((100vw-32px)*0.631)] max-h-[353px]
-          sm:w-[620px] sm:max-w-none sm:h-[391px] sm:max-h-none
-          lg:w-[740px] lg:h-[467px]
-          xl:w-[800px] xl:h-[505px]`}
+          w-[calc(100vw-48px)] max-w-[500px] h-[calc((100vw-48px)*0.631)] max-h-[315px]
+          sm:w-[540px] sm:max-w-none sm:h-[341px] sm:max-h-none
+          lg:w-[640px] lg:h-[404px]
+          xl:w-[720px] xl:h-[454px]`}
         style={{
           transformStyle: 'preserve-3d',
           rotateX: tilt.x,
@@ -342,8 +364,15 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
         {/* ===== FRONT FACE ===== */}
         <div
-          className={`absolute inset-0 rounded-2xl overflow-hidden shadow-2xl ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'}`}
-          style={{ backfaceVisibility: 'hidden', background: frontGrad }}
+          className={`absolute inset-0 rounded-xl overflow-hidden ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'}`}
+          style={{
+            backfaceVisibility: 'hidden',
+            background: frontGrad,
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)'}`,
+            boxShadow: isDark
+              ? '0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(0,0,0,0.3)'
+              : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
+          }}
         >
           {/* Toronto skyline — shared coordinate system with background */}
           <div className={`absolute inset-0 ${skylineTextClass} pointer-events-none`}>
@@ -351,7 +380,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           </div>
 
           {/* Holographic foil overlay */}
-          <div className={`absolute inset-0 rounded-2xl pointer-events-none z-10 ${isDark ? 'holo-overlay' : 'holo-overlay-light'}`} />
+          <div className={`absolute inset-0 rounded-xl pointer-events-none z-10 ${isDark ? 'holo-overlay' : 'holo-overlay-light'}`} />
 
           <div className="relative z-20 p-5 sm:p-7 lg:p-8 xl:p-9 h-full flex flex-col justify-between">
 
@@ -363,8 +392,8 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
               </div>
               <div className="text-right">
                 <div className="font-mono text-[10px] sm:text-[10px] lg:text-[11px] tracking-[0.15em] uppercase"
-                     style={{ color: textMuted }}>
-                  Payments &middot; Fintech &middot; Toronto
+                     style={{ color: textFaint }}>
+                  BRIM FINANCIAL
                 </div>
               </div>
             </div>
@@ -413,7 +442,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           </div>
 
           {/* Hover overlay */}
-          <div className={`absolute inset-0 rounded-2xl flex items-center justify-center
+          <div className={`absolute inset-0 rounded-xl flex items-center justify-center
                           opacity-0 group-hover:opacity-100
                           transition-all duration-300 pointer-events-none z-30`}
                style={{ background: isDark ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.05)' }}>
@@ -426,8 +455,16 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
 
         {/* ===== BACK FACE ===== */}
         <div
-          className={`absolute inset-0 rounded-2xl overflow-hidden shadow-2xl ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'} ${backHovered ? 'card-back-hovered' : ''}`}
-          style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)', background: backGrad }}
+          className={`absolute inset-0 rounded-xl overflow-hidden ${isDark ? 'card-edge-highlight' : 'card-edge-highlight-light'} ${backHovered ? 'card-back-hovered' : ''}`}
+          style={{
+            backfaceVisibility: 'hidden',
+            transform: 'rotateY(180deg)',
+            background: backGrad,
+            border: `1px solid ${isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.10)'}`,
+            boxShadow: isDark
+              ? '0 8px 40px rgba(0,0,0,0.5), 0 2px 12px rgba(0,0,0,0.3)'
+              : '0 12px 48px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)',
+          }}
           onMouseEnter={() => setBackHovered(true)}
           onMouseLeave={() => setBackHovered(false)}
         >
