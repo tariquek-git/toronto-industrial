@@ -331,10 +331,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       <motion.div
         ref={cardRef}
         className={`relative
-          w-[calc(100vw-48px)] max-w-[420px] h-[calc((100vw-48px)*0.631)] max-h-[265px]
-          sm:w-[440px] sm:max-w-none sm:h-[277px] sm:max-h-none
-          lg:w-[520px] lg:h-[328px]
-          xl:w-[560px] xl:h-[353px]`}
+          w-[calc(100vw-48px)] max-w-[380px] h-[calc((100vw-48px)*0.631)] max-h-[240px]
+          sm:w-[400px] sm:max-w-none sm:h-[252px] sm:max-h-none
+          lg:w-[440px] lg:h-[277px]
+          xl:w-[480px] xl:h-[303px]`}
         style={{
           transformStyle: 'preserve-3d',
           rotateX: tilt.x,
@@ -424,16 +424,6 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
             </div>
           </div>
 
-          {/* Hover overlay */}
-          <div className={`absolute inset-0 rounded-xl flex items-center justify-center
-                          opacity-0 group-hover:opacity-100
-                          transition-all duration-300 pointer-events-none z-30`}
-               style={{ background: isCardDark ? 'rgba(0,0,0,0.15)' : 'rgba(0,0,0,0.05)' }}>
-            <span className="font-mono text-[10px] sm:text-xs lg:text-sm tracking-[0.2em] uppercase"
-                  style={{ color: isCardDark ? 'rgba(255,255,255,0.9)' : 'rgba(10,21,37,0.6)' }}>
-              Click to flip
-            </span>
-          </div>
         </div>
 
         {/* ===== BACK FACE ===== */}
