@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, useCallback, useEffect } from 'react';
-import { motion } from 'framer-motion';
+// motion removed — using CSS transitions for flip
 import '@/app/card-effects.css';
 import { useTorontoMode } from '@/context/TorontoModeContext';
 import { useTheme } from '@/context/ThemeContext';
@@ -216,8 +216,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     };
   }, []);
 
+  const flipping = useRef(false);
+
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || flipping.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -237,7 +239,11 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
   }, []);
 
   const handleFlip = useCallback(() => {
+    // Reset tilt and block tilt updates during flip animation
+    setTilt({ x: 0, y: 0 });
+    flipping.current = true;
     setIsFlipped(prev => !prev);
+    setTimeout(() => { flipping.current = false; }, 600);
   }, []);
 
   const rollCardNumber = useCallback((e: React.MouseEvent) => {
@@ -319,9 +325,10 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
     <div
       className={`relative cursor-pointer group
         w-[calc(100vw-48px)] max-w-[380px] h-[calc((100vw-48px)*0.631)] max-h-[240px]
-        sm:w-[400px] sm:max-w-none sm:h-[252px] sm:max-h-none
-        lg:w-[440px] lg:h-[277px]
-        xl:w-[480px] xl:h-[303px]`}
+        sm:w-[420px] sm:max-w-none sm:h-[265px] sm:max-h-none
+        lg:w-[500px] lg:h-[315px]
+        xl:w-[560px] xl:h-[353px]
+        2xl:w-[600px] 2xl:h-[378px]`}
       data-hero-card
       style={{ perspective: '1800px' }}
       role="button"
@@ -332,19 +339,14 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.div
+      <div
         ref={cardRef}
         className="absolute inset-0"
         style={{
           transformStyle: 'preserve-3d',
-          rotateX: tilt.x,
-          rotateY: tilt.y,
+          transform: `rotateX(${tilt.x}deg) rotateY(${isFlipped ? 180 : 0}deg)`,
+          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
-        animate={{
-          rotateY: isFlipped ? 180 + tilt.y : tilt.y,
-          rotateX: tilt.x,
-        }}
-        transition={{ type: 'spring', stiffness: 150, damping: 22 }}
       >
         {/* Edge glow */}
         <div className={`card-glow ${isCardDark ? '' : 'card-glow-light'} ${torontoMode ? 'card-glow-toronto' : 'card-glow-standard'}`} />
@@ -559,7 +561,7 @@ export default function HeroCard({ onFlipChange }: HeroCardProps) {
           </div>
         </div>
 
-      </motion.div>
+      </div>
     </div>
   );
 }
